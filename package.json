@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w"
+    "watch": "webpack -w",
+    "start": "nodemon ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,10 +28,14 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.3",
+    "jquery": "^3.2.1",
     "path": "^0.12.7",
     "pg": "^6.4.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
     "sequelize": "^4.4.2"
   },
   "devDependencies": {
