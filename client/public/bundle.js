@@ -27985,6 +27985,8 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispathToProps)(A
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_auth0_js__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_auth0_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_auth0_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__history__ = __webpack_require__(322);
+
 
 
 class Auth {
@@ -27998,10 +28000,51 @@ class Auth {
     scope: 'openid'
   })
   this.login = this.login.bind(this);
+  this.logout = this.logout.bind(this);
+  this.handleAuthentication = this.handleAuthentication.bind(this);
+  this.isAuthenticated = this.isAuthenticated.bind(this);
 };
 
   login() {
     this.auth0.authorize();
+  }
+
+  handleAuthentication() {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult);
+        __WEBPACK_IMPORTED_MODULE_1__history__["a" /* default */].replace('/home');
+      } else if (err) {
+        __WEBPACK_IMPORTED_MODULE_1__history__["a" /* default */].replace('/home');
+        console.log(err);
+      }
+    });
+  }
+
+  setSession(authResult) {
+    // Set the time that the access token will expire at
+    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
+    // navigate to the home route
+    __WEBPACK_IMPORTED_MODULE_1__history__["a" /* default */].replace('/home');
+  }
+
+  logout() {
+    // Clear access token and ID token from local storage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    // navigate to the home route
+    __WEBPACK_IMPORTED_MODULE_1__history__["a" /* default */].replace('/home');
+  }
+  
+  isAuthenticated() {
+    // Check whether the current time is past the 
+    // access token's expiry time
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["default"] = Auth;
@@ -37229,6 +37272,19 @@ CrossOriginAuthentication.prototype.callback = function() {
 
 module.exports = CrossOriginAuthentication;
 
+
+/***/ }),
+/* 322 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_createBrowserHistory__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_history_createBrowserHistory__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_history_createBrowserHistory___default()({
+  forceRefresh: true
+}));
 
 /***/ })
 /******/ ]);
