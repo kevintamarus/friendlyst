@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('./db/config');
-//models
+const models = require('./db/index');
 //route
 
 const PORT = process.env.PORT || 3000;
@@ -11,12 +11,9 @@ const PORT = process.env.PORT || 3000;
 const app = express()
   .use(cors())
   .use(bodyParser.json())
-  .use(bodyParser.urlencoded({extended: true}));
-  //static
+  .use(bodyParser.urlencoded({extended: true}))
+  .use(express.static(path.resolve(__dirname, '../client/public')));
   //routes
-
-app.use(express.static(path.join(__dirname, '../client/public')))
-
 
 app.listen(PORT, err => {
   if (err) {
