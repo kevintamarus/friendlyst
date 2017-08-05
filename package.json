@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack -w",
-    "start": "nodemon ./server/server.js"
+    "start": "webpack -w & nodemon ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +19,7 @@
   },
   "homepage": "https://github.com/Kiwilicious/friendlyst#readme",
   "dependencies": {
+    "auth0-js": "^8.8.0",
     "axios": "^0.16.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
