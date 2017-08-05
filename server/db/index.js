@@ -8,8 +8,10 @@ const User = db.define('user', {
 });
 
 const Friend = db.define('friend', {
-  friendId: {type: Sequelize.INTEGER, allowNull: false},
-  profilePicture: {type: Sequelize.TEXT, allowNull: true}
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true
+  }
 });
 
 const Post = db.define('post', {
@@ -22,18 +24,25 @@ const UserComment = db.define('userComment', {
 
 const Like = db.define('like', {}); 
 
-User.hasMany(Friend);
+User.belongsToMany(User, {as:'buddy', through: Friend, unique: false, allowNull: true})
+// User.hasMany(Friend);
+// Friend.belongsTo(User);
+
+
 User.hasMany(Post);
-User.hasMany(UserComment);
-User.hasMany(Like);
-Friend.belongsTo(User);
 Post.belongsTo(User);
-Post.hasMany(UserComment);
-Post.hasMany(Like);
+
+User.hasMany(UserComment);
 UserComment.belongsTo(User);
-UserComment.belongsTo(Post);
-Like.belongsTo(Post);
+
+User.hasMany(Like);
 Like.belongsTo(User);
+
+Post.hasMany(UserComment);
+UserComment.belongsTo(Post);
+
+Post.hasMany(Like);
+Like.belongsTo(Post);
 
 User.sync();
 Friend.sync();
