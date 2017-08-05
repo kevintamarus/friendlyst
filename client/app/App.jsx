@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import $ from 'jquery'
+import Nav from './Nav.jsx'
 
 class App extends Component {
 
-    changeName() {
-        let name = document.getElementById('i').value 
-        document.getElementById('i').value = ''
-        this.props.name(name)
+    
+    submitPost() {
+        let post = $('#post-area').val()
+        this.props.newPost(post)
     }
 
     render() {
         return (
             <div>
-                {this.props.num.num}
-                {this.props.user.name}
-                <input type="text" id="i"/>
-                <button onClick={this.changeName.bind(this)}>X</button>
-                <button onClick={this.props.dispatch}>X</button>
+                <Nav />
+                {this.props.newsFeed}
+                <input type="text" id="post-area"/>
+                <button onClick={this.submitPost.bind(this)}>Submit</button>
             </div>
         )
     }
@@ -25,29 +25,16 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        num: state.math,
-        user: state.user
+        newsFeed: state.newsFeed
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
-        changeNum() {
+        newPost(post) {
             dispatch({
-                type: 'INC',
-                payload: 1
-            })
-        },
-        name(n) {
-            dispatch({
-                type: 'CHANGE_NAME',
-                payload: n
-            })
-        },
-        dec() {
-            dispatch({
-                type: 'DEC',
-                payload: 1
+                type: 'NEW_POST',
+                payload: post
             })
         }
     }
