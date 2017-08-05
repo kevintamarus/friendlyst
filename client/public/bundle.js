@@ -27868,6 +27868,10 @@ var _Nav = __webpack_require__(262);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
+var _FeedList = __webpack_require__(264);
+
+var _FeedList2 = _interopRequireDefault(_FeedList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27894,11 +27898,12 @@ var App = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(_Nav2.default, null),
-                this.props.newsFeed,
+                _react2.default.createElement(_FeedList2.default, { posts: this.props.newsFeed }),
                 _react2.default.createElement('input', { type: 'text', id: 'post-area' }),
                 _react2.default.createElement(
                     'button',
@@ -38220,6 +38225,72 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _FeedListEntry = __webpack_require__(265);
+
+var _FeedListEntry2 = _interopRequireDefault(_FeedListEntry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FeedList = function FeedList(_ref) {
+    var posts = _ref.posts;
+
+
+    return _react2.default.createElement(
+        'ul',
+        null,
+        posts.map(function (post) {
+            return _react2.default.createElement(_FeedListEntry2.default, { post: post });
+        })
+    );
+};
+
+exports.default = FeedList;
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FeedListEntry = function FeedListEntry(_ref) {
+    var post = _ref.post;
+
+
+    return _react2.default.createElement(
+        'li',
+        null,
+        post
+    );
+};
+
+exports.default = FeedListEntry;
 
 /***/ })
 /******/ ]);

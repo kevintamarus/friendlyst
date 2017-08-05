@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import $ from 'jquery'
 import Nav from './Nav.jsx'
+import FeedList from './FeedList.jsx'
 
 class App extends Component {
 
@@ -12,10 +13,11 @@ class App extends Component {
     }
 
     render() {
+        
         return (
             <div>
                 <Nav />
-                {this.props.newsFeed}
+                <FeedList posts={this.props.newsFeed}/>
                 <input type="text" id="post-area"/>
                 <button onClick={this.submitPost.bind(this)}>Submit</button>
             </div>
