@@ -8,6 +8,7 @@ const User = db.define('user', {
 });
 
 const Friend = db.define('friend', {
+  friendId: {type: Sequelize.INTEGER, allowNull: false},
   profilePicture: {type: Sequelize.TEXT, allowNull: true}
 });
 
