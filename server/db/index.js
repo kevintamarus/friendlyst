@@ -14,16 +14,36 @@ const Friend = db.define('friend', {
 
 const Post = db.define('post', {
   username: {type: Sequelize.STRING, allowNull: false},
-  post: {type: Sequelize.TEXT, allowNull: false},
-  comment: {type: Sequelize.TEXT, allowNull: true},
+  message: {type: Sequelize.TEXT, allowNull: false},
 });
 
-db.sync(User);
-db.sync(Friend);
-db.sync(Post);
+const UserComment = db.define('userComment', {
+  userComment: {type: Sequelize.TEXT, allowNull: false},
+});
+
+const Like = db.define('like', {
+  username: {type: Sequelize.STRING, allowNull: false}
+}); 
+
+User.hasMany(Friend);
+Friend.belongsTo(User);
+User.hasMany(Post);
+Post.belongsTo(User);
+User.hasMany(UserComment);
+UserComment.belongsTo(User);
+Post.hasMany(Like);
+Like.belongsTo(Post);
+
+User.sync();
+Friend.sync();
+Post.sync();
+UserComment.sync();
+Like.sync();
 
 module.exports = {
   User,
   Friend,
-  Post
+  Post,
+  UserComment,
+  Like
 };
