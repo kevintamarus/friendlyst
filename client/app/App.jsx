@@ -1,8 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Auth from '../Auth/Auth';
+const auth = new Auth();
 
 class App extends Component {
+
+    login() {
+        auth.login();
+    }
 
     changeName() {
         let name = document.getElementById('i').value 
@@ -16,6 +21,7 @@ class App extends Component {
                 {this.props.num.num}
                 {this.props.user.name}
                 <input type="text" id="i"/>
+                <button onClick={this.login}>Y</button>
                 <button onClick={this.changeName.bind(this)}>X</button>
                 <button onClick={this.props.dispatch}>X</button>
             </div>
