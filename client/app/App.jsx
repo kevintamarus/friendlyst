@@ -41,7 +41,8 @@ class App extends Component {
         let post = $('#post-area').val()
         this.props.newPost(post)
     }
-        login() {
+
+    login() {
         auth.login();
     }
 
@@ -51,14 +52,10 @@ class App extends Component {
         this.props.name(name)
     }
 
-		componentWillMount() {
-			
-		}
-
     render() {
         return (
             <div> 
-                <Nav />
+                <Nav login={this.login}/>
                 <FeedList posts={this.props.posts}/>
                 <input type="text" id="post-area"/>
                 <button onClick={this.submitPost.bind(this)}>Submit</button>
