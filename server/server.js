@@ -15,6 +15,9 @@ const app = express()
   //static
   //routes
 
+app.use(express.static(path.join(__dirname, '../client/public')))
+
+
 app.listen(PORT, err => {
   if (err) {
     console.log(`Error connecting to server! ${err}`);
