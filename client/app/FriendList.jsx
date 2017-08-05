@@ -30,7 +30,7 @@ class FriendList extends Component {
       <ul className="friend-list">
         {
           this.props.friends.map((friend) => {
-            return <FriendListEntry friend={friend} />
+            return <FriendListEntry friend={friend} key={friend}/>
           })
         }
       </ul>
