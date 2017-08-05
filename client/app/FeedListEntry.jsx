@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const FeedListEntry = ({ post }) => {
-
-    return (
-        <li>
-            {
-                post
-            }
-        </li>
-    )
+class FeedListEntry extends Component {
+    render() {
+			return  (
+					<li>
+							{
+									this.props.post
+							}
+					</li>
+			)
+		}
 }
 
 export default FeedListEntry

@@ -27,22 +27,25 @@ models.Friend.sync({force: true})
   .then(() => {
     models.Friend.bulkCreate([
       {
+        id: 1,
         userId: 1,
-        friendId: 4
+        buddyId: 4
       },
       {
+        id: 2,
         userId: 2,
-        friendId: 3
+        buddyId: 3
       },
       {
+        id: 3,
         userId: 1,
-        friendId: 3
+        buddyId: 3
       }
     ])
   })
 
-models.Post.sync({force: true})
+// models.Post.sync({force: true})
 
-models.UserComment.sync({force: true})
+// models.UserComment.sync({force: true})
 
-models.Like.sync({force: true})
+// models.Like.sync({force: true})

@@ -1,36 +1,29 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware} from 'redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './App.jsx'
-
-const initialState = {
-    newsFeed: [],
-    currentPerson: ''
-}
-
-const postReducer = (state=initialState, action) => {
-    switch(action.type) {
-        case 'NEW_POST':
-            state = Object.assign({}, state, {
-                newsFeed: [...state.newsFeed, action.payload]
-            })
-            return state 
-        default:
-            return state
-    }
-
-}
+import Profile from './Profile.jsx'
+import postsReducer from './reducer/postReducer.js'
+import friendsReducer from './reducer/friendsReducer.js'
 
 
+const reducers = combineReducers({
+   postsReducer,
+   friendsReducer
+})
 
-const store = createStore(postReducer)
-
+const store = createStore(reducers)
 
 
 render(
 <Provider store={store}>
-    <App />
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={App} />
+            <Route exact path="/profile" component={Profile} />
+        </Switch>
+    </BrowserRouter>
 </Provider>
 ,document.getElementById('app'))
