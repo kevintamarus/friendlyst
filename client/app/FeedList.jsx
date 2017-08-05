@@ -3,8 +3,6 @@ import FeedListEntry from './FeedListEntry.jsx'
 
 
 const FeedList = ({ posts }) => {
-
-
     return (
         <ul>
         {

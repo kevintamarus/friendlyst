@@ -1,33 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import $ from 'jquery'
+import axios from 'axios'
 import Nav from './Nav.jsx'
 import FeedList from './FeedList.jsx'
-
-class App extends Component {
-
-    
-    submitPost() {
-        let post = $('#post-area').val()
-        this.props.newPost(post)
-    }
-
-    render() {
-        
-        return (
-            <div>
-                <Nav />
-                <FeedList posts={this.props.newsFeed}/>
-                <input type="text" id="post-area"/>
-                <button onClick={this.submitPost.bind(this)}>Submit</button>
-            </div>
-        )
-    }
-}
+import FriendList from './FriendList.jsx'
 
 const mapStateToProps = (state) => {
+		//state.SOMETHING is the reducer
+			//so you need another . to access its properties
     return {
-        newsFeed: state.newsFeed
+				posts: state.postsReducer.posts,
+				friends: state.friendsReducer.friends
     }
 }
 
@@ -38,7 +22,39 @@ const mapDispathToProps = (dispatch) => {
                 type: 'NEW_POST',
                 payload: post
             })
-        }
+				},
+				newFriend(friend) {
+					dispatch({
+						type: 'ADD_FRIEND',
+						payload: friend
+					})
+				}
+    }
+}
+
+class App extends Component {
+
+    submitPost() {
+				//send username along with post
+        let post = $('#post-area').val()
+        this.props.newPost(post)
+    }
+
+		componentWillMount() {
+			
+		}
+
+    render() {
+        return (
+            <div> 
+                <Nav />
+                <FeedList posts={this.props.posts}/>
+                <input type="text" id="post-area"/>
+                <button onClick={this.submitPost.bind(this)}>Submit</button>
+
+								<FriendList friends={this.props.friends} newFriend={this.props.newFriend}/>
+            </div>
+        )
     }
 }
 
