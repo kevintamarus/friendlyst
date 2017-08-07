@@ -7,12 +7,14 @@ import App from './App.jsx'
 import Profile from './Profile.jsx'
 import postsReducer from './reducer/postReducer.js'
 import friendsReducer from './reducer/friendsReducer.js'
+import userReducer from './reducer/userReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
 
 
 const reducers = combineReducers({
    postsReducer,
    friendsReducer,
+   userReducer,
    chatRoomReducer
 })
 
@@ -28,3 +30,9 @@ render(
     </BrowserRouter>
 </Provider>
 ,document.getElementById('app'))
+=======
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/app.jsx';
+
+ReactDOM.render( <App />, document.getElementById('app'));
