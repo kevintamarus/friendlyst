@@ -61,7 +61,8 @@ class App extends Component {
         console.log(this.props.chatRooms)
         return (
             <div> 
-                <Nav />
+                <Nav login={this.login}/>
+                <FeedList posts={this.props.posts}/>
                 <input type="text" id="post-area"/>
                 <button onClick={this.submitPost.bind(this)}>Post</button>
                 <input type="text" id="i"/>

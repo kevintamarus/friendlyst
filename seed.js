@@ -16,7 +16,7 @@ models.User.sync({force: true})
         password: 'taeminpak'
       },
       {
-        username: 'keven',
+        username: 'kevin',
         password: 'kevin'
       }
     ])
@@ -44,8 +44,8 @@ models.Friend.sync({force: true})
     ])
   })
 
-// models.Post.sync({force: true})
+models.Post.sync({force: true})
 
-// models.UserComment.sync({force: true})
+models.UserComment.sync({force: true})
 
-// models.Like.sync({force: true})
+models.Like.sync({force: true})
