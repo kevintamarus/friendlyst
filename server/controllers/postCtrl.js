@@ -21,31 +21,41 @@ module.exports = {
       })
   }),
   getAll: ((req, res) => {
-    console.log(req.query.id);
-    Friend.findAll({
-      where: {userId: req.query.id}
+    console.log(req.query);
+    User.find({
+      where: {username: req.query.userame}
     })
-      .then(friends => {
-        console.log(friends);
-        let postArr = [];
-        friends.forEach(friend => {
-          console.log(friend.dataValues.buddyId);
-          Post.findAll({
-            where: {userId: friend.dataValues.buddyId}
-          })
-            .then(posts => {
-              postArr.concat(posts);
-            })
+      .then(user => {
+        Friend.findAll({
+          
         })
-        return postArr;
       })
-        .then(posts => {
-          res.status(200).send(posts);
-        })
+      .catch(err => res.status(500).send(err))
+    // console.log(req.query.id);
+    // Friend.findAll({
+    //   where: {userId: req.query.id}
+    // })
+    //   .then(friends => {
+    //     console.log(friends);
+    //     let postArr = [];
+    //     friends.forEach(friend => {
+    //       console.log(friend.dataValues.buddyId);
+    //       Post.findAll({
+    //         where: {userId: friend.dataValues.buddyId}
+    //       })
+    //         .then(posts => {
+    //           postArr.concat(posts);
+    //         })
+    //     })
+    //     return postArr;
+    //   })
+    //     .then(posts => {
+    //       res.status(200).send(posts);
+    //     })
   }),
   deletePost: ((req, res) => {
     Post.destroy({
-      where: {userId: req.body.userId}
+      where: {username: req.body.username}
     })
       .then(() => res.status(200).send('Deleted'))
       .catch(err => res.status(500).send(err))
