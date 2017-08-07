@@ -22,17 +22,11 @@ const store = createStore(reducers)
 
 render(
 <Provider store={store}>
-    <BrowserRouter>
-        <Switch>
-            <Route exact path="/" component={App} />
-            <Route exact path="/profile" component={Profile} />
-        </Switch>
-    </BrowserRouter>
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={App} />
+      <Route exact path="/profile" component={Profile} />
+    </Switch>
+  </BrowserRouter>
 </Provider>
-,document.getElementById('app'))
-=======
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/app.jsx';
-
-ReactDOM.render( <App />, document.getElementById('app'));
+,document.getElementById('app'));
