@@ -5,15 +5,18 @@ import axios from 'axios'
 import Nav from './Nav.jsx'
 import FeedList from './FeedList.jsx'
 import Auth from '../Auth/Auth';
-const auth = new Auth();
 import FriendList from './FriendList.jsx'
+import ChatRoomList from './ChatRoomList.jsx'
+
+const auth = new Auth();
 
 const mapStateToProps = (state) => {
 		//state.SOMETHING is the reducer
 			//so you need another . to access its properties
     return {
-				posts: state.postsReducer.posts,
-				friends: state.friendsReducer.friends
+        posts: state.postsReducer.posts,
+        friends: state.friendsReducer.friends,
+        chatRooms: state.chatRoomReducer.chatRooms
     }
 }
 
@@ -24,26 +27,28 @@ const mapDispathToProps = (dispatch) => {
                 type: 'NEW_POST',
                 payload: post
             })
-				},
-				newFriend(friend) {
-					dispatch({
-						type: 'ADD_FRIEND',
-						payload: friend
-					})
-				}
+        },
+        appendChatRoom(room) {
+            dispatch({
+                type: 'ADD_ROOM',
+                payload: room
+            })
+        }
     }
 }
 
 class App extends Component {
 
     submitPost() {
-				//send username along with post
+	    //send username along with post
         let post = $('#post-area').val()
+        //should send post request to server
         this.props.newPost(post)
     }
 
     login() {
         auth.login();
+        //on login, give user the token
     }
 
     changeName() {
@@ -53,17 +58,20 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.props.chatRooms)
         return (
             <div> 
                 <Nav login={this.login}/>
                 <FeedList posts={this.props.posts}/>
                 <input type="text" id="post-area"/>
-                <button onClick={this.submitPost.bind(this)}>Submit</button>
+                <button onClick={this.submitPost.bind(this)}>Post</button>
                 <input type="text" id="i"/>
                 <button onClick={this.login}>Y</button>
                 <button onClick={this.changeName.bind(this)}>X</button>
                 <button onClick={this.props.dispatch}>X</button>
-				<FriendList friends={this.props.friends} newFriend={this.props.newFriend}/>
+                <FeedList posts={this.props.posts}/>
+				<FriendList friends={this.props.friends}/>
+                <ChatRoomList chatRooms={this.props.chatRooms}/>
             </div>
         )
     }

@@ -1,18 +1,18 @@
 module.exports = (state={
-  friends: []
+  chatRooms: []
 }, action) => {
   switch(action.type) {
-    case 'ADD_FRIEND':
+    case 'ADD_ROOM':
       state = Object.assign({}, state, {
-        friends: action.payload
+        chatRooms: [...state.chatRooms, action.payload]
       })
       return state
-    case 'FRIEND_OFFLINE':
+    case 'CLOSE_ROOM':
+      let remainingRooms = [...state.chatRooms].slice(0, state.chatRooms.length - 1)
       state = Object.assign({}, state, {
-        friends: action.payload
+        chatRooms: remainingRooms
       })
       return state
-
 
     default:
       return state
