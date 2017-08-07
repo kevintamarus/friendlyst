@@ -8,7 +8,7 @@ module.exports = {
     const username = req.body.username;
     const message = req.body.message;
     User.find({
-      username
+      where: {username}
     })
       .then(user => {
         const userId = user.id;
@@ -21,14 +21,17 @@ module.exports = {
       })
   }),
   getAll: ((req, res) => {
+    console.log(req.query.id);
     Friend.findAll({
-      userId: req.body.id
+      where: {userId: req.query.id}
     })
       .then(friends => {
+        console.log(friends);
         let postArr = [];
         friends.forEach(friend => {
+          console.log(friend.dataValues.buddyId);
           Post.findAll({
-            userId: friend.id
+            where: {userId: friend.dataValues.buddyId}
           })
             .then(posts => {
               postArr.concat(posts);
@@ -39,5 +42,12 @@ module.exports = {
         .then(posts => {
           res.status(200).send(posts);
         })
+  }),
+  deletePost: ((req, res) => {
+    Post.destroy({
+      where: {userId: req.body.userId}
+    })
+      .then(() => res.status(200).send('Deleted'))
+      .catch(err => res.status(500).send(err))
   })
 };
