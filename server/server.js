@@ -30,12 +30,33 @@ const server = app.listen(PORT, err => {
 
 //handling socket actions
 const io = socket(server)
-
+const users = {}
 
 io.on('connection', (socket) => {
   console.log('socket connected', socket.id)
 
-  socket.on('new user', (data) => {
-    io.sockets.emit('user created', data.user)
+  socket.on('new user', (username) => {
+    socket.nickname = username
+    if (!users[socket.nickname]) {
+      users[socket.nickname] = socket.id
+      io.sockets.emit('user created', Object.keys(users))
+    } else {
+      return
+    }
+  })
+
+
+  socket.on('private message', (msg) => {
+    let socketTo = users[msg.to]
+    let response = {
+      from: msg.from,
+      msg: msg.msg
+    }
+    io.sockets.connected[socketTo].emit('private message received', response)
+  })
+
+  socket.on('disconnect', () => {
+    delete users[socket.nickname]
+    socket.broadcast.emit('user disconnected', Object.keys(users))
   })
 })

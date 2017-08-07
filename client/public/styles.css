@@ -5,3 +5,13 @@
 .friend-list {
   float:right;
 }
+
+.each-friend:hover {
+  cursor:pointer;
+}
+
+.chatrooms {
+  border: 1px solid black;
+  width:30%;
+  float: right;
+}
