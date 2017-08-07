@@ -5,12 +5,13 @@ class ChatRoomListEntry extends Component {
   constructor() {
     super()
     this.state = {
-      value: ''
+      value: '',
+      messages: []
     }
   }
 
   componentDidMount() {
-    
+  
   }
 
   sendPrivateMessage() {
@@ -24,7 +25,6 @@ class ChatRoomListEntry extends Component {
 
     // this.props.room.mainUser.emit('test', body)
     this.props.room.mainUser.emit('private message', body)
-    
   }
 
   setVal(val) {

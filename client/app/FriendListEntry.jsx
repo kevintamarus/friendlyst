@@ -6,26 +6,21 @@ class FriendListEntry extends Component {
   //each entry should store username so that when clicked, it can grab info from db and open socket
 
   openChatRoom() {
-    let mainUser = this.props.socket
-    let friend = this.props.friend
-
-    let chatRoomBetween = {
-      mainUser,
-      friend
+    //calling appendChatRoom in the App component
+    let room = {
+      mainUser: this.props.mainUser,
+      friend: this.props.friend
     }
-    //chatRoom object that is being passed down will contain info about mainUser socket
-    this.props.appendRoom(chatRoomBetween)
+    this.props.appendChatRoom(room)
   }
   
   render() {
     return (
-      <div>
         <div className="friends-container">
-          <li onClick={this.openChatRoom.bind(this)} className="each-friend">
+          <li className="each-friend" onClick={this.openChatRoom.bind(this)}>
             {this.props.friend}
           </li>
         </div>
-      </div>
     )
   }
 } 
