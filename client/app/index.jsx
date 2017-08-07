@@ -7,11 +7,13 @@ import App from './App.jsx'
 import Profile from './Profile.jsx'
 import postsReducer from './reducer/postReducer.js'
 import friendsReducer from './reducer/friendsReducer.js'
+import userReducer from './reducer/userReducer.js'
 
 
 const reducers = combineReducers({
    postsReducer,
-   friendsReducer
+   friendsReducer,
+   userReducer
 })
 
 const store = createStore(reducers)
