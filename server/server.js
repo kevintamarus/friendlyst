@@ -15,10 +15,6 @@ const app = express()
   .use(express.static(path.resolve(__dirname, '../client/public')))
   .use('/api', routes);
 
-
-
-
-
 const server = app.listen(PORT, err => {
   if (err) {
     console.log(`Error connecting to server! ${err}`);
@@ -26,7 +22,6 @@ const server = app.listen(PORT, err => {
     console.log('Successfully connected to server!');
   }
 })
-
 
 //handling socket actions
 const io = socket(server)
@@ -44,7 +39,6 @@ io.on('connection', (socket) => {
       return
     }
   })
-
 
   socket.on('private message', (msg) => {
     let socketTo = users[msg.to]

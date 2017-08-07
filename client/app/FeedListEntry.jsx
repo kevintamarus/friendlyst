@@ -3,29 +3,29 @@ import PostLikes from './PostLikes.jsx'
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 
 const mapStateToProps = (state) => {
-		//state.SOMETHING is the reducer
-			//so you need another . to access its properties
-    return {
-				posts: state.postsReducer.posts,
-				friends: state.friendsReducer.friends
-    }
+	//state.SOMETHING is the reducer
+		//so you need another . to access its properties
+	return {
+		posts: state.postsReducer.posts,
+		friends: state.friendsReducer.friends
+	}
 }
 
 const mapDispathToProps = (dispatch) => {
-    return {
-        newPost(post) {
-            dispatch({
-                type: 'NEW_POST',
-                payload: post
-            })
-				},
-				newFriend(friend) {
-					dispatch({
-						type: 'ADD_FRIEND',
-						payload: friend
-					})
-				}
-    }
+	return {
+		newPost(post) {
+			dispatch({
+				type: 'NEW_POST',
+				payload: post
+			})
+		},
+		newFriend(friend) {
+			dispatch({
+				type: 'ADD_FRIEND',
+				payload: friend
+			})
+		}
+	}
 }
 
 class FeedListEntry extends Component {
