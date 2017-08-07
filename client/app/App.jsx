@@ -20,24 +20,66 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    newPost(post) {
-      dispatch({
-        type: 'NEW_POST',
-        payload: post
-      })
-    },
-    appendChatRoom(room) {
-      dispatch({
-        type: 'ADD_ROOM',
-        payload: room
-      })
+const mapDispathToProps = (dispatch) => {
+    return {
+        newPost(post) {
+            dispatch({
+                type: 'NEW_POST',
+                payload: post
+            })
+        },
+        appendChatRoom(room) {
+            dispatch({
+                type: 'ADD_ROOM',
+                payload: room
+            })
+        },
+        newFriend(friend) {
+            dispatch({
+                type: 'ADD_FRIEND',
+                payload: friend
+            })
+        },
+        friendOffline(friendList) {
+          dispatch({
+            type: 'FRIEND_OFFLINE',
+            payload: friendList
+          })
+        },
+        appendChatRoom(room) {
+					dispatch({
+						type: 'ADD_ROOM',
+						payload: room
+					})
+        }
     }
-  }
 }
 
+
 class App extends Component {
+    
+    componentDidMount() {
+        this.socket = io('/')
+    
+        let username = prompt('enter username')
+        this.socket.nickname = username
+        
+        this.socket.emit('new user', username)
+        
+        //add one person to the list (receives socket back from server)
+        this.socket.on('user created', usernames => {
+        	this.props.newFriend(usernames)
+        })
+
+        //taking user off from current list
+        this.socket.on('user disconnected', usernames => {
+        	this.props.friendOffline(usernames)
+				})
+				
+				this.socket.on('private message received', (msg) => {
+        	console.log(msg.from + ':', msg.msg)
+				})
+			}
 
 authlogin(email, password, callback) {
 var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
@@ -46,7 +88,7 @@ postgres(conString, function (err, client, done) {
   console.log('could not connect to postgres db', err);
   return callback(err);
   }
-
+        
   var query = 'SELECT id, nickname, email, password ' +
   'FROM users WHERE email = $1';
 
@@ -89,7 +131,7 @@ authcreate(user, callback) {
     if (err) {
     console.log('could not connect to postgres db', err);
     return callback(err);
-    }
+		}
     bcrypt.hash(user.password, 10, function (err, hashedPassword) {
     var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
     client.query(query, [user.email, hashedPassword], function (err, result) {
@@ -128,23 +170,20 @@ changeName() {
 }
 
 render() {
-  console.log(this.props.chatRooms)
-  return (
-    <div> 
-      <Nav login={this.login}/>
-      <FeedList posts={this.props.posts}/>
-      <input type="text" id="post-area"/>
-      <button onClick={this.submitPost.bind(this)}>Post</button>
-      <input type="text" id="i"/>
-      <button onClick={this.login}>Y</button>
-      <button onClick={this.changeName.bind(this)}>X</button>
-      <button onClick={this.props.dispatch}>X</button>
-      <FeedList posts={this.props.posts}/>
-      <FriendList friends={this.props.friends}/>
-      <ChatRoomList chatRooms={this.props.chatRooms}/>
-    </div>
-  )
-}
+        
+        return (
+            <div> 
+                <Nav />
+                <input type="text" id="post-area"/>
+                <button onClick={this.submitPost.bind(this)}>Post</button>
+                <input type="text" id="i"/>
+                <button onClick={this.login}>Y</button>
+                <FeedList posts={this.props.posts}/>
+								<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
+                <ChatRoomList chatRooms={this.props.chatRooms} />
+            </div>
+        )
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
