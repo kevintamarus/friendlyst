@@ -67,7 +67,7 @@ class FriendList extends Component {
       <ul className="friend-list">
         {
           this.props.friends.map((friend) => {
-            return <FriendListEntry friend={friend} socket={this.socket} appendRoom={this.props.appendChatRoom}/>
+            return <FriendListEntry friend={friend} key={friend} socket={this.socket} appendRoom={this.props.appendChatRoom}/>
           })
         }
       </ul>

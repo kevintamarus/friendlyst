@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispathToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         newPost(post) {
             dispatch({
@@ -77,4 +77,4 @@ class App extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispathToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

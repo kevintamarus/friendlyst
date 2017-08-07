@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
 
-
-
-
 class ChatRoomListEntry extends Component {
   constructor() {
     super()
@@ -35,7 +32,6 @@ class ChatRoomListEntry extends Component {
       value: val
     })
   }
-
 
   render() {
     return (
