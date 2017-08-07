@@ -2,9 +2,12 @@ const Sequelize = require('sequelize');
 const db = require('./config');
 
 const User = db.define('user', {
-  username: {type: Sequelize.STRING, allowNull: false},
+  nickname: {type: Sequelize.STRING, allowNull: true},
+  email: {type: Sequelize.STRING, allowNull: false},
   password: {type: Sequelize.STRING, allowNull: false},
   profilePicture: {type: Sequelize.TEXT, allowNull: true}
+}, {
+  timestamps: false
 });
 
 const Friend = db.define('friend', {
@@ -44,7 +47,7 @@ UserComment.belongsTo(Post);
 Post.hasMany(Like);
 Like.belongsTo(Post);
 
-User.sync();
+User.sync({force: true});
 Friend.sync();
 Post.sync();
 UserComment.sync();

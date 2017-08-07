@@ -5,7 +5,8 @@ module.exports = {
   addUser: ((req, res) => {
     const profilePicture = req.body.profilePicture || 'https://goo.gl/Vmv1zN';
     User.create({
-      username: req.body.username,
+      email: req.body.email,
+      nickname: req.body.nickname,
       password: req.body.password,
       profilePicture
     })
