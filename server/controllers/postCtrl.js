@@ -5,59 +5,58 @@ const Friend = require('../db/index').Friend;
 
 module.exports = {
   post: ((req, res) => {
-    const username = req.body.username;
-    const message = req.body.message;
     User.find({
-      where: {username}
+      where: {username: req.body.username}
     })
       .then(user => {
-        const userId = user.id;
         Post.create({
-          message,
-          userId
+          message: req.body.message,
+          username: req.body.username,
+          userId: user.id
         })
-          .then(post => res.status(201).send('success'))
-          .catch(err => res.status(500).send(err))
+          .then(post => res.status(201).send('Posted!'))
+          .catch(err => res.status(500).send(`Can't post! ${err}`))
       })
+      .catch(err => res.status(500).send(`Can't find user! ${err}`))
   }),
-  getAll: ((req, res) => {
-    console.log(req.query);
+  getAllUserPost: ((req, res) => {
     User.find({
-      where: {username: req.query.userame}
+      where: {username: req.query.username}
+    })
+      .then(user => {
+        Post.findAll({
+          where: {userId: user.dataValues.id},
+          limit: 10,
+          order: [['createdAt', 'ASC']]
+        })
+          .then(posts => res.status(200).send(posts))
+          .catch(err => res.status(500).send(`Can't find user post! ${err}`))
+      })
+      .catch(err => res.status(500).send(`Can't find user! ${err}`))
+  }),
+  getAllFriendPost: ((req, res) => {
+    User.find({
+      where: {username: req.query.username}
     })
       .then(user => {
         Friend.findAll({
-          
+          where: {userId: user.dataValues.id}
         })
+          .then(friends => {
+            friends = friends.map(friend => friend.dataValues.buddyId);
+            Post.findAll({
+              where: {userId: friends},
+              limit: 10,
+              order: [['createdAt', 'ASC']]
+            })
+              .then(posts => {
+                posts = posts.map(post => post.dataValues);
+                res.status(200).send(posts);
+              })
+              .catch(err => console.log(`Can't find friend posts! ${err}`))
+          })
+          .catch(err => res.status(500).send(`Can't find friends! ${err}`))
       })
-      .catch(err => res.status(500).send(err))
-    // console.log(req.query.id);
-    // Friend.findAll({
-    //   where: {userId: req.query.id}
-    // })
-    //   .then(friends => {
-    //     console.log(friends);
-    //     let postArr = [];
-    //     friends.forEach(friend => {
-    //       console.log(friend.dataValues.buddyId);
-    //       Post.findAll({
-    //         where: {userId: friend.dataValues.buddyId}
-    //       })
-    //         .then(posts => {
-    //           postArr.concat(posts);
-    //         })
-    //     })
-    //     return postArr;
-    //   })
-    //     .then(posts => {
-    //       res.status(200).send(posts);
-    //     })
-  }),
-  deletePost: ((req, res) => {
-    Post.destroy({
-      where: {username: req.body.username}
-    })
-      .then(() => res.status(200).send('Deleted'))
-      .catch(err => res.status(500).send(err))
+      .catch(err => res.status(500).send(`Can't find user! ${err}`))
   })
 };
