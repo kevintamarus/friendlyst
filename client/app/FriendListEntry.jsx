@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
-import ChatRoom from './ChatRoom.jsx'
 import { connect } from 'react-redux'
 
 class FriendListEntry extends Component {

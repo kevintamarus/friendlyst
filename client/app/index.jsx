@@ -18,7 +18,6 @@ const reducers = combineReducers({
 
 const store = createStore(reducers)
 
-
 render(
 <Provider store={store}>
     <BrowserRouter>

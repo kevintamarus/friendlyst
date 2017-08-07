@@ -6,7 +6,7 @@ import Nav from './Nav.jsx'
 import FeedList from './FeedList.jsx'
 import Auth from '../Auth/Auth';
 import FriendList from './FriendList.jsx'
-import ChatRoom from './ChatRoom.jsx'
+import ChatRoomList from './ChatRoomList.jsx'
 
 const auth = new Auth();
 
@@ -58,6 +58,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.props.chatRooms)
         return (
             <div> 
                 <Nav />
@@ -69,7 +70,7 @@ class App extends Component {
                 <button onClick={this.props.dispatch}>X</button>
                 <FeedList posts={this.props.posts}/>
 				<FriendList friends={this.props.friends}/>
-                <ChatRoom chatRooms={this.props.chatRooms}/>
+                <ChatRoomList chatRooms={this.props.chatRooms}/>
             </div>
         )
     }
