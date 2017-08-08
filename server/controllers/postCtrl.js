@@ -4,24 +4,25 @@ const User = require('../db/index').User;
 const Friend = require('../db/index').Friend;
 
 module.exports = {
-  post: ((req, res) => {
+
+  postPost: ((req, res) => {
     User.find({
-      where: {username: req.body.username}
+      where: {email: req.body.email}
     })
       .then(user => {
         Post.create({
           message: req.body.message,
-          username: req.body.username,
           userId: user.id
         })
-          .then(post => res.status(201).send('Posted!'))
+          .then(post => res.status(201).send(post))
           .catch(err => res.status(500).send(`Can't post! ${err}`))
       })
       .catch(err => res.status(500).send(`Can't find user! ${err}`))
   }),
+
   getAllUserPost: ((req, res) => {
     User.find({
-      where: {username: req.query.username}
+      where: {email: req.query.email}
     })
       .then(user => {
         Post.findAll({
@@ -34,9 +35,10 @@ module.exports = {
       })
       .catch(err => res.status(500).send(`Can't find user! ${err}`))
   }),
+
   getAllFriendPost: ((req, res) => {
     User.find({
-      where: {username: req.query.username}
+      where: {email: req.query.email}
     })
       .then(user => {
         Friend.findAll({
@@ -53,10 +55,23 @@ module.exports = {
                 posts = posts.map(post => post.dataValues);
                 res.status(200).send(posts);
               })
-              .catch(err => console.log(`Can't find friend posts! ${err}`))
+              .catch(err => res.status(500).send(`Can't find friend posts! ${err}`))
           })
           .catch(err => res.status(500).send(`Can't find friends! ${err}`))
       })
       .catch(err => res.status(500).send(`Can't find user! ${err}`))
+  }),
+  
+  deletePost: ((req, res) => {
+    Post.destroy({
+      where: {
+        id: req.body.id
+      }
+    })
+      .then((num) => {
+        return num ? res.status(200).send(`Post deleted!`) : res.status(500).send(`Post doesn't exist!`)
+      })
+      .catch(err => res.status(500).send(`Can't delete post! ${err}`))
   })
+
 };
