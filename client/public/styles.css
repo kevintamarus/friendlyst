@@ -24,9 +24,9 @@
 .chatrooms {
   border: 1px solid black;
   width:30%;
-  position:absolute;
-  bottom:0;
-  right: 0;
+  float: right;
+  clear:both;
+  height: 200px;
 }
 
 .search {

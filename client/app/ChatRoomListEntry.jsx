@@ -40,6 +40,15 @@ class ChatRoomListEntry extends Component {
     })
   }
 
+  closeCurrentRoom() {
+    let room = {
+      friend: this.props.room.friend,
+      mainUser: this.props.room.mainUser
+    }
+    
+    this.props.closeRoom(room)
+  }
+
   setVal(val) {
     this.setState({
       value: val
@@ -49,7 +58,7 @@ class ChatRoomListEntry extends Component {
   render() {
     return (
     <div className="chatrooms">
-        <p>Chat with {this.props.room.friend}</p>
+        <span>Chat with {this.props.room.friend}</span><button onClick={this.closeCurrentRoom.bind(this)}>x</button>
         
 
         <div className="private-message-area">

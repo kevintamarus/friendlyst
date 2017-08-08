@@ -46,9 +46,9 @@ const mapDispatchToProps = (dispatch) => {
             payload: friendList
           })
         },
-        appendChatRoom(room) {
+        closeRoom(room) {
 					dispatch({
-						type: 'ADD_ROOM',
+						type: 'CLOSE_ROOM',
 						payload: room
 					})
         }
@@ -169,7 +169,7 @@ class App extends Component {
 						<button onClick={this.login}>Y</button>
 						<FeedList posts={this.props.posts}/>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-						<ChatRoomList chatRooms={this.props.chatRooms} />
+						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
 				</div>
 		)
 	}
