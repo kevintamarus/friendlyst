@@ -2,20 +2,37 @@
   background-color: blue;
 }
 
-.friend-list {
-  float:right;
+.friend-list-container {
+  text-align: center;
+  position:fixed;
+  width:17%;
+  border: 1px solid black;
+  bottom:0;
+  right:3%;
+  height: 30%;
 }
 
-.each-friend:hover {
+.friend-container {
+  list-style: none;
+  border: 1px solid black;
+  width:100%;
+}
+.friend-container:hover {
   cursor:pointer;
 }
 
 .chatrooms {
   border: 1px solid black;
   width:30%;
-  float: right;
+  position:absolute;
+  bottom:0;
+  right: 0;
 }
 
 .search {
   float:right;
+}
+
+.chatrooms {
+  
 }

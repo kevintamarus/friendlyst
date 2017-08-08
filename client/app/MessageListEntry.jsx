@@ -4,13 +4,13 @@ const MessageListEntry = ({ message, friend, mainUser }) => {
 
   if (message.from === friend) {
     return (
-      <div>
+      <div className="message-entry">
         {message.from}:{message.msg}
       </div>
     )
   } else if (message.to === friend && message.from === mainUser.nickname) {
     return (
-      <div>
+      <div className="message-entry">
         {message.from}:{message.msg}
       </div>
     )

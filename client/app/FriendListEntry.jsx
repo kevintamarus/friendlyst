@@ -16,10 +16,8 @@ class FriendListEntry extends Component {
   
   render() {
     return (
-        <div className="friends-container">
-          <li className="each-friend" onClick={this.openChatRoom.bind(this)}>
-            {this.props.friend}
-          </li>
+        <div className="friend-container" onClick={this.openChatRoom.bind(this)}>
+            {this.props.friend}         
         </div>
     )
   }

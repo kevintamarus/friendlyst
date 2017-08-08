@@ -11,13 +11,16 @@ class FriendList extends Component {
   render() {
 
     return(
-      <ul className="friend-list">
-        {
-          this.props.friends.map((friend) => {
-            return <FriendListEntry friend={friend} appendChatRoom={this.props.appendChatRoom} mainUser={this.props.mainUser}/>
-          })
-        }
-      </ul>
+      <div className="friend-list-container">
+        <h4>Online Friends</h4>
+        <div className="friend-list">
+          {
+            this.props.friends.map((friend) => {
+              return <FriendListEntry friend={friend} appendChatRoom={this.props.appendChatRoom} mainUser={this.props.mainUser}/>
+            })
+          }
+        </div>
+      </div>
     )
   }
 }
