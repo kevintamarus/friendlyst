@@ -23,20 +23,19 @@ class ChatRoomListEntry extends Component {
   sendPrivateMessage() {
     // grab only the friend username and user this.props.socket to emit message (?)
 
-    let body = {
+    let msg = {
       msg: this.state.value,
       to: this.props.room.friend,
       from: this.props.room.mainUser.nickname
     }
     
-    this.props.room.mainUser.emit('private message', body)
+    this.props.room.mainUser.emit('private message', msg)
     
-    if (body.to === body.from) {
+    if (msg.to === msg.from) {
       return
     }
-
     this.setState({
-        messages: [...this.state.messages, body]
+        messages: [...this.state.messages, msg]
     })
   }
 
@@ -53,7 +52,7 @@ class ChatRoomListEntry extends Component {
         
 
         <div className="private-message-area">
-           <MessageList messages={this.state.messages} friend={this.props.room.friend}/> 
+           <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser}/> 
         </div>
 
         <input type="text" onChange={(e) => this.setVal(e.target.value)}/>
