@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import MessageList from './MessageList.jsx'
 
@@ -14,21 +15,21 @@ class ChatRoomListEntry extends Component {
   
   componentDidMount() {
     this.props.room.mainUser.on('private message received', msg => {
+      msg.fromOthers = true
       this.setState({
         messages: [...this.state.messages, msg]
       })
     })
   }
 
-  sendPrivateMessage() {
-    // grab only the friend username and user this.props.socket to emit message (?)
-
+  sendPrivateMessage(text) {
     let msg = {
-      msg: this.state.value,
+      msg: text,
       to: this.props.room.friend,
       from: this.props.room.mainUser.nickname
     }
     
+
     this.props.room.mainUser.emit('private message', msg)
     
     if (msg.to === msg.from) {
@@ -49,25 +50,29 @@ class ChatRoomListEntry extends Component {
     this.props.closeRoom(room)
   }
 
-  setVal(val) {
-    this.setState({
-      value: val
-    })
+  handleEnter(e) {
+    if (e.target.value.length < 1) {
+      return 
+    }
+    if (e.key === 'Enter') {
+      this.sendPrivateMessage(e.target.value)
+      e.target.value= ''
+    }
   }
 
   render() {
     return (
-    <div className="chatroom">
-        <span>Chat with {this.props.room.friend}</span><button onClick={this.closeCurrentRoom.bind(this)}>x</button>
-        
+    <div className="chatroom" ref="chatroom">
+        <div className="chatroom-header">
+          <span>{this.props.room.friend}</span><button onClick={this.closeCurrentRoom.bind(this)}>x</button>
+        </div>
 
         <div className="private-message-area">
            <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser}/> 
         </div>
 
         <div className="chatroom-inputs">
-          <input type="text" onChange={(e) => this.setVal(e.target.value)}/>
-          <button onClick={this.sendPrivateMessage.bind(this)}>Send</button>
+          <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..."/>
         </div>
       </div>
     )

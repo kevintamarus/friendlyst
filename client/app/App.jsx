@@ -75,6 +75,10 @@ class App extends Component {
 		this.socket.on('user disconnected', usernames => {
 			this.props.friendOffline(usernames)
 		})
+
+		this.socket.on('private message received', msg => {
+			console.log(msg)
+		})
 	}
 
 	authlogin(email, password, callback) {
@@ -163,11 +167,13 @@ class App extends Component {
 		return (
 				<div> 
 						<Nav />
-						<input type="text" id="post-area"/>
-						<button onClick={this.submitPost.bind(this)}>Post</button>
-						<input type="text" id="i"/>
-						<button onClick={this.login}>Y</button>
-						<FeedList posts={this.props.posts}/>
+						<div className="home-page-container">
+							<input type="text" id="post-area"/>
+							<button onClick={this.submitPost.bind(this)}>Post</button>
+							<input type="text" id="i"/>
+							<button onClick={this.login}>Y</button>
+							<FeedList posts={this.props.posts}/>
+						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
 						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
 				</div>
