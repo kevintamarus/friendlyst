@@ -21,18 +21,26 @@
   cursor:pointer;
 }
 
-.chatrooms {
+.chatroom {
   border: 1px solid black;
   width:30%;
-  float: right;
+  position:relative;
   clear:both;
   height: 200px;
+  text-align: center;
+  overflow: scroll;
+}
+
+.chatroom-inputs{
+  position: absolute;
+  top:85%;
+  left:10%;
+}
+
+.private-message-area {
+  
 }
 
 .search {
   float:right;
-}
-
-.chatrooms {
-  
 }

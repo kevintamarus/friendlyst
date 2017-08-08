@@ -45,7 +45,7 @@ class ChatRoomListEntry extends Component {
       friend: this.props.room.friend,
       mainUser: this.props.room.mainUser
     }
-    
+
     this.props.closeRoom(room)
   }
 
@@ -57,7 +57,7 @@ class ChatRoomListEntry extends Component {
 
   render() {
     return (
-    <div className="chatrooms">
+    <div className="chatroom">
         <span>Chat with {this.props.room.friend}</span><button onClick={this.closeCurrentRoom.bind(this)}>x</button>
         
 
@@ -65,8 +65,10 @@ class ChatRoomListEntry extends Component {
            <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser}/> 
         </div>
 
-        <input type="text" onChange={(e) => this.setVal(e.target.value)}/>
-        <button onClick={this.sendPrivateMessage.bind(this)}>Send</button>
+        <div className="chatroom-inputs">
+          <input type="text" onChange={(e) => this.setVal(e.target.value)}/>
+          <button onClick={this.sendPrivateMessage.bind(this)}>Send</button>
+        </div>
       </div>
     )
   }
