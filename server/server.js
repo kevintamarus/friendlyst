@@ -46,11 +46,8 @@ io.on('connection', (socket) => {
 
   socket.on('private message', (msg) => {
     let socketTo = users[msg.to]
-    let response = {
-      from: msg.from,
-      msg: msg.msg
-    }
-    io.sockets.connected[socketTo].emit('private message received', response)
+    
+    io.sockets.connected[socketTo].emit('private message received', msg)
   })
 
   socket.on('disconnect', () => {

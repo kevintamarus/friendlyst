@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
+import MessageList from './MessageList.jsx'
 
 class ChatRoomListEntry extends Component {
   constructor() {
@@ -10,8 +11,13 @@ class ChatRoomListEntry extends Component {
     }
   }
 
-  componentDidMount() {
   
+  componentDidMount() {
+    this.props.room.mainUser.on('private message received', msg => {
+      this.setState({
+        messages: [...this.state.messages, msg]
+      })
+    })
   }
 
   sendPrivateMessage() {
@@ -22,9 +28,16 @@ class ChatRoomListEntry extends Component {
       to: this.props.room.friend,
       from: this.props.room.mainUser.nickname
     }
-
-    // this.props.room.mainUser.emit('test', body)
+    
     this.props.room.mainUser.emit('private message', body)
+    
+    if (body.to === body.from) {
+      return
+    }
+
+    this.setState({
+        messages: [...this.state.messages, body]
+    })
   }
 
   setVal(val) {
@@ -40,7 +53,7 @@ class ChatRoomListEntry extends Component {
         
 
         <div className="private-message-area">
-          {/* <MessageList /> */}
+           <MessageList messages={this.state.messages} friend={this.props.room.friend}/> 
         </div>
 
         <input type="text" onChange={(e) => this.setVal(e.target.value)}/>
