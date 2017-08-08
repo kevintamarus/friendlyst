@@ -33,7 +33,8 @@ class ChatRoomListEntry extends Component {
     
     if (msg.to === msg.from) {
       return
-    }
+    } 
+
     this.setState({
         messages: [...this.state.messages, msg]
     })
