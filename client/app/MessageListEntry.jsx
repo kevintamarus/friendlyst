@@ -8,7 +8,7 @@ const MessageListEntry = ({ message, friend, mainUser }) => {
         {message.from}:{message.msg}
       </div>
     )
-  } else if (message.to === friend && message.from === mainUser) {
+  } else if (message.to === friend && message.from === mainUser.nickname) {
     return (
       <div>
         {message.from}:{message.msg}
