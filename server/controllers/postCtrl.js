@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize');
 const Post = require('../db/index').Post;
 const User = require('../db/index').User;
 const Friend = require('../db/index').Friend;
