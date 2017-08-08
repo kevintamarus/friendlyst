@@ -6,24 +6,18 @@ const User = db.define('user', {
   email: {type: Sequelize.STRING, allowNull: false},
   password: {type: Sequelize.STRING, allowNull: false},
   profilePicture: {type: Sequelize.TEXT, allowNull: true}
-}, {
-  timestamps: false
-});
+}, {timestamps: false});
 
 const Friend = db.define('friend', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true
-  }
+  id: {type: Sequelize.INTEGER, primaryKey: true}
 });
 
 const Post = db.define('post', {
-  message: {type: Sequelize.TEXT, allowNull: false},
-  username: {type: Sequelize.TEXT, allowNull: false}
+  message: {type: Sequelize.TEXT, allowNull: false}
 });
 
 const UserComment = db.define('userComment', {
-  userComment: {type: Sequelize.TEXT, allowNull: false},
+  userComment: {type: Sequelize.TEXT, allowNull: false}
 });
 
 const Like = db.define('like', {}); 
@@ -45,7 +39,7 @@ UserComment.belongsTo(Post);
 Post.hasMany(Like);
 Like.belongsTo(Post);
 
-User.sync({force: true});
+User.sync();
 Friend.sync();
 Post.sync();
 UserComment.sync();
