@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-
-const MessageListEntry = ({ message, friend }) => {
+const MessageListEntry = ({ message, friend, mainUser }) => {
 
   if (message.from === friend) {
+    return (
+      <div>
+        {message.from}:{message.msg}
+      </div>
+    )
+  } else if (message.to === friend && message.from === mainUser) {
     return (
       <div>
         {message.from}:{message.msg}

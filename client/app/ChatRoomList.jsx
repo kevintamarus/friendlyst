@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import $ from 'jquery'
+import React from 'react'
 import ChatRoomListEntry from './ChatRoomListEntry.jsx'
 
 const ChatRoomList = ({ chatRooms }) => {

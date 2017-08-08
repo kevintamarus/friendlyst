@@ -58,127 +58,121 @@ const mapDispatchToProps = (dispatch) => {
 
 class App extends Component {
     
-    componentDidMount() {
-        this.socket = io('/')
-    
-        let username = prompt('enter username')
-        this.socket.nickname = username
-        
-        this.socket.emit('new user', username)
-        
-        //add one person to the list (receives socket back from server)
-        this.socket.on('user created', usernames => {
-        	this.props.newFriend(usernames)
-        })
+	componentDidMount() {
+		this.socket = io('/')
 
-        //taking user off from current list
-        this.socket.on('user disconnected', usernames => {
-        	this.props.friendOffline(usernames)
-				})
-		}
+		let username = prompt('enter username')
+		this.socket.nickname = username
+		
+		this.socket.emit('new user', username)
+		
+		//add one person to the list (receives socket back from server)
+		this.socket.on('user created', usernames => {
+			this.props.newFriend(usernames)
+		})
 
-authlogin(email, password, callback) {
-	var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-	postgres(conString, function (err, client, done) {
-		if (err) {
-		console.log('could not connect to postgres db', err);
-		return callback(err);
-		}
-					
-		var query = 'SELECT id, nickname, email, password ' +
-		'FROM users WHERE email = $1';
+		//taking user off from current list
+		this.socket.on('user disconnected', usernames => {
+			this.props.friendOffline(usernames)
+		})
+	}
 
-		client.query(query, [email], function (err, result) {
-		// NOTE: always call `done()` here to close
-		// the connection to the database
-		done();
+	authlogin(email, password, callback) {
+			var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
+			postgres(conString, function (err, client, done) {
+					if (err) {
+					console.log('could not connect to postgres db', err);
+					return callback(err);
+					}
+											
+					var query = 'SELECT id, nickname, email, password ' +
+					'FROM users WHERE email = $1';
 
-		if (err) {
-				console.log('error executing query', err);
-				return callback(err);
-		}
+					client.query(query, [email], function (err, result) {
+					// NOTE: always call `done()` here to close
+					// the connection to the database
+					done();
 
-		if (result.rows.length === 0) {
-				return callback(new WrongUsernameOrPasswordError(email));
-		}
+					if (err) {
+							console.log('error executing query', err);
+							return callback(err);
+					}
 
-		var user = result.rows[0];
+					if (result.rows.length === 0) {
+							return callback(new WrongUsernameOrPasswordError(email));
+					}
 
-		bcrypt.compare(password, user.password, function (err, isValid) {
-				if (err) {
-				callback(err);
-				} else if (!isValid) {
-				callback(new WrongUsernameOrPasswordError(email));
-				} else {
-				callback(null, {
-						id: user.id,
-						nickname: user.nickname,
-						email: user.email
-				});
-				}
-		});
-		});
-	});
-}
+					var user = result.rows[0];
 
-authcreate(user, callback) {
-  var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-  postgres(conString, function (err, client, done) {
-    if (err) {
-    console.log('could not connect to postgres db', err);
-    return callback(err);
-		}
-    bcrypt.hash(user.password, 10, function (err, hashedPassword) {
-    var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
-    client.query(query, [user.email, hashedPassword], function (err, result) {
-      // NOTE: always call `done()` here to close
-      // the connection to the database
-      done();
-      if (err) {
-      console.log('error executing query', err);
-      return callback(err);
-      }
-      if (result.rows.length === 0) {
-      return callback();
-      }
-      callback(null);
-    });
-    });
-  });
-}
+					bcrypt.compare(password, user.password, function (err, isValid) {
+							if (err) {
+							callback(err);
+							} else if (!isValid) {
+							callback(new WrongUsernameOrPasswordError(email));
+							} else {
+							callback(null, {
+											id: user.id,
+											nickname: user.nickname,
+											email: user.email
+							});
+							}
+					});
+					});
+			});
+	}
 
-submitPost() {
-  //send username along with post
-    let post = $('#post-area').val()
-    //should send post request to server
-    this.props.newPost(post)
-}
+	authcreate(user, callback) {
+			var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
+			postgres(conString, function (err, client, done) {
+					if (err) {
+					console.log('could not connect to postgres db', err);
+					return callback(err);
+							}
+					bcrypt.hash(user.password, 10, function (err, hashedPassword) {
+					var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
+					client.query(query, [user.email, hashedPassword], function (err, result) {
+					// NOTE: always call `done()` here to close
+					// the connection to the database
+					done();
+					if (err) {
+					console.log('error executing query', err);
+					return callback(err);
+					}
+					if (result.rows.length === 0) {
+					return callback();
+					}
+					callback(null);
+					});
+					});
+			});
+	}
 
-login() {
-    auth.login();
-    //on login, give user the token
-}
+	submitPost() {
+	//send username along with post
+		let post = $('#post-area').val()
+		//should send post request to server
+		this.props.newPost(post)
+	}
 
-changeName() {
-  let name = document.getElementById('i').value 
-  document.getElementById('i').value = ''
-  this.props.name(name)
-}
+	login() {
+		auth.login();
+		//on login, give user the token
+	}
 
-render() {
-        return (
-            <div> 
-                <Nav />
-                <input type="text" id="post-area"/>
-                <button onClick={this.submitPost.bind(this)}>Post</button>
-                <input type="text" id="i"/>
-                <button onClick={this.login}>Y</button>
-                <FeedList posts={this.props.posts}/>
-								<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-                <ChatRoomList chatRooms={this.props.chatRooms} />
-            </div>
-        )
-    }
+	render() {
+		return (
+				<div> 
+						<Nav />
+						<input type="text" id="post-area"/>
+						<button onClick={this.submitPost.bind(this)}>Post</button>
+						<input type="text" id="i"/>
+						<button onClick={this.login}>Y</button>
+						<FeedList posts={this.props.posts}/>
+						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
+						<ChatRoomList chatRooms={this.props.chatRooms} />
+				</div>
+		)
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
