@@ -8,7 +8,7 @@ const ChatRoomList = ({ chatRooms }) => {
     <ul>
       {
         chatRooms.map(chatRoom => {
-          return <ChatRoomListEntry key={chatRoom} room={chatRoom}/>
+          return <ChatRoomListEntry room={chatRoom}/>
         })
       }
     </ul>

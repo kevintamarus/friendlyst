@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispathToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         newPost(post) {
             dispatch({
@@ -75,54 +75,50 @@ class App extends Component {
         this.socket.on('user disconnected', usernames => {
         	this.props.friendOffline(usernames)
 				})
-				
-				this.socket.on('private message received', (msg) => {
-        	console.log(msg.from + ':', msg.msg)
-				})
-			}
+		}
 
 authlogin(email, password, callback) {
-var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-postgres(conString, function (err, client, done) {
-  if (err) {
-  console.log('could not connect to postgres db', err);
-  return callback(err);
-  }
-        
-  var query = 'SELECT id, nickname, email, password ' +
-  'FROM users WHERE email = $1';
+	var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
+	postgres(conString, function (err, client, done) {
+		if (err) {
+		console.log('could not connect to postgres db', err);
+		return callback(err);
+		}
+					
+		var query = 'SELECT id, nickname, email, password ' +
+		'FROM users WHERE email = $1';
 
-  client.query(query, [email], function (err, result) {
-  // NOTE: always call `done()` here to close
-  // the connection to the database
-  done();
+		client.query(query, [email], function (err, result) {
+		// NOTE: always call `done()` here to close
+		// the connection to the database
+		done();
 
-  if (err) {
-      console.log('error executing query', err);
-      return callback(err);
-  }
+		if (err) {
+				console.log('error executing query', err);
+				return callback(err);
+		}
 
-  if (result.rows.length === 0) {
-      return callback(new WrongUsernameOrPasswordError(email));
-  }
+		if (result.rows.length === 0) {
+				return callback(new WrongUsernameOrPasswordError(email));
+		}
 
-  var user = result.rows[0];
+		var user = result.rows[0];
 
-  bcrypt.compare(password, user.password, function (err, isValid) {
-      if (err) {
-      callback(err);
-      } else if (!isValid) {
-      callback(new WrongUsernameOrPasswordError(email));
-      } else {
-      callback(null, {
-          id: user.id,
-          nickname: user.nickname,
-          email: user.email
-      });
-      }
-  });
-  });
-});
+		bcrypt.compare(password, user.password, function (err, isValid) {
+				if (err) {
+				callback(err);
+				} else if (!isValid) {
+				callback(new WrongUsernameOrPasswordError(email));
+				} else {
+				callback(null, {
+						id: user.id,
+						nickname: user.nickname,
+						email: user.email
+				});
+				}
+		});
+		});
+	});
 }
 
 authcreate(user, callback) {
@@ -170,7 +166,6 @@ changeName() {
 }
 
 render() {
-        
         return (
             <div> 
                 <Nav />
