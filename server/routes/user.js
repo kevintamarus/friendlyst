@@ -2,6 +2,7 @@ const router = require('express').Router();
 const controller = require('../controllers/userCtrl');
 
 router.post('/addUser', controller.addUser);
-router.get('/getAll', controller.getAll);
+router.get('/getUser', controller.getUser);
+router.get('/getAllUser', controller.getAllUser);
 
 module.exports = router;
