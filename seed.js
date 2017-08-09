@@ -98,4 +98,7 @@ models.User.sync({force: true})
   .then(() => {
     models.Like.sync({force: true})
   })
+  .then(() => {
+    models.Message.sync({force: true})
+  })
   .catch(err => console.log(`Error seeding db! ${err}`))

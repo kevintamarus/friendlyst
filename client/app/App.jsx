@@ -162,10 +162,9 @@ class App extends Component {
 		this.props.newPost(post);
 		console.log(post)
 	}
-
-	login() {
-		auth.login();
-		//on login, give user the token
+    
+    logout() {
+		auth.logout();
 	}
 
 	render() {
