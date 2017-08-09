@@ -13,7 +13,11 @@ const app = express()
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({extended: true}))
   .use(express.static(path.resolve(__dirname, '../client/public')))
-  .use('/api', routes);
+  .use('/api', routes)
+  .get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/public/index.html')
+  )}
+  )
 
 const server = app.listen(PORT, err => {
   if (err) {
