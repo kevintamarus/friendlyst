@@ -4,12 +4,12 @@ import { createStore, combineReducers, applyMiddleware} from 'redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './App.jsx'
+import LandingPage from './LandingPage.jsx'
 import Profile from './Profile.jsx'
 import postsReducer from './reducer/postReducer.js'
 import friendsReducer from './reducer/friendsReducer.js'
 import userReducer from './reducer/userReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
-
 
 const reducers = combineReducers({
    postsReducer,
@@ -24,7 +24,8 @@ render(
 <Provider store={store}>
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={App} />
+      <Route exact path="/" component={LandingPage} />
+      <Route exact path="/home" component={App} />
       <Route exact path="/profile" component={Profile} />
     </Switch>
   </BrowserRouter>

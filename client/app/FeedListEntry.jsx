@@ -8,26 +8,12 @@ const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
 		//so you need another . to access its properties
 	return {
-		posts: state.postsReducer.posts,
-		friends: state.friendsReducer.friends,
 		comments: state.postReducer.comments
 	}
 }
 
 const mapDispathToProps = (dispatch) => {
 	return {
-		newPost(post) {
-			dispatch({
-				type: 'NEW_POST',
-				payload: post
-			})
-		},
-		newFriend(friend) {
-			dispatch({
-				type: 'ADD_FRIEND',
-				payload: friend
-			})
-		},
 		newComment(comment) {
 			dispatch({
 				type: 'NEW_COMMENT',
@@ -58,34 +44,39 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
+
 	console.log('socket', this.props.mainUser)
 	let currentTime = new Date();
 		return (
-			<div>
+			<div className="feed-entry">
 				<div id="post-container">
 					<div className="userinfo">
 						<img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8" height="50" width="50"/>
 							<span className="username">{this.props.mainUser.nickname}</span>
 					</div>
-					<div className="post-time">
-						<div>{`${currentTime}`}</div>
-						<div className="post">{this.props.post}</div>
-					</div>
 				</div>
+
+				<div className="post-time">
+					<div>{this.props.post.timeStamp}</div>
+					<div className="post">{this.props.post.content}</div>
+				</div>
+
 				<div>
 					<FeedListEntryLikes/>
 				</div>
+
 				<ul>
 					 {/* {this.comments.map((comment, key) =>
 						<FeedListEntryComments comment={comment} key={key}/>)}  */}
 				</ul>
+
 				<div>
-						<form>
-							<textarea onChange={(input) => this.submitComment(input)} cols="50" rows="4" name="comment"></textarea>
-							<div>
-								<button type="button">Comment</button>
-							</div>
-						</form>
+					<form>
+						<textarea onChange={(input) => this.submitComment(input)} cols="50" rows="4" name="comment"></textarea>
+						<div>
+							<button type="button">Comment</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		)

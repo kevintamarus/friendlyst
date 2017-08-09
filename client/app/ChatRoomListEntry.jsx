@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import MessageList from './MessageList.jsx'
+import axios from 'axios'
 
 class ChatRoomListEntry extends Component {
   constructor() {
@@ -32,9 +33,12 @@ class ChatRoomListEntry extends Component {
 
     this.props.room.mainUser.emit('private message', msg)
     
+
     if (msg.to === msg.from) {
       return
     } 
+
+    axios.post('/api/friend/message', msg)
 
     this.setState({
         messages: [...this.state.messages, msg]
