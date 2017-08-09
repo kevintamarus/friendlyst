@@ -64,7 +64,7 @@ class ChatRoomListEntry extends Component {
     return (
     <div className="chatroom" ref="chatroom">
         <div className="chatroom-header">
-          <span>{this.props.room.friend}</span><button onClick={this.closeCurrentRoom.bind(this)}>x</button>
+          <div className="chatroom-header-name">{this.props.room.friend}</div><div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
         </div>
 
         <div className="private-message-area">
