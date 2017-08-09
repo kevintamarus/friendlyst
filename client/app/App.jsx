@@ -153,9 +153,14 @@ class App extends Component {
 
 	submitPost() {
 	//send username along with post
-		let post = $('#post-area').val();
+		let post = {
+			content:$('#post-area').text(),
+			timeStamp: new Date().toLocaleString()
+		}
 		//should send post request to server
+
 		this.props.newPost(post);
+		console.log(post)
 	}
     
     logout() {
@@ -164,18 +169,18 @@ class App extends Component {
 
 	render() {
 		return (
-            <div> 
-                <Nav />
-                <div className="home-page-container">
-                    <input type="text" id="post-area"/>
-                    <button onClick={this.submitPost.bind(this)}>Post</button>
-                    <input type="text" id="i"/>
-                    <button onClick={this.logout}>Logout</button>
-                    <FeedList posts={this.props.posts} mainUser={this.socket}/>
-                </div>
-                <FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-                <ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
-            </div>
+				<div> 
+						<Nav />
+						<div className="home-page-container">
+							<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
+							<button onClick={this.submitPost.bind(this)}>Post</button>
+							<input type="text" id="i"/>
+							<button onClick={this.login}>Y</button>
+							<FeedList posts={this.props.posts} mainUser={this.socket}/>
+						</div>
+						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
+						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
+				</div>
 		)
 	}
 }
