@@ -157,26 +157,25 @@ class App extends Component {
 		//should send post request to server
 		this.props.newPost(post);
 	}
-
-	login() {
-		auth.login();
-		//on login, give user the token
+    
+    logout() {
+		auth.logout();
 	}
 
 	render() {
 		return (
-				<div> 
-						<Nav />
-						<div className="home-page-container">
-							<input type="text" id="post-area"/>
-							<button onClick={this.submitPost.bind(this)}>Post</button>
-							<input type="text" id="i"/>
-							<button onClick={this.login}>Y</button>
-							<FeedList posts={this.props.posts} mainUser={this.socket}/>
-						</div>
-						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
-				</div>
+            <div> 
+                <Nav />
+                <div className="home-page-container">
+                    <input type="text" id="post-area"/>
+                    <button onClick={this.submitPost.bind(this)}>Post</button>
+                    <input type="text" id="i"/>
+                    <button onClick={this.logout}>Logout</button>
+                    <FeedList posts={this.props.posts} mainUser={this.socket}/>
+                </div>
+                <FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
+                <ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
+            </div>
 		)
 	}
 }

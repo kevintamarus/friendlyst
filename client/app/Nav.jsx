@@ -5,7 +5,7 @@ const Nav = (props) => {
   return (
     <div id="nav-bar">
       <Link to="/profile">Profile</Link>
-      <Link to="/">Home</Link>
+      <Link to="/home">Home</Link>
       <div className="navbar-search">
         <input type="text" className="navbar-search-input"/>
         <button className="navbar-search-button">Search</button>
