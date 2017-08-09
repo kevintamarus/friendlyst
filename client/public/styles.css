@@ -84,6 +84,7 @@ body {
   background-color: #eee;
 }
 
+<<<<<<< HEAD
 .chatroom-list-container {
   height:200px;
   margin-top:53%;
@@ -176,3 +177,14 @@ body {
   background-color:	#DCDCDC;
   color:black;
 }
+=======
+.chatrooms {
+  border: 1px solid black;
+  width:30%;
+  float: right;
+}
+
+.search {
+  float:right;
+}
+>>>>>>> 5aeb80ff5ffc998e1f7afc68216b06ac05f49173
