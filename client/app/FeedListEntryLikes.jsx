@@ -1,6 +1,6 @@
 import React from 'react'
 
-class PostLikes extends React.Component {
+class FeedListEntryLikes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,22 +22,19 @@ class PostLikes extends React.Component {
 
   render() {
     return (
-      <div>
-        <span>
-          <h3>this is the LIKE section</h3>
-          <img src="http://www.freeiconspng.com/uploads/like-button-png-33.jpg" height="50" width="50" onClick={this.handleClickLike}/>
-          {/* // like button */}
-        </span>
+      <div onClick={this.handleClickLike}>
         <span>
           {this.state.likes}
-          {/* //number of likes */}
         </span>
-        <div>
+        <span>
+          <img src="./images/like.jpg" height="25" width="25"/>
+        </span>
+        <span>
           {this.state.userLike}
-        </div>
+        </span>
       </div>
     )
   }
 }
 
-export default PostLikes;
+export default FeedListEntryLikes;
