@@ -4,7 +4,7 @@ module.exports = (state={
   switch(action.type) {
     case 'NEW_USER':
       state = Object.assign({}, state, {
-        user: {}
+        user: action.payload
       })
  
       return state

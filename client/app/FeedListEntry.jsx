@@ -58,6 +58,7 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
+	console.log('socket', this.props.mainUser)
 	let currentTime = new Date();
 		return (
 			<div>

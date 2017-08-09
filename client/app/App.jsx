@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
   return {
     posts: state.postsReducer.posts,
     friends: state.friendsReducer.friends,
-    chatRooms: state.chatRoomReducer.chatRooms
+		chatRooms: state.chatRoomReducer.chatRooms,
+		user: state.userReducer.user
   }
 }
 
@@ -51,12 +52,24 @@ const mapDispatchToProps = (dispatch) => {
 						type: 'CLOSE_ROOM',
 						payload: room
 					})
-        }
+				},
+				newUser(userInfo) {
+					dispatch({
+						type: 'NEW_USER',
+						payload: userInfo
+					})
+				}
     }
 }
 
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			previousPosts : []
+		}
+	}
     
 	componentDidMount() {
 		this.socket = io('/')
@@ -78,6 +91,16 @@ class App extends Component {
 
 		this.socket.on('private message received', msg => {
 			console.log(msg)
+		})
+
+		//get all previous posts from database
+		axios.get('api/post/getAllUserPost')
+		.then( (data) => {
+			console.log('this is the data', data);
+			this.setState({previousPosts: data});
+		})
+		.catch(err => {
+			console.log(err);
 		})
 	}
 
@@ -172,7 +195,7 @@ class App extends Component {
 							<button onClick={this.submitPost.bind(this)}>Post</button>
 							<input type="text" id="i"/>
 							<button onClick={this.login}>Y</button>
-							<FeedList posts={this.props.posts} mainUser={this.socket}/>
+							<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket}/>
 						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
 						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
