@@ -12,7 +12,7 @@ class FriendList extends Component {
 
     return(
       <div className="friend-list-container">
-        <h4>Online Friends</h4>
+        <p>Chat</p>
         <div className="friend-list">
           {
             this.props.friends.map((friend) => {
