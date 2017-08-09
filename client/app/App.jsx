@@ -172,7 +172,7 @@ class App extends Component {
 							<button onClick={this.submitPost.bind(this)}>Post</button>
 							<input type="text" id="i"/>
 							<button onClick={this.login}>Y</button>
-							<FeedList posts={this.props.posts}/>
+							<FeedList posts={this.props.posts} mainUser={this.socket}/>
 						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
 						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>

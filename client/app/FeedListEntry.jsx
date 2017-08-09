@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
+import Time from 'react-time';
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
@@ -57,16 +58,16 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
-	console.log(this.props.comments, 'these are the comments')
+	let currentTime = new Date();
 		return (
 			<div>
 				<div id="post-container">
 					<div className="userinfo">
 						<img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8" height="50" width="50"/>
-							<span className="username">Kevin</span>
+							<span className="username">{this.props.mainUser.nickname}</span>
 					</div>
 					<div className="post-time">
-						<div>Today at 9:00AM</div>
+						<div>{`${currentTime}`}</div>
 						<div className="post">{this.props.post}</div>
 					</div>
 				</div>
