@@ -20,9 +20,16 @@ const UserComment = db.define('userComment', {
   userComment: {type: Sequelize.TEXT, allowNull: false}
 });
 
-const Like = db.define('like', {}); 
+const Like = db.define('like', {});
+
+const Message = db.define('message', {
+  id: {type: Sequelize.INTEGER, primaryKey: true},
+  message: {type: Sequelize.TEXT, allowNull: false}
+})
 
 User.belongsToMany(User, {as:'buddy', through: Friend, unique: false, allowNull: true});
+
+User.belongsToMany(User, {as:'messagePartner', through: Message, unique: false, allowNull: true});
 
 User.hasMany(Post);
 Post.belongsTo(User);
@@ -44,11 +51,13 @@ Friend.sync();
 Post.sync();
 UserComment.sync();
 Like.sync();
+Message.sync();
 
 module.exports = {
   User,
   Friend,
   Post,
   UserComment,
-  Like
+  Like,
+  Message
 };
