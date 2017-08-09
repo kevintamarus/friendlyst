@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import FriendListEntry from './FriendListEntry.jsx'
 import { connect } from 'react-redux'
 import $ from 'jquery'
-import io from 'socket.io-client'
 
 class FriendList extends Component {
   componentDidMount() {
@@ -34,7 +33,7 @@ class FriendList extends Component {
         </div>
 
         <div className="friend-list-container-minimize" style={{display:'none'}} onClick={this.maximize}>
-          <p onClick={this.maximize}>Chat</p>
+          <p onClick={this.maximize}>Chat ({this.props.friends.length})</p>
         </div>
       </div>
     )

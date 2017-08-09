@@ -153,9 +153,14 @@ class App extends Component {
 
 	submitPost() {
 	//send username along with post
-		let post = $('#post-area').val();
+		let post = {
+			content:$('#post-area').text(),
+			timeStamp: new Date().toLocaleString()
+		}
 		//should send post request to server
+
 		this.props.newPost(post);
+		console.log(post)
 	}
 
 	login() {
@@ -168,7 +173,7 @@ class App extends Component {
 				<div> 
 						<Nav />
 						<div className="home-page-container">
-							<input type="text" id="post-area"/>
+							<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
 							<button onClick={this.submitPost.bind(this)}>Post</button>
 							<input type="text" id="i"/>
 							<button onClick={this.login}>Y</button>
