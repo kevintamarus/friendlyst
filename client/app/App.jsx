@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import $ from 'jquery'
-import axios from 'axios'
-import Nav from './Nav.jsx'
-import FeedList from './FeedList.jsx'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import $ from 'jquery';
+import axios from 'axios';
+import Nav from './Nav.jsx';
+import FeedList from './FeedList.jsx';
 import Auth from '../Auth/Auth';
-import FriendList from './FriendList.jsx'
-import ChatRoomList from './ChatRoomList.jsx'
+import FriendList from './FriendList.jsx';
+import ChatRoomList from './ChatRoomList.jsx';
 
 const auth = new Auth();
 
@@ -153,9 +153,9 @@ class App extends Component {
 
 	submitPost() {
 	//send username along with post
-		let post = $('#post-area').val()
+		let post = $('#post-area').val();
 		//should send post request to server
-		this.props.newPost(post)
+		this.props.newPost(post);
 	}
 
 	login() {
@@ -172,7 +172,7 @@ class App extends Component {
 							<button onClick={this.submitPost.bind(this)}>Post</button>
 							<input type="text" id="i"/>
 							<button onClick={this.login}>Y</button>
-							<FeedList posts={this.props.posts}/>
+							<FeedList posts={this.props.posts} mainUser={this.socket}/>
 						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
 						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
