@@ -79,6 +79,16 @@ class App extends Component {
 		
 		this.socket.emit('new user', username)
 		
+		axios.post('/api/user/addUser', {
+			nickname: username,
+			email: `${username}@gmail.com`,
+			password: '123'
+		})
+		.then(({ data }) => {
+			console.log(data)
+			this.props.newUser(data)
+		})
+		
 		//add one person to the list (receives socket back from server)
 		this.socket.on('user created', usernames => {
 			this.props.newFriend(usernames)
@@ -89,19 +99,15 @@ class App extends Component {
 			this.props.friendOffline(usernames)
 		})
 
-		this.socket.on('private message received', msg => {
-			console.log(msg)
-		})
-
 		//get all previous posts from database
-		let email = 'kevin'
-		axios.get(`api/post/getAllUserPost?email=${email}`)
-		.then( (data) => {
-			console.log('this is the data', data);
-		})
-		.catch(err => {
-			console.log(err, 'could not get data');
-		})
+		// let email = 'kevin'
+		// axios.get(`api/post/getAllUserPost?email=${email}`)
+		// .then( (data) => {
+		// 	console.log('this is the data', data);
+		// })
+		// .catch(err => {
+		// 	console.log(err, 'could not get data');
+		// })
 		// axios.post('api/message/postMessage', {
 		// 	msg: 'hello',
 		// 	from: 1,
@@ -227,7 +233,7 @@ class App extends Component {
 							<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket}/>
 						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
+						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} mainUserId={this.props.user.id}/>
 				</div>
 		)
 	}

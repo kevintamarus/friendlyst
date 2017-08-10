@@ -15,30 +15,40 @@ class ChatRoomListEntry extends Component {
 
   
   componentDidMount() {
+    console.log('hit')
     this.props.room.mainUser.on('private message received', msg => {
       msg.fromOthers = true
       this.setState({
         messages: [...this.state.messages, msg]
       })
     })
+
+    // axios.get('/api/message/getAllMessage', {
+    //   friendEmail: `${this.props.room.friend}@gmail.com`,
+    //   mainUserEmail: `${this.props.room.mainUser.nickname}@gmail.com`,
+    // })
+    // .then(({ data }) => {
+    //   console.log(data)
+      
+    // })
   }
 
   sendPrivateMessage(text) {
     let msg = {
       msg: text,
       to: this.props.room.friend,
-      from: this.props.room.mainUser.nickname
+      from: this.props.room.mainUser.nickname,
+      friendEmail: `${this.props.room.friend}@gmail.com`,
+      mainUserId: this.props.mainUserId
     }
     
+    axios.post('/api/message/postMessage', msg)
 
     this.props.room.mainUser.emit('private message', msg)
-    
 
     if (msg.to === msg.from) {
       return
     } 
-
-    axios.post('/api/friend/message', msg)
 
     this.setState({
         messages: [...this.state.messages, msg]

@@ -9,7 +9,8 @@ class FriendListEntry extends Component {
     //calling appendChatRoom in the App component
     let room = {
       mainUser: this.props.mainUser,
-      friend: this.props.friend
+      friend: this.props.friend,
+
     }
     this.props.appendChatRoom(room)
   }
