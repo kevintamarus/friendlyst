@@ -36,10 +36,11 @@ module.exports = {
       Message.findAll({
         where: {
           userId: users,
-          messagePartnerId: users
+          partnerId: users
         },
         order: [['createdAt', 'ASC']]
       })
+      .then(messages => messages.filter(message => message.userId !== message.partnerId))
       .then(messages => res.status(200).send(messages))
       .catch(err => res.status(500).send(`Can't get messages! ${err}`))
 
