@@ -10,10 +10,10 @@ module.exports = {
     .then(friend => {
         console.log('?????????', req.body, friend.dataValues)
         Message.create({
-          to: req.body.to,
-          from: req.body.from,
+          // to: req.body.to,
+          // from: req.body.from,
           userId: req.body.mainUserId,
-          messagePartnerId: friend.dataValues.id,
+          partnerId: friend.dataValues.id,
           message: req.body.message
         })
         .then(message => {

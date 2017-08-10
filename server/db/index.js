@@ -22,13 +22,13 @@ const Like = db.define('like', {});
 
 const Message = db.define('message', {
   message: {type: Sequelize.TEXT, allowNull: false},
-  to: {type: Sequelize.STRING, allowNull: false},
-  from: {type: Sequelize.STRING, allowNull: false}
-})
+  userId: {type: Sequelize.INTEGER, allowNull: false},
+  partnerId: {type: Sequelize.INTEGER, allowNull: false}
+});
 
 User.belongsToMany(User, {as:'buddy', through: Friend, unique: false, allowNull: true});
 
-User.belongsToMany(User, {as:'messagePartner', through: Message, unique: false, allowNull: true});
+// User.belongsToMany(User, {as:'messagePartner', through: Message, unique: false, allowNull: true});
 
 User.hasMany(Post);
 Post.belongsTo(User);
