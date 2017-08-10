@@ -8,9 +8,7 @@ const User = db.define('user', {
   profilePicture: {type: Sequelize.TEXT, allowNull: true}
 }, {timestamps: false});
 
-const Friend = db.define('friend', {
-  id: {type: Sequelize.INTEGER, primaryKey: true}
-});
+const Friend = db.define('friend', {});
 
 const Post = db.define('post', {
   message: {type: Sequelize.TEXT, allowNull: false}
@@ -23,7 +21,6 @@ const UserComment = db.define('userComment', {
 const Like = db.define('like', {});
 
 const Message = db.define('message', {
-  id: {type: Sequelize.INTEGER, primaryKey: true},
   message: {type: Sequelize.TEXT, allowNull: false}
 })
 

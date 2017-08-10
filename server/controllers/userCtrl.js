@@ -3,6 +3,7 @@ const User = require('../db/index').User;
 module.exports = {
 
   addUser: ((req, res) => {
+    console.log('OEIWHGOWIGHOWIGJOWIGHWOIGHWIOGHWO')
     const profilePicture = req.body.profilePicture || 'https://goo.gl/Vmv1zN';
     User.create({
       nickname: req.body.nickname,

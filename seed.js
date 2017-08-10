@@ -26,32 +26,32 @@ models.User.sync({force: true})
       .then(() => {
         models.Friend.bulkCreate([
           {
-            id: 1,
             userId: 1,
             buddyId: 4
           },
           {
-            id: 2,
             userId: 1,
             buddyId: 3
           },
           {
-            id: 3,
             userId: 2,
             buddyId: 3
           },
           {
-            id: 4,
             userId: 3,
             buddyId: 2
           },
           {
-            id: 5,
             userId: 4,
             buddyId: 1
+          },
+          {
+            userId: 4,
+            buddyId: 2
           }
         ])
       })
+      .catch(err => console.log(`Error creating friend data! ${err}`))
   })
   .then(() => {
     models.Post.sync({force: true})
@@ -91,6 +91,7 @@ models.User.sync({force: true})
           }
         ])
       })
+      .catch(err => console.log(`Error creating post data! ${err}`))
   })
   .then(() => {
     models.UserComment.sync({force: true})

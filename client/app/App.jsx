@@ -102,6 +102,20 @@ class App extends Component {
 		.catch(err => {
 			console.log(err, 'could not get data');
 		})
+		// axios.post('api/message/postMessage', {
+		// 	msg: 'hello',
+		// 	from: 1,
+		// 	to: 'james'
+		// })
+		// 	.then(res => console.log(res))
+		
+		// axios.get('api/message/getAllMessage', {
+		// 	params: {
+		// 		mainUser: 'joejoe',
+		// 		friend: 'james'
+		// 	}
+		// })
+		// 	.then(res => console.log(res))
 	}
 
 	authlogin(email, password, callback) {
