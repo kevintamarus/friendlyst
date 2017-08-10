@@ -10,9 +10,11 @@ module.exports = {
     .then(friend => {
         console.log('?????????', req.body, friend.dataValues)
         Message.create({
+          to: req.body.to,
+          from: req.body.from,
           userId: req.body.mainUserId,
           messagePartnerId: friend.dataValues.id,
-          message: req.body.msg
+          message: req.body.message
         })
         .then(message => {
           res.status(201).send(message)
@@ -23,22 +25,26 @@ module.exports = {
   }),
 
   getAllMessage: ((req, res) => {
+
     User.findAll({
       where: {email: [req.query.mainUserEmail, req.query.friendEmail]}
     })
-      .then(users => users.map(user => user.dataValues.id))
-      .then(users => {
-        Message.findAll({
-          where: {
-            userId: users,
-            messagePartnerId: users
-          },
-          order: [['createdAt', 'ASC']]
-        })
-          .then(messages => res.status(200).send(messages))
-          .catch(err => res.status(500).send(`Can't get messages! ${err}`))
+    .then(users => {
+      // console.log(users)
+      users = users.map(user => user.dataValues.id)
+    
+      Message.findAll({
+        where: {
+          userId: users,
+          messagePartnerId: users
+        },
+        order: [['createdAt', 'ASC']]
       })
-      .catch(err => res.status(500).send(`User can't be found! ${err}`))
+      .then(messages => res.status(200).send(messages))
+      .catch(err => res.status(500).send(`Can't get messages! ${err}`))
+
+    })
+    .catch(err => res.status(500).send(`User can't be found! ${err}`))
   })
     
 }
