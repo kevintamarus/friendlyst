@@ -94,13 +94,13 @@ class App extends Component {
 		})
 
 		//get all previous posts from database
-		axios.get('api/post/getAllUserPost')
+		let email = 'kevin'
+		axios.get(`api/post/getAllUserPost?email=${email}`)
 		.then( (data) => {
 			console.log('this is the data', data);
-			this.setState({previousPosts: data});
 		})
 		.catch(err => {
-			console.log(err);
+			console.log(err, 'could not get data');
 		})
 	}
 
@@ -181,6 +181,17 @@ class App extends Component {
 			timeStamp: new Date().toLocaleString()
 		}
 		//should send post request to server
+		let email = 'kevin'
+		axios.post('api/post/postPost', {
+			email: email,
+			message: $('post-area').text()
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(err => {
+			console.log(err);
+		})
 
 		this.props.newPost(post);
 		console.log(post)
