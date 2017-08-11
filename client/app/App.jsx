@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
   return {
     posts: state.postsReducer.posts,
     friends: state.friendsReducer.friends,
-    chatRooms: state.chatRoomReducer.chatRooms
+		chatRooms: state.chatRoomReducer.chatRooms,
+		user: state.userReducer.user
   }
 }
 
@@ -51,13 +52,26 @@ const mapDispatchToProps = (dispatch) => {
 						type: 'CLOSE_ROOM',
 						payload: room
 					})
-        }
+				},
+				newUser(userInfo) {
+					dispatch({
+						type: 'NEW_USER',
+						payload: userInfo
+					})
+				}
     }
 }
 
 
 class App extends Component {
-	
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			previousPosts : []
+		}
+	}
+        
 	componentDidMount() {
 
 		// auth.handleAuthentication((auth)=>console.log('yoyoyyo', auth));
@@ -70,6 +84,16 @@ class App extends Component {
 		
 		this.socket.emit('new user', username)
 		
+		axios.post('/api/user/addUser', {
+			nickname: username,
+			email: `${username}@gmail.com`,
+			password: '123'
+		})
+		.then(({ data }) => {
+			console.log(data)
+			this.props.newUser(data)
+		})
+		
 		//add one person to the list (receives socket back from server)
 		this.socket.on('user created', usernames => {
 			this.props.newFriend(usernames)
@@ -80,9 +104,29 @@ class App extends Component {
 			this.props.friendOffline(usernames)
 		})
 
-		this.socket.on('private message received', msg => {
-			console.log(msg)
-		})
+		//get all previous posts from database
+		// let email = 'kevin'
+		// axios.get(`api/post/getAllUserPost?email=${email}`)
+		// .then( (data) => {
+		// 	console.log('this is the data', data);
+		// })
+		// .catch(err => {
+		// 	console.log(err, 'could not get data');
+		// })
+		// axios.post('api/message/postMessage', {
+		// 	msg: 'hello',
+		// 	from: 1,
+		// 	to: 'james'
+		// })
+		// 	.then(res => console.log(res))
+		
+		// axios.get('api/message/getAllMessage', {
+		// 	params: {
+		// 		mainUser: 'joejoe',
+		// 		friend: 'james'
+		// 	}
+		// })
+		// 	.then(res => console.log(res))
 	}
 
 	authlogin(email, password, callback) {
@@ -157,9 +201,25 @@ class App extends Component {
 
 	submitPost() {
 	//send username along with post
-		let post = $('#post-area').val();
+		let post = {
+			content:$('#post-area').text(),
+			timeStamp: new Date().toLocaleString()
+		}
 		//should send post request to server
+		let email = 'kevin'
+		axios.post('api/post/postPost', {
+			email: email,
+			message: $('post-area').text()
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(err => {
+			console.log(err);
+		})
+
 		this.props.newPost(post);
+		console.log(post)
 	}
     
     logout() {
@@ -168,18 +228,18 @@ class App extends Component {
 
 	render() {
 		return (
-            <div> 
-                <Nav />
-                <div className="home-page-container">
-                    <input type="text" id="post-area"/>
-                    <button onClick={this.submitPost.bind(this)}>Post</button>
-                    <input type="text" id="i"/>
-                    <button onClick={this.logout}>Logout</button>
-                    <FeedList posts={this.props.posts} mainUser={this.socket}/>
-                </div>
-                <FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-                <ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
-            </div>
+				<div> 
+						<Nav />
+						<div className="home-page-container">
+							<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
+							<button onClick={this.submitPost.bind(this)}>Post</button>
+							<input type="text" id="i"/>
+							<button onClick={this.login}>Y</button>
+							<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket}/>
+						</div>
+						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
+						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} mainUserId={this.props.user.id}/>
+				</div>
 		)
 	}
 }
