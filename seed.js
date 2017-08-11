@@ -6,19 +6,15 @@ models.User.sync({
   .then(() => {
     models.User.bulkCreate([{
         email: 'joejoe',
-        password: 'joejoe'
       },
       {
         email: 'james',
-        password: 'james'
       },
       {
         email: 'taeminpak',
-        password: 'taeminpak'
       },
       {
         email: 'kevin',
-        password: 'kevin'
       }
     ])
   })

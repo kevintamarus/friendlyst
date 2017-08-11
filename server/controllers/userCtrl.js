@@ -11,7 +11,6 @@ module.exports = {
         defaults: {
           nickname: req.body.nickname,
           email: req.body.email,
-          password: req.body.password,
           profilePicture: req.body.profilePicture
         }
       })
