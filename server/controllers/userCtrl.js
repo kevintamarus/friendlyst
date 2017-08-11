@@ -4,13 +4,20 @@ module.exports = {
 
   addUser: ((req, res) => {
     const profilePicture = req.body.profilePicture || 'https://goo.gl/Vmv1zN';
-    User.create({
-        nickname: req.body.nickname,
-        email: req.body.email,
-        password: req.body.password,
-        profilePicture
+    User.findOrCreate({
+        where: {
+          nickname: req.body.nickname
+        },
+        defaults: {
+          nickname: req.body.nickname,
+          email: req.body.email,
+          password: req.body.password,
+          profilePicture: req.body.profilePicture
+        }
       })
-      .then(user => res.status(201).send(user))
+      .then(user => {
+        res.status(201).send(user)
+      })
       .catch(err => res.status(500).send(`Error adding user to db! ${err}`))
   }),
 

@@ -13,7 +13,8 @@ export default class Auth {
       redirectUri: AUTH_CONFIG.redirectUri,
       audience: 'https://taeminpak.auth0.com/userinfo',
       responseType: 'token id_token',
-      scope: 'openid profile'
+      scope: 'openid profile',
+      user: {}
     })
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -44,16 +45,31 @@ export default class Auth {
     });
   }
 
-  handleAuthentication() {
+  handleAuthentication(newUser) {
+    console.log('handleAuthentication has been called')
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        //axios get by user domain /userinfo 
-        //post authResult contents to my database
-        this.setSession(authResult);
-      } else if (err) {
-        console.log(err);
+        console.log('this is authResult', authResult)
+        axios.get('https://taeminpak.auth0.com/userinfo', {
+            headers: {
+              'Authorization': `Bearer ${authResult.accessToken}`
+            }
+          })
+          .then(({
+            data
+          }) => {
+            console.log('this is data', data, data.nickname)
+            axios.post('/api/user/addUser', {
+              nickname: data.nickname,
+              email: data.name,
+              profilePicture: data.picture
+            })
+            .then(({ data }) => {
+              newUser(data[0])
+            })
+          })
       }
-    });
+    })
   }
 
   getProfileInfo() {
