@@ -2,20 +2,40 @@ const Sequelize = require('sequelize');
 const db = require('./config');
 
 const User = db.define('user', {
-  nickname: {type: Sequelize.STRING, allowNull: true},
-  email: {type: Sequelize.STRING, allowNull: false},
-  password: {type: Sequelize.STRING, allowNull: false},
-  profilePicture: {type: Sequelize.TEXT, allowNull: true}
-}, {timestamps: false});
+  nickname: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  profilePicture: {
+    type: Sequelize.TEXT,
+    allowNull: true
+  }
+}, {
+  timestamps: false
+});
 
 const Friend = db.define('friend', {});
 
 const Post = db.define('post', {
-  message: {type: Sequelize.TEXT, allowNull: false}
+  message: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  }
 });
 
 const UserComment = db.define('userComment', {
-  userComment: {type: Sequelize.TEXT, allowNull: false}
+  userComment: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  }
 });
 
 const Like = db.define('like', {});
@@ -28,7 +48,12 @@ const Message = db.define('message', {
   from: {type: Sequelize.STRING, allowNull: false},
 });
 
-User.belongsToMany(User, {as:'buddy', through: Friend, unique: false, allowNull: true});
+User.belongsToMany(User, {
+  as: 'buddy',
+  through: Friend,
+  unique: false,
+  allowNull: true
+});
 
 // User.belongsToMany(User, {as:'messagePartner', through: Message, unique: false, allowNull: true});
 
@@ -46,6 +71,9 @@ UserComment.belongsTo(Post);
 
 Post.hasMany(Like);
 Like.belongsTo(Post);
+
+UserComment.hasMany(Like);
+Like.belongsTo(UserComment);
 
 User.sync();
 Friend.sync();

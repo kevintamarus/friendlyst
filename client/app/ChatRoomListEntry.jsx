@@ -19,7 +19,7 @@ class ChatRoomListEntry extends Component {
 
   }
 
-  
+
   componentDidMount() {
     this.props.room.mainUser.on('private message received', msg => {
       this.setState({
@@ -33,11 +33,11 @@ class ChatRoomListEntry extends Component {
         mainUserEmail: `${this.props.room.mainUser.nickname}@gmail.com`,
       }
     })
-    .then(({ data }) => {
-      this.setState({
-        messages: data
+      .then(({ data }) => {
+        this.setState({
+          messages: data
+        })
       })
-    })
   }
 
   sendPrivateMessage(text) {
@@ -48,17 +48,17 @@ class ChatRoomListEntry extends Component {
       friendEmail: `${this.props.room.friend}@gmail.com`,
       mainUserId: this.props.mainUserId
     }
-    
+
     axios.post('/api/message/postMessage', msg)
 
     this.props.room.mainUser.emit('private message', msg)
 
     if (msg.to === msg.from) {
       return
-    } 
+    }
 
     this.setState({
-        messages: [...this.state.messages, msg]
+      messages: [...this.state.messages, msg]
     })
   }
 
@@ -73,11 +73,11 @@ class ChatRoomListEntry extends Component {
 
   handleEnter(e) {
     if (e.target.value.length < 1) {
-      return 
+      return
     }
     if (e.key === 'Enter') {
       this.sendPrivateMessage(e.target.value)
-      e.target.value= ''
+      e.target.value = ''
     }
   }
 
@@ -89,13 +89,13 @@ class ChatRoomListEntry extends Component {
         </div>
 
         <div className="private-message-area">
-          <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser}/> 
+          <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser} />
         </div>
 
         <div className="chatroom-inputs">
-          <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..."/>
+          <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..." />
         </div>
-      </div>    
+      </div>
     )
   }
 }

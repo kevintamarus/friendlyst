@@ -26,28 +26,28 @@ module.exports = {
   getAllMessage: ((req, res) => {
 
     User.findAll({
-      where: {email: [req.query.mainUserEmail, req.query.friendEmail]}
-    })
-    .then(users => {
-    
-      users = users.map(user => user.dataValues.id)
-      console.log(users)
-
-      Message.findAll({
-        where: {  
-          userId: users,
-          partnerId: users
-        },
-        order: [['createdAt', 'ASC']]
+        where: {
+          email: [req.query.mainUserEmail, req.query.friendEmail]
+        }
       })
-      .then(messages => {
-        console.log(messages)
-        res.status(200).send(messages)
-      })
-      .catch(err => res.status(500).send(`Can't get messages! ${err}`))
+      .then(users => {
+        // console.log(users)
+        users = users.map(user => user.dataValues.id)
+        Message.findAll({
+            where: {
+              userId: users,
+              partnerId: users
+            },
+            order: [
+              ['createdAt', 'ASC']
+            ]
+          })
+          .then(messages => messages.filter(message => message.userId !== message.partnerId))
+          .then(messages => res.status(200).send(messages))
+          .catch(err => res.status(500).send(`Can't get messages! ${err}`))
 
-    })
-    .catch(err => res.status(500).send(`User can't be found! ${err}`))
+      })
+      .catch(err => res.status(500).send(`User can't be found! ${err}`))
   })
-    
+
 }
