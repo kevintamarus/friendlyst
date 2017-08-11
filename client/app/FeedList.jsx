@@ -4,7 +4,7 @@ import FeedListEntry from './FeedListEntry.jsx'
 const FeedList = ({ posts, mainUser }) => {
   return (
     <div>
-      {posts.map((post, key) => <FeedListEntry post={post} key={key} mainUser={mainUser} />)}
+      {posts.map((post, key) => <FeedListEntry post={post} key={post.id} mainUser={mainUser} />)}
     </div>
   )
 }
