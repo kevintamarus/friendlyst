@@ -89,10 +89,12 @@ class LandingPage extends Component {
 	render() {
 		return (
       <div> 
-        Welcome to Friendlyst!
-        <button onClick={this.login}>Login</button>
-        <button>Sign Up</button>        
-        <Link to="/home"><button>Home</button></Link>
+				<h2>
+        	Welcome to Friendlyst!
+				</h2>
+				<div>
+        	<button onClick={this.login}>Login / Sign Up</button>
+				</div>
       </div>
 		)
 	}

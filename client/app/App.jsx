@@ -64,14 +64,19 @@ const mapDispatchToProps = (dispatch) => {
 
 
 class App extends Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			previousPosts : []
 		}
 	}
-    
+        
 	componentDidMount() {
+
+		// auth.handleAuthentication((auth)=>console.log('yoyoyyo', auth));
+		auth.handleAuthentication();
+		
 		this.socket = io('/')
 
 		let username = prompt('enter username')
