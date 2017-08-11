@@ -39,6 +39,11 @@ body {
 
 .navbar-search-button {}
 
+.notification-container {
+  float:right;
+  border: 1px solid black;
+}
+
 .home-page-container {
   text-align: center;
   margin-top: 5%;

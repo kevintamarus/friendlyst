@@ -41,18 +41,11 @@ const UserComment = db.define('userComment', {
 const Like = db.define('like', {});
 
 const Message = db.define('message', {
-  message: {
-    type: Sequelize.TEXT,
-    allowNull: false
-  },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  partnerId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  }
+  message: {type: Sequelize.TEXT, allowNull: false},
+  userId: {type: Sequelize.INTEGER, allowNull: false},
+  partnerId: {type: Sequelize.INTEGER, allowNull: false},
+  to: {type: Sequelize.STRING, allowNull: false},
+  from: {type: Sequelize.STRING, allowNull: false},
 });
 
 User.belongsToMany(User, {
