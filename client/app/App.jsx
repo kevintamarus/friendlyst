@@ -222,10 +222,6 @@ class App extends Component {
 		console.log(post)
 	}
 
-	logout() {
-		auth.logout();
-	}
-
 	render() {
 		return (
 			<div>
@@ -234,7 +230,6 @@ class App extends Component {
 					<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
 					<button onClick={this.submitPost.bind(this)}>Post</button>
 					<input type="text" id="i" />
-					<button onClick={this.login}>Y</button>
 					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket} />
