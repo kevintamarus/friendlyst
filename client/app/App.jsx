@@ -205,10 +205,10 @@ class App extends Component {
 					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
 					<button onClick={this.submitPost.bind(this)}>Post</button>
 					<input type="text" id="i" />
-					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.props.user} />
+					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
 				</div>
-				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket} />
-				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} mainUserId={this.props.user.id} />
+				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.socket} />
+				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
 			</div>
 		)
 	}

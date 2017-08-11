@@ -8,7 +8,7 @@ const auth = new Auth();
 const Nav = (props) => {
   return (
     <div id="nav-bar">
-      <Link to="/"><button>Home</button></Link>
+      <Link to="/home"><button>Home</button></Link>
       <Link to="/profile"><button>Profile</button></Link>
       <Notification />
       <button onClick={() => auth.logout()}>Logout</button>

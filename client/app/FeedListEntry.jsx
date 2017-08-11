@@ -49,8 +49,8 @@ class FeedListEntry extends Component {
 			<div className="feed-entry">
 				<div id="post-container">
 					<div className="userinfo">
-						<img src={this.props.mainUser.profilePicture} height="50" width="50" />
-						<span className="username">{this.props.mainUser.nickname}</span>
+						<img src={this.props.user.profilePicture} height="50" width="50" />
+						<span className="username">{this.props.user.nickname}</span>
 					</div>
 				</div>
 

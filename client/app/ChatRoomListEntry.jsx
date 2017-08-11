@@ -21,7 +21,7 @@ class ChatRoomListEntry extends Component {
 
 
   componentDidMount() {
-    this.props.room.mainUser.on('private message received', msg => {
+    this.props.room.user.on('private message received', msg => {
       this.setState({
         messages: [...this.state.messages, msg]
       })
@@ -30,7 +30,7 @@ class ChatRoomListEntry extends Component {
     axios.get('/api/message/getAllMessage', {
       params: {
         friendEmail: `${this.props.room.friend}@gmail.com`,
-        mainUserEmail: `${this.props.room.mainUser.nickname}@gmail.com`,
+        userEmail: `${this.props.room.user.nickname}@gmail.com`,
       }
     })
       .then(({ data }) => {
@@ -44,14 +44,14 @@ class ChatRoomListEntry extends Component {
     let msg = {
       message: text,
       to: this.props.room.friend,
-      from: this.props.room.mainUser.nickname,
+      from: this.props.room.user.nickname,
       friendEmail: `${this.props.room.friend}@gmail.com`,
-      mainUserId: this.props.mainUserId
+      userId: this.props.userId
     }
 
     axios.post('/api/message/postMessage', msg)
 
-    this.props.room.mainUser.emit('private message', msg)
+    this.props.room.user.emit('private message', msg)
 
     if (msg.to === msg.from) {
       return
@@ -65,7 +65,7 @@ class ChatRoomListEntry extends Component {
   closeCurrentRoom() {
     let room = {
       friend: this.props.room.friend,
-      mainUser: this.props.room.mainUser
+      user: this.props.room.user
     }
 
     this.props.closeRoom(room)
@@ -89,7 +89,7 @@ class ChatRoomListEntry extends Component {
         </div>
 
         <div className="private-message-area">
-          <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser} />
+          <MessageList messages={this.state.messages} friend={this.props.room.friend} user={this.props.room.user} />
         </div>
 
         <div className="chatroom-inputs">
