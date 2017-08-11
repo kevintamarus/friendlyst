@@ -1,7 +1,7 @@
-module.exports = (state={
+module.exports = (state = {
   friends: []
 }, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'ADD_FRIEND':
       state = Object.assign({}, state, {
         friends: action.payload

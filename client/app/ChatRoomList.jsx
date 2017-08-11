@@ -7,7 +7,7 @@ const ChatRoomList = ({ chatRooms, closeRoom, mainUserId }) => {
     <div className="chatroom-list-container">
       {
         chatRooms.map(chatRoom => {
-          return <ChatRoomListEntry room={chatRoom} closeRoom={closeRoom} mainUserId={mainUserId}/>
+          return <ChatRoomListEntry room={chatRoom} closeRoom={closeRoom} mainUserId={mainUserId} />
         })
       }
     </div>

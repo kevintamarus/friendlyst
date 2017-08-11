@@ -1,11 +1,11 @@
-module.exports = (state={
+module.exports = (state = {
   chatRooms: []
 }, action) => {
-  switch(action.type) {
-    
+  switch (action.type) {
+
     case 'ADD_ROOM':
       let rooms = state.chatRooms
-      for (let i = 0; i < state.chatRooms.length; i ++) {
+      for (let i = 0; i < state.chatRooms.length; i++) {
         if (rooms[i].friend === action.payload.friend && rooms[i].mainUser === action.payload.mainUser) {
           return state
         }
@@ -16,7 +16,7 @@ module.exports = (state={
       return state
 
     case 'CLOSE_ROOM':
-      let remainingRooms = [...state.chatRooms].filter((room)=> {
+      let remainingRooms = [...state.chatRooms].filter((room) => {
         if (room.friend === action.payload.friend && room.mainUser === action.payload.mainUser) {
           return false
         }

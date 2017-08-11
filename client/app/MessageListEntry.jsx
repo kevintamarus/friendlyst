@@ -16,10 +16,10 @@ const MessageListEntry = ({ message, friend, mainUser }) => {
     )
   }
   return (
-      <div>
-        
-      </div>
-    )
+    <div>
+
+    </div>
+  )
 }
 
 export default MessageListEntry

@@ -5,15 +5,17 @@ module.exports = {
 
   addFriend: ((req, res) => {
     User.find({
-      where: {email: req.body.friend}
-    })
+        where: {
+          email: req.body.friend
+        }
+      })
       .then(friend => {
         Friend.findOrCreate({
-          where: {
-            userId: req.body.userId,
-            buddyId: friend.dataValues.id
-          }
-        })
+            where: {
+              userId: req.body.userId,
+              buddyId: friend.dataValues.id
+            }
+          })
           .spread((connected, created) => {
             if (created) {
               res.status(201).send(connected);
@@ -28,16 +30,18 @@ module.exports = {
 
   deleteFriend: ((req, res) => {
     User.find({
-      where: {email: req.body.friend}
-    })
+        where: {
+          email: req.body.friend
+        }
+      })
       .then(friend => {
         console.log(friend);
         Friend.destroy({
-          where: {
-            userId: req.body.userId,
-            buddyId: friend.dataValues.id
-          }
-        })
+            where: {
+              userId: req.body.userId,
+              buddyId: friend.dataValues.id
+            }
+          })
           .then(num => res.status(200).send(`Friend deleted!`))
           .catch(err => res.status(500).send(`Error deleting friend! ${err}`))
       })
@@ -46,8 +50,10 @@ module.exports = {
 
   getAllFriend: ((req, res) => {
     Friend.findAll({
-      where: {userId: req.query.userId}
-    })
+        where: {
+          userId: req.query.userId
+        }
+      })
       .then(friends => res.status(200).send(friends))
       .catch(err => res.status(500).send(`Error finding friends! ${err}`))
   })
