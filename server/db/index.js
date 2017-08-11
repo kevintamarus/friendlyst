@@ -45,6 +45,9 @@ UserComment.belongsTo(Post);
 Post.hasMany(Like);
 Like.belongsTo(Post);
 
+UserComment.hasMany(Like);
+Like.belongsTo(UserComment);
+
 User.sync();
 Friend.sync();
 Post.sync();
