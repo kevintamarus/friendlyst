@@ -57,8 +57,12 @@ const mapDispatchToProps = (dispatch) => {
 
 
 class App extends Component {
-    
+	
 	componentDidMount() {
+
+		// auth.handleAuthentication((auth)=>console.log('yoyoyyo', auth));
+		auth.handleAuthentication();
+		
 		this.socket = io('/')
 
 		let username = prompt('enter username')
