@@ -6,7 +6,7 @@ import Time from 'react-time';
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
-		//so you need another . to access its properties
+	//so you need another . to access its properties
 	return {
 		comments: state.postReducer.comments
 	}
@@ -35,7 +35,7 @@ class FeedListEntry extends Component {
 
 	handleCommentInput(input) {
 		let text = input.target.value;
-		this.setState({commentText: text});
+		this.setState({ commentText: text });
 	}
 
 	submitComment() {
@@ -44,13 +44,13 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
-	let currentTime = new Date();
+		let currentTime = new Date();
 		return (
 			<div className="feed-entry">
 				<div id="post-container">
 					<div className="userinfo">
-						<img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8" height="50" width="50"/>
-							<span className="username">{this.props.mainUser.nickname}</span>
+						<img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8" height="50" width="50" />
+						<span className="username">{this.props.mainUser.nickname}</span>
 					</div>
 				</div>
 
@@ -60,11 +60,11 @@ class FeedListEntry extends Component {
 				</div>
 
 				<div>
-					<FeedListEntryLikes/>
+					<FeedListEntryLikes />
 				</div>
 
 				<ul>
-					 {/* {this.comments.map((comment, key) =>
+					{/* {this.comments.map((comment, key) =>
 						<FeedListEntryComments comment={comment} key={key}/>)}  */}
 				</ul>
 

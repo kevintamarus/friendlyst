@@ -19,20 +19,20 @@ class FriendList extends Component {
 
   render() {
 
-    return(
+    return (
       <div>
         <div className="friend-list-container">
           <p onClick={this.minimize}>Chat</p>
           <div className="friend-list">
             {
               this.props.friends.map((friend) => {
-                return <FriendListEntry friend={friend} appendChatRoom={this.props.appendChatRoom} mainUser={this.props.mainUser}/>
+                return <FriendListEntry friend={friend} appendChatRoom={this.props.appendChatRoom} mainUser={this.props.mainUser} />
               })
             }
           </div>
         </div>
 
-        <div className="friend-list-container-minimize" style={{display:'none'}} onClick={this.maximize}>
+        <div className="friend-list-container-minimize" style={{ display: 'none' }} onClick={this.maximize}>
           <p onClick={this.maximize}>Chat ({this.props.friends.length})</p>
         </div>
       </div>

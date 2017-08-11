@@ -11,17 +11,17 @@ class FriendListEntry extends Component {
       mainUser: this.props.mainUser,
       friend: this.props.friend,
     }
-    
+
     this.props.appendChatRoom(room)
   }
-  
+
   render() {
     return (
-        <div className="friend-container" onClick={this.openChatRoom.bind(this)}>
-            {this.props.friend}         
-        </div>
+      <div className="friend-container" onClick={this.openChatRoom.bind(this)}>
+        {this.props.friend}
+      </div>
     )
   }
-} 
+}
 
 export default FriendListEntry
