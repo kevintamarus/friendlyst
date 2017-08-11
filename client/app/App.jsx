@@ -62,7 +62,6 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-
 class App extends Component {
 
 	constructor(props) {
@@ -74,8 +73,9 @@ class App extends Component {
 
 	componentDidMount() {
 
-		// auth.handleAuthentication((auth)=>console.log('yoyoyyo', auth));
-		auth.handleAuthentication();
+		auth.handleAuthentication(this.props.newUser);
+		console.log(auth)
+		
 
 		this.socket = io('/')
 
@@ -83,16 +83,6 @@ class App extends Component {
 		this.socket.nickname = username
 
 		this.socket.emit('new user', username)
-
-		axios.post('/api/user/addUser', {
-			nickname: username,
-			email: `${username}@gmail.com`,
-			password: '123'
-		})
-			.then(({ data }) => {
-				console.log(data)
-				this.props.newUser(data)
-			})
 
 		//add one person to the list (receives socket back from server)
 		this.socket.on('user created', usernames => {
@@ -103,7 +93,7 @@ class App extends Component {
 		this.socket.on('user disconnected', usernames => {
 			this.props.friendOffline(usernames)
 		})
-
+		
 		//get all previous posts from database
 		// let email = 'kevin'
 		// axios.get(`api/post/getAllUserPost?email=${email}`)
@@ -226,7 +216,7 @@ class App extends Component {
 		return (
 			<div>
 				<Nav />
-				<div className="home-page-container">
+				<div className="home-page-container" onClick={() => console.log(this.props.user)}>
 					<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
 					<button onClick={this.submitPost.bind(this)}>Post</button>
 					<input type="text" id="i" />
