@@ -97,7 +97,8 @@ class App extends Component {
 		let email = 'kevin'
 		axios.get(`api/post/getAllUserPost?email=${email}`)
 		.then( (data) => {
-			console.log('this is the data', data);
+			let dataArray = data.data;
+			this.setState({previousPosts: dataArray});
 		})
 		.catch(err => {
 			console.log(err, 'could not get data');
@@ -184,7 +185,7 @@ class App extends Component {
 		let email = 'kevin'
 		axios.post('api/post/postPost', {
 			email: email,
-			message: $('post-area').text()
+			message: post.content
 		})
 		.then(data => {
 			console.log(data);
@@ -193,8 +194,8 @@ class App extends Component {
 			console.log(err);
 		})
 
-		this.props.newPost(post);
-		console.log(post)
+		// this.props.newPost(post);
+		// console.log(post)
 	}
     
     logout() {
@@ -208,9 +209,11 @@ class App extends Component {
 						<div className="home-page-container">
 							<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
 							<button onClick={this.submitPost.bind(this)}>Post</button>
-							<input type="text" id="i"/>
-							<button onClick={this.login}>Y</button>
-							<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket}/>
+							<div>
+								<input type="text" id="i"/>
+								<button onClick={this.login}>Y</button>
+							</div>
+							<FeedList previousPosts={this.state.previousPosts} posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket}/>
 						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
 						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>

@@ -33,6 +33,19 @@ class FeedListEntry extends Component {
 		this.submitComment = this.submitComment.bind(this);
 	}
 
+	componentDidMount() {
+		//get all previous posts from database
+		let email = 'kevin'
+		axios.get(`api/post/getAllUserPost?email=${email}`)
+		.then( (data) => {
+			let dataArray = data.data;
+			this.setState({previousPosts: dataArray});
+		})
+		.catch(err => {
+			console.log(err, 'could not get data');
+		})
+	}
+
 	handleCommentInput(input) {
 		let text = input.target.value;
 		this.setState({commentText: text});
@@ -44,7 +57,8 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
-	let currentTime = new Date();
+	console.log(this.props.post, 'this is the post');
+		let currentTime = new Date();
 		return (
 			<div className="feed-entry">
 				<div id="post-container">
@@ -55,8 +69,8 @@ class FeedListEntry extends Component {
 				</div>
 
 				<div className="post-time">
-					<div>{this.props.post.timeStamp}</div>
-					<div className="post">{this.props.post.content}</div>
+					<div>{this.props.post.updatedAt}</div>
+					<div className="post">{this.props.post.message}</div>
 				</div>
 
 				<div>
