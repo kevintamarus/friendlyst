@@ -80,7 +80,6 @@ class App extends Component {
 
 		auth.handleAuthentication(this.props.newUser);
 		console.log(auth)
-		
 
 		this.socket = io('/')
 
@@ -88,15 +87,6 @@ class App extends Component {
 		this.socket.nickname = username
 
 		this.socket.emit('new user', username)
-
-		axios.post('/api/user/addUser', {
-			nickname: username,
-			email: `${username}@gmail.com`
-		})
-			.then(({ data }) => {
-				console.log(data)
-				this.props.newUser(data)
-			})
 
 		//add one person to the list (receives socket back from server)
 		this.socket.on('user created', usernames => {
