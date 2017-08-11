@@ -49,14 +49,14 @@ class FeedListEntry extends Component {
 			<div className="feed-entry">
 				<div id="post-container">
 					<div className="userinfo">
-						<img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8" height="50" width="50" />
+						<img src={this.props.mainUser.profilePicture} height="50" width="50" />
 						<span className="username">{this.props.mainUser.nickname}</span>
 					</div>
 				</div>
 
 				<div className="post-time">
-					<div>{this.props.post.timeStamp}</div>
-					<div className="post">{this.props.post.content}</div>
+					<div>{this.props.post.createdAt}</div>
+					<div className="post">{this.props.post.message}</div>
 				</div>
 
 				<div>

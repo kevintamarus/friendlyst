@@ -89,6 +89,15 @@ class App extends Component {
 
 		this.socket.emit('new user', username)
 
+		axios.post('/api/user/addUser', {
+			nickname: username,
+			email: `${username}@gmail.com`
+		})
+			.then(({ data }) => {
+				console.log(data)
+				this.props.newUser(data)
+			})
+
 		//add one person to the list (receives socket back from server)
 		this.socket.on('user created', usernames => {
 			this.props.newFriend(usernames)
@@ -111,20 +120,6 @@ class App extends Component {
 		// .catch(err => {
 		// 	console.log(err, 'could not get data');
 		// })
-		// axios.post('api/message/postMessage', {
-		// 	msg: 'hello',
-		// 	from: 1,
-		// 	to: 'james'
-		// })
-		// 	.then(res => console.log(res))
-
-		// axios.get('api/message/getAllMessage', {
-		// 	params: {
-		// 		mainUser: 'joejoe',
-		// 		friend: 'james'
-		// 	}
-		// })
-		// 	.then(res => console.log(res))
 	}
 
 	authlogin(email, password, callback) {
@@ -198,26 +193,17 @@ class App extends Component {
 	}
 
 	submitPost() {
-		//send username along with post
-		let post = {
-			content: $('#post-area').text(),
-			timeStamp: new Date().toLocaleString()
-		}
-		//should send post request to server
-		let email = 'kevin'
 		axios.post('api/post/postPost', {
-			email: email,
-			message: $('post-area').text()
+			email: this.props.user.email,
+			message: $('#post-area').val()
 		})
-			.then(data => {
+			.then(({ data }) => {
 				console.log(data);
+				this.props.newPost(data);
 			})
 			.catch(err => {
 				console.log(err);
 			})
-
-		this.props.newPost(post);
-		console.log(post)
 	}
 
 	render() {
@@ -225,10 +211,11 @@ class App extends Component {
 			<div>
 				<Nav />
 				<div className="home-page-container" onClick={() => console.log(this.props.user)}>
-					<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
+					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
+					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
 					<button onClick={this.submitPost.bind(this)}>Post</button>
 					<input type="text" id="i" />
-					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket} />
+					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket} />
 				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} mainUserId={this.props.user.id} />
