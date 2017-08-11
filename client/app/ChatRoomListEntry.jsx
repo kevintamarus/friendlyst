@@ -21,7 +21,6 @@ class ChatRoomListEntry extends Component {
 
   
   componentDidMount() {
-    console.log('hit')
     this.props.room.mainUser.on('private message received', msg => {
       this.setState({
         messages: [...this.state.messages, msg]

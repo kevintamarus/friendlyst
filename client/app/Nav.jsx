@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Notification from './Notification.jsx'
 
 const Nav = (props) => {
   return (
     <div id="nav-bar">
       <Link to="/"><button>Home</button></Link>
       <Link to="/profile"><button>Profile</button></Link>
+      <Notification />
       <button onClick={props.login}>Logout</button>
       <form className="search">
           <input type="text" />

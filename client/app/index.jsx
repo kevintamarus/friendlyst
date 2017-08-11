@@ -10,12 +10,14 @@ import postsReducer from './reducer/postReducer.js'
 import friendsReducer from './reducer/friendsReducer.js'
 import userReducer from './reducer/userReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
+import notificationReducer from './reducer/notificationReducer.js'
 
 const reducers = combineReducers({
    postsReducer,
    friendsReducer,
    userReducer,
-   chatRoomReducer
+   chatRoomReducer,
+   notificationReducer
 })
 
 const store = createStore(reducers)
