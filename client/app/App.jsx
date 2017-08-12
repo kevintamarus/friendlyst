@@ -6,8 +6,9 @@ import Nav from './Nav.jsx';
 import FeedList from './FeedList.jsx';
 import Auth from '../Auth/Auth';
 import FriendList from './FriendList.jsx';
+import FriendProfile from './FriendProfile.jsx';
 import ChatRoomList from './ChatRoomList.jsx';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const auth = new Auth();
 
@@ -143,11 +144,11 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				{/* <BrowserRouter>
+				<BrowserRouter>
 					<Switch>
-						<Route exact path={"/" + friend} component={FriendProfile} />
+						<Route exact path={"/" + this.props.friend} component={FriendProfile} />
 					</Switch>
-				</BrowserRouter> */}
+				</BrowserRouter>
 				<Nav />
 				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
