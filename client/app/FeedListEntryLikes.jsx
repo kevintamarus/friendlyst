@@ -23,10 +23,11 @@ class FeedListEntryLikes extends React.Component {
   }
 
   checkLike() {
-		let email = 'kevin'
-		let postId = this.props.id;
-		axios.post('api/like/like', {
-			email: email,
+    console.log('like is clicked');
+		let userId = this.props.user.id;
+		let postId = this.props.post.id;
+		axios.post('api/like/likePost', {
+			userId: userId,
 			postId: postId,
 		})
 		.then(data => {

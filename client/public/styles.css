@@ -91,9 +91,8 @@ body {
   width: 100%;
 }
 
-.post-time {
-  text-align: left;
-  clear: both;
+.like-section {
+  margin-top: 50px;
 }
 
 .friend-list-container-minimize {
