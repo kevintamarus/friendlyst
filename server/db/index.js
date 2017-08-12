@@ -34,7 +34,10 @@ const UserComment = db.define('userComment', {
   }
 });
 
-const Like = db.define('like', {});
+const Like = db.define('like', {
+  postId: {type: Sequelize.INTEGER, foreignKey: true},
+  userId: {type: Sequelize.INTEGER, foreignKey: true}
+});
 
 const Message = db.define('message', {
   message: {type: Sequelize.TEXT, allowNull: false},

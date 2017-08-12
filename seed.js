@@ -97,9 +97,19 @@ models.User.sync({
       .catch(err => console.log(`Error creating post data! ${err}`))
   })
   .then(() => {
-    models.UserComment.sync({
-      force: true
-    })
+    models.UserComment.sync({force: true})
+    .then(() => {
+        models.UserComment.bulkCreate([
+          {
+            comment: 'I am commenting on this',
+            postId: 1
+          },
+          {
+            comment: 'test comment test comment',
+            postId: 1
+          }
+        ])
+      })
   })
   .then(() => {
     models.Like.sync({
