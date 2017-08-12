@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
-import FriendProfileFeedListEntry from './FriendProfileFeedListEntry.jsx'
+// import FriendProfileFeedListEntry from './FriendProfileFeedListEntry.jsx'
 
 const mapStateToProps = (state) => {
   return {
@@ -28,7 +28,7 @@ class FriendProfile extends Component {
           Email: {this.props.friend.email}
         </div>
          <div>
-          {this.props.posts.map((post, key) => <FriendProfileFeedListEntry post={post} key={post.id} friend={this.props.friend} />)}
+          {/* {this.props.posts.map((post, key) => <FriendProfileFeedListEntry post={post} key={post.id} friend={this.props.friend} />)} */}
         </div> 
       </div>
     )

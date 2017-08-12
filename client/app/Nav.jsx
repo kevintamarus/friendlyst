@@ -47,8 +47,8 @@ class Nav extends Component {
       <Notification />
       <button onClick={() => auth.logout()}>Logout</button>
       <form className="search">
-        <input type="text" value={this.state.value} onChange={this.handleChange}/>
-        <Link to={"/" + this.state.value}><input type="submit" value="Search"></input></Link>
+        <input type="text" onChange={this.handleChange}/>
+        <Link to={"/" + this.props.friend}><input type="submit" value="Search"></input></Link>
       </form>
     </div>
     );
