@@ -5,19 +5,23 @@ models.User.sync({force: true})
     models.User.bulkCreate([
       {
         email: 'joejoe',
-        password: 'joejoe'
+        password: 'joejoe',
+        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
       },
       {
         email: 'james',
-        password: 'james'
+        password: 'james',
+        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
       },
       {
         email: 'taeminpak',
-        password: 'taeminpak'
+        password: 'taeminpak',
+        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
       },
       {
         email: 'kevin',
-        password: 'kevin'
+        password: 'kevin',
+        profilePicture: 'https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8'
       }
     ])
   })

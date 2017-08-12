@@ -96,9 +96,20 @@ class App extends Component {
 		//get all previous posts from database
 		let email = 'kevin'
 		axios.get(`api/post/getAllUserPost?email=${email}`)
-		.then( (data) => {
+		.then( (data, name) => {
+			console.log(name);
 			let dataArray = data.data;
 			this.setState({previousPosts: dataArray});
+		})
+		.catch(err => {
+			console.log(err, 'could not get data');
+		})
+
+		axios.get(`api/post/getAllFriendPost/?email=${email}`)
+		.then( (data, name) => {
+			console.log(name);
+			let dataArray = data.data;
+			this.setState({previousPosts: this.state.previousPosts.concat(dataArray)});
 		})
 		.catch(err => {
 			console.log(err, 'could not get data');

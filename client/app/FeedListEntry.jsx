@@ -30,6 +30,8 @@ class FeedListEntry extends Component {
 		this.state = {
 			comments: [],
 			commentText: '',
+			name: '',
+			imageLink: ''
 		}
 		this.handleCommentInput = this.handleCommentInput.bind(this);
 		this.submitComment = this.submitComment.bind(this);
@@ -38,10 +40,10 @@ class FeedListEntry extends Component {
 	componentDidMount() {
 		//get all previous posts from database
 		let email = 'kevin'
-		axios.get(`api/post/getAllUserPost?email=${email}`)
+		axios.get(`api/user/getUser?email=${email}`)
 		.then( (data) => {
-			let dataArray = data.data;
-			this.setState({previousPosts: dataArray});
+			this.setState({name: data.data.email});
+			this.setState({imageLink: data.data.profilePicture});
 		})
 		.catch(err => {
 			console.log(err, 'could not get data');
@@ -76,13 +78,12 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
-		let currentTime = new Date();
 		return (
 			<div className="feed-entry">
 				<div id="post-container">
 					<div className="userinfo">
-						<img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8" height="50" width="50"/>
-							<span className="username">{this.props.mainUser.nickname}</span>
+						<img src={this.state.imageLink} height="50" width="50"/>
+							<span className="username">{this.state.name}</span>
 					</div>
 				</div>
 
