@@ -1,21 +1,65 @@
-const Comment = require('../db/index').Like;
-const Post = require('../db/index').Post;
-const User = require('../db/index').User
+const Like = require('../db/index').Like;
 
 module.exports = {
 
-  like: ((req, res) => {
-    User.find({
-      where: {email: req.body.email}
+  likePost: ((req, res) => {
+    Like.findOrCreate({
+      where: {
+        userId: req.body.userId,
+        postId: req.body.postId
+      }
     })
-    .then(user => {
-      Comment.create({
-        postId: req.body.postId,
-        userId: user.id
+      .spread((liked, created) => {
+        if (created) {
+          res.status(201).send(`Post liked!`)
+        } else {
+          res.status(500).send(`Already liked post!`)
+        }
       })
-      .then(like => res.status(201).send('liked!'))
-      .catch(err => res.status(500).send(`an error occured, couldn't like! ${err}`))
+      .catch(err => res.status(500).send(`Error liking post! ${err}`))
+  }),
+
+  likeComment: ((req, res) => {
+    Like.findOrCreate({
+      where: {
+        userId: req.body.userId,
+        userCommentId: req.body.userCommentId
+      }
     })
-    .catch(err => res.status(500).send(`Can't find user! ${err}`))
+      .spread((liked, created) => {
+        if (created) {
+          res.status(201).send(`Comment liked!`)
+        } else {
+          res.status(500).send(`Already liked comment!`)
+        }
+      })
+      .catch(err => res.status(500).send(`Error liking comment! ${err}`))
+  }),
+
+  unlikePost: ((req, res) => {
+    Like.destroy({
+      where: {
+        userId: req.body.userId,
+        postId: req.body.postId
+      }
+    })
+      .then((num) => {
+        return num ? res.status(200).send(`Post unliked!`) : res.status(500).send(`Post like doesn't exist!`)
+      })
+      .catch(err => res.status(500).send(`Can't unlike post! ${err}`))
+  }),
+
+  unlikeComment: ((req, res) => {
+    Like.destroy({
+      where: {
+        userId: req.body.userId,
+        userCommentId: req.body.userCommentId
+      }
+    })
+      .then((num) => {
+        return num ? res.status(200).send(`User comment unliked!`) : res.status(500).send(`User comment like doesn't exist!`)
+      })
+      .catch(err => res.status(500).send(`Can't unlike user comment! ${err}`))
   })
+
 };

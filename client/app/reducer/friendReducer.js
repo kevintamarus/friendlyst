@@ -1,10 +1,10 @@
 module.exports = (state = {
-  comments: []
+  friend: {}
 }, action) => {
   switch (action.type) {
-    case 'NEW_POST':
+    case 'NEW_FRIEND':
       state = Object.assign({}, state, {
-        comments: [...state.comments, action.payload]
+        friend: action.payload
       })
 
       return state

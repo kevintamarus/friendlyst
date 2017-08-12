@@ -1,13 +1,13 @@
 import React from 'react'
 import ChatRoomListEntry from './ChatRoomListEntry.jsx'
 
-const ChatRoomList = ({ chatRooms, closeRoom }) => {
-  //each room will contain the mainUser socket and the friend username
+const ChatRoomList = ({ chatRooms, closeRoom, user }) => {
+  //each room will contain the user socket and the friend username
   return (
     <div className="chatroom-list-container">
       {
         chatRooms.map(chatRoom => {
-          return <ChatRoomListEntry room={chatRoom} closeRoom={closeRoom}/>
+          return <ChatRoomListEntry room={chatRoom} closeRoom={closeRoom} user={user} />
         })
       }
     </div>

@@ -7,92 +7,81 @@ import FeedList from './FeedList.jsx';
 import Auth from '../Auth/Auth';
 import FriendList from './FriendList.jsx';
 import ChatRoomList from './ChatRoomList.jsx';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 const auth = new Auth();
 
 const mapStateToProps = (state) => {
-  //state.SOMETHING is the reducer
-  //so you need another . to access its properties
-  return {
-    posts: state.postsReducer.posts,
-    friends: state.friendsReducer.friends,
+	//state.SOMETHING is the reducer
+	//so you need another . to access its properties
+	return {
+		posts: state.postsReducer.posts,
+		friends: state.friendsReducer.friends,
 		chatRooms: state.chatRoomReducer.chatRooms,
-		user: state.userReducer.user
-  }
+		user: state.userReducer.user,
+		friend: state.friendReducer.friend
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        newPost(post) {
-            dispatch({
-                type: 'NEW_POST',
-                payload: post
-            })
-        },
-        appendChatRoom(room) {
-            dispatch({
-                type: 'ADD_ROOM',
-                payload: room
-            })
-        },
-        newFriend(friend) {
-            dispatch({
-                type: 'ADD_FRIEND',
-                payload: friend
-            })
-        },
-        friendOffline(friendList) {
-          dispatch({
-            type: 'FRIEND_OFFLINE',
-            payload: friendList
-          })
-        },
-        closeRoom(room) {
-					dispatch({
-						type: 'CLOSE_ROOM',
-						payload: room
-					})
-				},
-				newUser(userInfo) {
-					dispatch({
-						type: 'NEW_USER',
-						payload: userInfo
-					})
-				}
-    }
+	return {
+		newPost(post) {
+			dispatch({
+				type: 'NEW_POST',
+				payload: post
+			})
+		},
+		appendChatRoom(room) {
+			dispatch({
+				type: 'ADD_ROOM',
+				payload: room
+			})
+		},
+		newFriend(friend) {
+			dispatch({
+				type: 'ADD_FRIEND',
+				payload: friend
+			})
+		},
+		friendOffline(friendList) {
+			dispatch({
+				type: 'FRIEND_OFFLINE',
+				payload: friendList
+			})
+		},
+		closeRoom(room) {
+			dispatch({
+				type: 'CLOSE_ROOM',
+				payload: room
+			})
+		},
+		newUser(userInfo) {
+			dispatch({
+				type: 'NEW_USER',
+				payload: userInfo
+			})
+		},
+		newNotification() {
+			dispatch({
+				type: 'NEW_NOTIFICATION'
+			})
+		}
+	}
 }
 
-
 class App extends Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			previousPosts : []
+			previousPosts: []
 		}
 	}
-    
+
 	componentDidMount() {
-		this.socket = io('/')
-
-		let username = prompt('enter username')
-		this.socket.nickname = username
-		
-		this.socket.emit('new user', username)
-		
-		//add one person to the list (receives socket back from server)
-		this.socket.on('user created', usernames => {
-			this.props.newFriend(usernames)
-		})
-
-		//taking user off from current list
-		this.socket.on('user disconnected', usernames => {
-			this.props.friendOffline(usernames)
-		})
-
-		this.socket.on('private message received', msg => {
-			console.log(msg)
-		})
-
+		auth.handleAuthentication(this.props.newUser);
+		console.log(auth)
+    
 		//get all previous posts from database
 		let email = 'kevin'
 		axios.get(`api/post/getAllUserPost?email=${email}`)
@@ -114,119 +103,62 @@ class App extends Component {
 		})
 	}
 
-	authlogin(email, password, callback) {
-			var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-			postgres(conString, function (err, client, done) {
-					if (err) {
-					console.log('could not connect to postgres db', err);
-					return callback(err);
-					}
-											
-					var query = 'SELECT id, nickname, email, password ' +
-					'FROM users WHERE email = $1';
+	manageChat() {
 
-					client.query(query, [email], function (err, result) {
-					// NOTE: always call `done()` here to close
-					// the connection to the database
-					done();
+		this.socket = io('/');
 
-					if (err) {
-							console.log('error executing query', err);
-							return callback(err);
-					}
+		let username = this.props.user.nickname
+		this.socket.nickname = username
 
-					if (result.rows.length === 0) {
-							return callback(new WrongUsernameOrPasswordError(email));
-					}
+		this.socket.emit('new user', username)
 
-					var user = result.rows[0];
+		//add one person to the list (receives socket back from server)
+		this.socket.on('user created', usernames => {
+			this.props.newFriend(usernames)
+		})
 
-					bcrypt.compare(password, user.password, function (err, isValid) {
-							if (err) {
-							callback(err);
-							} else if (!isValid) {
-							callback(new WrongUsernameOrPasswordError(email));
-							} else {
-							callback(null, {
-											id: user.id,
-											nickname: user.nickname,
-											email: user.email
-							});
-							}
-					});
-					});
-			});
-	}
-
-	authcreate(user, callback) {
-			var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-			postgres(conString, function (err, client, done) {
-					if (err) {
-					console.log('could not connect to postgres db', err);
-					return callback(err);
-							}
-					bcrypt.hash(user.password, 10, function (err, hashedPassword) {
-					var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
-					client.query(query, [user.email, hashedPassword], function (err, result) {
-					// NOTE: always call `done()` here to close
-					// the connection to the database
-					done();
-					if (err) {
-					console.log('error executing query', err);
-					return callback(err);
-					}
-					if (result.rows.length === 0) {
-					return callback();
-					}
-					callback(null);
-					});
-					});
-			});
+		this.socket.on('private message received', () => {
+			this.props.newNotification()
+		})
+		//taking user off from current list
+		this.socket.on('user disconnected', usernames => {
+			this.props.friendOffline(usernames)
+		})
 	}
 
 	submitPost() {
-	//send username along with post
-		let post = {
-			content:$('#post-area').text(),
-			timeStamp: new Date().toLocaleString()
-		}
-		//should send post request to server
-		let email = 'kevin'
 		axios.post('api/post/postPost', {
-			email: email,
-			message: post.content
+			email: this.props.user.email,
+			message: $('#post-area').val()
 		})
-		.then(data => {
-			console.log(data);
-		})
-		.catch(err => {
-			console.log(err);
-		})
-
-		// this.props.newPost(post);
-		// console.log(post)
-	}
-    
-    logout() {
-		auth.logout();
+			.then(({ data }) => {
+				console.log(data);
+				this.props.newPost(data);
+			})
+			.catch(err => {
+				console.log(err);
+			})
 	}
 
 	render() {
 		return (
-				<div> 
-						<Nav />
-						<div className="home-page-container">
-							<div contentEditable='true' id="post-area" data-text="What's on your mind?"></div>
-							<button onClick={this.submitPost.bind(this)}>Post</button>
-							<div>
-								<input type="text" id="i"/>
-								<button onClick={this.login}>Y</button>
-							</div>
-							<FeedList previousPosts={this.state.previousPosts} posts={this.props.posts}/>
-						</div>
-						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
-						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
+			<div>
+				<BrowserRouter>
+					<Switch>
+						<Route exact path={"/" + friend} component={FriendProfile} />
+					</Switch>
+				</BrowserRouter>
+				<Nav />
+				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
+					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
+					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
+					<button onClick={this.submitPost.bind(this)}>Post</button>
+					<input type="text" id="i" />
+					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
 				</div>
+				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.socket} />
+				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
+			</div>
 		)
 	}
 }

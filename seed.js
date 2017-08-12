@@ -1,67 +1,66 @@
 const models = require('./server/db/index');
 
-models.User.sync({force: true})
+models.User.sync({
+    force: true
+  })
   .then(() => {
-    models.User.bulkCreate([
-      {
+    models.User.bulkCreate([{
         email: 'joejoe',
-        password: 'joejoe',
-        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
+        nickname: 'joejoe'
       },
       {
         email: 'james',
-        password: 'james',
-        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
+        nickname: 'james'
       },
       {
         email: 'taeminpak',
-        password: 'taeminpak',
-        profilePicture: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
+        nickname: 'taeminpak'
       },
       {
         email: 'kevin',
-        password: 'kevin',
-        profilePicture: 'https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8'
+        nickname: 'kevin'
       }
     ])
   })
   .then(() => {
-    models.Friend.sync({force: true})
+    models.Friend.sync({
+        force: true
+      })
       .then(() => {
-        models.Friend.bulkCreate([
-          {
-            id: 1,
+        models.Friend.bulkCreate([{
             userId: 1,
             buddyId: 4
           },
           {
-            id: 2,
             userId: 1,
             buddyId: 3
           },
           {
-            id: 3,
             userId: 2,
             buddyId: 3
           },
           {
-            id: 4,
             userId: 3,
             buddyId: 2
           },
           {
-            id: 5,
             userId: 4,
             buddyId: 1
+          },
+          {
+            userId: 4,
+            buddyId: 2
           }
         ])
       })
+      .catch(err => console.log(`Error creating friend data! ${err}`))
   })
   .then(() => {
-    models.Post.sync({force: true})
+    models.Post.sync({
+        force: true
+      })
       .then(() => {
-        models.Post.bulkCreate([
-          {
+        models.Post.bulkCreate([{
             message: 'Here we go!',
             userId: 4
           },
@@ -95,6 +94,7 @@ models.User.sync({force: true})
           }
         ])
       })
+      .catch(err => console.log(`Error creating post data! ${err}`))
   })
   .then(() => {
     models.UserComment.sync({force: true})
@@ -112,9 +112,13 @@ models.User.sync({force: true})
       })
   })
   .then(() => {
-    models.Like.sync({force: true})
+    models.Like.sync({
+      force: true
+    })
   })
   .then(() => {
-    models.Message.sync({force: true})
+    models.Message.sync({
+      force: true
+    })
   })
   .catch(err => console.log(`Error seeding db! ${err}`))

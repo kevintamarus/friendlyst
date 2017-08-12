@@ -1,30 +1,53 @@
 const Message = require('../db/index').Message;
+const User = require('../db/index').User;
 
 module.exports = {
+
   postMessage: ((req, res) => {
-    Message.create({
-      where: {
-        userId: req.query.from,
-        messagePartnerId: req.body.to,
-        message: msg
-      }
+    User.find({
+      where: {email: req.body.friendEmail}
     })
-      .then(message => {
-        res.status(201).send(message)
-      })
-      .catch(err => res.status(500).send(`Can't post message! ${err}`))
+    .then(friend => {
+        Message.create({
+          to: req.body.to,
+          from: req.body.from,
+          userId: req.body.user,
+          partnerId: friend.dataValues.id,
+          message: req.body.message
+        })
+        .then(message => {
+          res.status(201).send(message)
+        })
+        .catch(err => res.status(500).send(`Can't post message! ${err}`))
+    })
+    .catch(err => res.status(500).send(`Cant find user! ${err}`))
   }),
 
   getAllMessage: ((req, res) => {
-    Message.findAll({
-      where: {
-        userId: req.query.from,
-        messagePartnerId: req.query.to
-      }
-        .then(messages => {
-          res.status(200).send(messages)
-        })
-        .catch(err => res.status(500).send(`Can't get messages! ${err}`))
-    })
+
+    User.findAll({
+        where: {
+          email: [req.query.userEmail, req.query.friendEmail]
+        }
+      })
+      .then(users => {
+        // console.log(users)
+        users = users.map(user => user.dataValues.id)
+        Message.findAll({
+            where: {
+              userId: users,
+              partnerId: users
+            },
+            order: [
+              ['createdAt', 'ASC']
+            ]
+          })
+          .then(messages => messages.filter(message => message.userId !== message.partnerId))
+          .then(messages => res.status(200).send(messages))
+          .catch(err => res.status(500).send(`Can't get messages! ${err}`))
+
+      })
+      .catch(err => res.status(500).send(`User can't be found! ${err}`))
   })
+
 }

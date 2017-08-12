@@ -12,19 +12,15 @@ class FeedListEntryLikes extends React.Component {
     this.checkLike = this.checkLike.bind(this);
   }
 
-  componentDidMount() {
-
+  handleClickLike() {
+    if (this.state.likes === 0) {
+      this.setState({ likes: this.state.likes + 1 });
+      this.setState({ userLike: 'Kevin likes this' });
+    } else {
+      this.setState({ likes: this.state.likes - 1 })
+      this.setState({ userLike: '' });
+    }
   }
-
-  // handleClickLike() {
-  //   if(this.state.likes === 0) {
-  //     this.setState({ likes: this.state.likes + 1});
-  //     this.setState({ userLike: 'Kevin likes this'});
-  //   } else {
-  //     this.setState({ likes: this.state.likes - 1})
-  //     this.setState({ userLike: ''});
-  //   }
-  // }
 
   checkLike() {
 		let email = 'kevin'
@@ -49,7 +45,7 @@ class FeedListEntryLikes extends React.Component {
           {this.state.likes}
         </span>
         <span>
-          <img src="./images/like.jpg" height="25" width="25"/>
+          <img src="./images/like.jpg" height="25" width="25" />
         </span>
         <span>
           {this.state.userLike}

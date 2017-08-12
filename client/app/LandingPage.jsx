@@ -10,90 +10,91 @@ const envPath = path.resolve(__dirname, '../../.env');
 const auth = new Auth();
 
 class LandingPage extends Component {
-  
+
 	authlogin(email, password, callback) {
-			var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-			postgres(conString, function (err, client, done) {
-					if (err) {
-					console.log('could not connect to postgres db', err);
+		var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
+		postgres(conString, function (err, client, done) {
+			if (err) {
+				console.log('could not connect to postgres db', err);
+				return callback(err);
+			}
+
+			var query = 'SELECT id, nickname, email, password ' +
+				'FROM users WHERE email = $1';
+
+			client.query(query, [email], function (err, result) {
+				// NOTE: always call `done()` here to close
+				// the connection to the database
+				done();
+
+				if (err) {
+					console.log('error executing query', err);
 					return callback(err);
-					}
-											
-					var query = 'SELECT id, nickname, email, password ' +
-					'FROM users WHERE email = $1';
+				}
 
-					client.query(query, [email], function (err, result) {
-					// NOTE: always call `done()` here to close
-					// the connection to the database
-					done();
+				if (result.rows.length === 0) {
+					return callback(new WrongUsernameOrPasswordError(email));
+				}
 
+				var user = result.rows[0];
+
+				bcrypt.compare(password, user.password, function (err, isValid) {
 					if (err) {
-							console.log('error executing query', err);
-							return callback(err);
+						callback(err);
+					} else if (!isValid) {
+						callback(new WrongUsernameOrPasswordError(email));
+					} else {
+						callback(null, {
+							id: user.id,
+							nickname: user.nickname,
+							email: user.email
+						});
 					}
-
-					if (result.rows.length === 0) {
-							return callback(new WrongUsernameOrPasswordError(email));
-					}
-
-					var user = result.rows[0];
-
-					bcrypt.compare(password, user.password, function (err, isValid) {
-							if (err) {
-							callback(err);
-							} else if (!isValid) {
-							callback(new WrongUsernameOrPasswordError(email));
-							} else {
-							callback(null, {
-											id: user.id,
-											nickname: user.nickname,
-											email: user.email
-							});
-							}
-					});
-					});
+				});
 			});
+		});
 	}
 
 	authcreate(user, callback) {
-			var conString = process.env.DATABASE_URL;
-			postgres(conString, function (err, client, done) {
-					if (err) {
-					console.log('could not connect to postgres db', err);
-					return callback(err);
-							}
-					bcrypt.hash(user.password, 10, function (err, hashedPassword) {
-					var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
-					client.query(query, [user.email, hashedPassword], function (err, result) {
+		var conString = process.env.DATABASE_URL;
+		postgres(conString, function (err, client, done) {
+			if (err) {
+				console.log('could not connect to postgres db', err);
+				return callback(err);
+			}
+			bcrypt.hash(user.password, 10, function (err, hashedPassword) {
+				var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
+				client.query(query, [user.email, hashedPassword], function (err, result) {
 					// NOTE: always call `done()` here to close
 					// the connection to the database
 					done();
 					if (err) {
-					console.log('error executing query', err);
-					return callback(err);
+						console.log('error executing query', err);
+						return callback(err);
 					}
 					if (result.rows.length === 0) {
-					return callback();
+						return callback();
 					}
 					callback(null);
-					});
-					});
+				});
 			});
+		});
 	}
 
 	login() {
-    auth.login()
-    // this.props.history.push('/home')
-  }
+		auth.login()
+	}
 
 	render() {
 		return (
-      <div> 
-        Welcome to Friendlyst!
-        <button onClick={this.login}>Login</button>
-        <button>Sign Up</button>        
-        <Link to="/home"><button>Home</button></Link>
-      </div>
+			<div>
+				<h2>
+					Welcome to Friendlyst!
+				</h2>
+				<div>
+					<button onClick={this.login}>Login / Sign Up</button>
+				</div>
+			</div>
 		)
 	}
 }

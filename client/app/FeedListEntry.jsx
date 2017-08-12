@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
-		//so you need another . to access its properties
+	//so you need another . to access its properties
 	return {
 		comments: state.postReducer.comments
 	}
@@ -52,7 +52,7 @@ class FeedListEntry extends Component {
 
 	handleCommentInput(input) {
 		let text = input.target.value;
-		this.setState({commentText: text});
+		this.setState({ commentText: text });
 	}
 
 	submitComment() {
@@ -81,35 +81,46 @@ class FeedListEntry extends Component {
 		console.log(this.props.post.userId, 'user ID')
 		return (
 			<div className="feed-entry">
-				<div id="post-container">
+				<div>
+					<div className="post-info">
+						<img src={this.props.user.profilePicture} className="user-img" />
+						<div className="vertical-center">
+							<div>{this.props.user.nickname}</div>
+							<div>{this.props.post.message}</div>
+							<div>{this.props.post.createdAt}</div>
+						</div>
+					</div>
+				</div>
+
+				{/* <div id="post-container">
 					<div className="userinfo">
-						<img src={this.state.imageLink} height="50" width="50"/>
-							<span className="username">{this.state.name}</span>
+						<img src={this.props.user.profilePicture} height="50" width="50" />
+						<span className="username">{this.props.user.nickname}</span>
 					</div>
 				</div>
 
 				<div className="post-time">
-					<div>{this.props.post.updatedAt}</div>
+					<div>{this.props.post.createdAt}</div>
 					<div className="post">{this.props.post.message}</div>
 				</div>
 
 				<div>
-					<FeedListEntryLikes/>
+					<FeedListEntryLikes />
 				</div>
 
 				<ul>
-					 {/* {this.comments.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key}/>)}  */}
-				</ul>
+					 {this.comments.map((comment, key) =>
+						<FeedListEntryComments comment={comment} key={key}/>)}  
+				</ul> */}
 
-				<div>
+				{/* <div>
 					<form>
 						<textarea onChange={(input) => this.handleCommentInput(input)} cols="50" rows="4" name="comment"></textarea>
 						<div>
 							<button type="button" onClick={this.submitComment}>Comment</button>
 						</div>
 					</form>
-				</div>
+				</div> */}
 			</div>
 		)
 	}

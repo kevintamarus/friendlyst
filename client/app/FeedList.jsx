@@ -1,10 +1,10 @@
 import React from 'react'
 import FeedListEntry from './FeedListEntry.jsx'
 
-const FeedList = ({ previousPosts, posts }) => {
+const FeedList = ({ posts, user }) => {
   return (
     <div>
-      {previousPosts.reverse().map((post, key) => <FeedListEntry post={post} key={key} postId={post.id} userId={post.userId}/>)}
+      {posts.map((post, key) => <FeedListEntry post={post} key={post.id} user={user} />)}
     </div>
   )
 }

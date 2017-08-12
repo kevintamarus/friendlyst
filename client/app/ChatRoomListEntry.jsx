@@ -9,46 +9,63 @@ class ChatRoomListEntry extends Component {
     super()
     this.state = {
       value: '',
-      messages: []
+      messages: [],
+      displayStatus: 'block',
+      displayStatusForMinimized: 'none'
     }
   }
 
-  
+  componentWillMount() {
+
+  }
+
+
   componentDidMount() {
-    this.props.room.mainUser.on('private message received', msg => {
-      msg.fromOthers = true
+    this.props.room.user.on('private message received', msg => {
       this.setState({
         messages: [...this.state.messages, msg]
       })
     })
+
+    axios.get('/api/message/getAllMessage', {
+      params: {
+        friendEmail: `${this.props.room.friend}@gmail.com`,
+        userEmail: `${this.props.room.user.nickname}@gmail.com`,
+      }
+    })
+      .then(({ data }) => {
+        this.setState({
+          messages: data
+        })
+      })
   }
 
   sendPrivateMessage(text) {
     let msg = {
-      msg: text,
+      message: text,
       to: this.props.room.friend,
-      from: this.props.room.mainUser.nickname
+      from: this.props.room.user.nickname,
+      friendEmail: `${this.props.room.friend}@gmail.com`,
+      userId: this.props.userId
     }
-    
 
-    this.props.room.mainUser.emit('private message', msg)
-    
+    axios.post('/api/message/postMessage', msg)
+
+    this.props.room.user.emit('private message', msg)
 
     if (msg.to === msg.from) {
       return
-    } 
-
-    axios.post('/api/friend/message', msg)
+    }
 
     this.setState({
-        messages: [...this.state.messages, msg]
+      messages: [...this.state.messages, msg]
     })
   }
 
   closeCurrentRoom() {
     let room = {
       friend: this.props.room.friend,
-      mainUser: this.props.room.mainUser
+      user: this.props.room.user
     }
 
     this.props.closeRoom(room)
@@ -56,27 +73,27 @@ class ChatRoomListEntry extends Component {
 
   handleEnter(e) {
     if (e.target.value.length < 1) {
-      return 
+      return
     }
     if (e.key === 'Enter') {
       this.sendPrivateMessage(e.target.value)
-      e.target.value= ''
+      e.target.value = ''
     }
   }
 
   render() {
     return (
-    <div className="chatroom" ref="chatroom">
+      <div className="chatroom">
         <div className="chatroom-header">
           <div className="chatroom-header-name">{this.props.room.friend}</div><div onClick={this.closeCurrentRoom.bind(this)} className="chatroom-header-button">x</div>
         </div>
 
         <div className="private-message-area">
-           <MessageList messages={this.state.messages} friend={this.props.room.friend} mainUser={this.props.room.mainUser}/> 
+          <MessageList messages={this.state.messages} friend={this.props.room.friend} user={this.props.room.user} />
         </div>
 
         <div className="chatroom-inputs">
-          <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..."/>
+          <input onKeyPress={this.handleEnter.bind(this)} placeholder="Type a message..." />
         </div>
       </div>
     )

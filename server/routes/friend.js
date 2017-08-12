@@ -1,8 +1,8 @@
-const router = require('express').Router()
+const router = require('express').Router();
+const controller = require('../controllers/friendCtrl');
 
+router.post('/addFriend', controller.addFriend);
+router.get('/getAllFriend', controller.getAllFriend);
+router.delete('/deleteFriend', controller.deleteFriend);
 
-router.post('/message', (req, res) => {
-  console.log(req.body)
-})
-
-module.exports = router
+module.exports = router;

@@ -11,13 +11,14 @@ const PORT = process.env.PORT || 3000;
 const app = express()
   .use(cors())
   .use(bodyParser.json())
-  .use(bodyParser.urlencoded({extended: true}))
+  .use(bodyParser.urlencoded({
+    extended: true
+  }))
   .use(express.static(path.resolve(__dirname, '../client/public')))
   .use('/api', routes)
   .get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/public/index.html')
-  )}
-  )
+    res.sendFile(path.join(__dirname, '../client/public/index.html'))
+  })
 
 const server = app.listen(PORT, err => {
   if (err) {
