@@ -21,6 +21,10 @@ body {
   margin-top: 3px;
 }
 
+.navcopy {
+  height: 60px;
+}
+
 #nav-bar a:hover {
   background-color: #355088;
 }

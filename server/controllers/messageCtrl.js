@@ -11,7 +11,7 @@ module.exports = {
         Message.create({
           to: req.body.to,
           from: req.body.from,
-          userId: req.body.mainUserId,
+          userId: req.body.user,
           partnerId: friend.dataValues.id,
           message: req.body.message
         })
@@ -27,7 +27,7 @@ module.exports = {
 
     User.findAll({
         where: {
-          email: [req.query.mainUserEmail, req.query.friendEmail]
+          email: [req.query.userEmail, req.query.friendEmail]
         }
       })
       .then(users => {

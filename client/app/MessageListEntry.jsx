@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MessageListEntry = ({ message, friend, mainUser }) => {
+const MessageListEntry = ({ message, friend, user }) => {
 
   if (message.from === friend) {
     return (
@@ -8,7 +8,7 @@ const MessageListEntry = ({ message, friend, mainUser }) => {
         <span>{message.from}:{message.message}</span>
       </div>
     )
-  } else if (message.to === friend && message.from === mainUser.nickname) {
+  } else if (message.to === friend && message.from === user.nickname) {
     return (
       <div className="message-entry">
         <span>{message.from}:{message.message}</span>

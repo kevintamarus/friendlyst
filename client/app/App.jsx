@@ -77,13 +77,15 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-
 		auth.handleAuthentication(this.props.newUser);
 		console.log(auth)
+	}
+
+	manageChat() {
 
 		this.socket = io('/')
 
-		let username = prompt('enter username')
+		let username = this.props.user.nickname
 		this.socket.nickname = username
 
 		this.socket.emit('new user', username)
@@ -100,86 +102,6 @@ class App extends Component {
 		this.socket.on('user disconnected', usernames => {
 			this.props.friendOffline(usernames)
 		})
-		
-		//get all previous posts from database
-		// let email = 'kevin'
-		// axios.get(`api/post/getAllUserPost?email=${email}`)
-		// .then( (data) => {
-		// 	console.log('this is the data', data);
-		// })
-		// .catch(err => {
-		// 	console.log(err, 'could not get data');
-		// })
-	}
-
-	authlogin(email, password, callback) {
-		var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-		postgres(conString, function (err, client, done) {
-			if (err) {
-				console.log('could not connect to postgres db', err);
-				return callback(err);
-			}
-
-			var query = 'SELECT id, nickname, email, password ' +
-				'FROM users WHERE email = $1';
-
-			client.query(query, [email], function (err, result) {
-				// NOTE: always call `done()` here to close
-				// the connection to the database
-				done();
-
-				if (err) {
-					console.log('error executing query', err);
-					return callback(err);
-				}
-
-				if (result.rows.length === 0) {
-					return callback(new WrongUsernameOrPasswordError(email));
-				}
-
-				var user = result.rows[0];
-
-				bcrypt.compare(password, user.password, function (err, isValid) {
-					if (err) {
-						callback(err);
-					} else if (!isValid) {
-						callback(new WrongUsernameOrPasswordError(email));
-					} else {
-						callback(null, {
-							id: user.id,
-							nickname: user.nickname,
-							email: user.email
-						});
-					}
-				});
-			});
-		});
-	}
-
-	authcreate(user, callback) {
-		var conString = "postgres://worejegx:sg-68kIGZY0dCwlgu4qBE7WUi8zHusrK@babar.elephantsql.com:5432/worejegx";
-		postgres(conString, function (err, client, done) {
-			if (err) {
-				console.log('could not connect to postgres db', err);
-				return callback(err);
-			}
-			bcrypt.hash(user.password, 10, function (err, hashedPassword) {
-				var query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
-				client.query(query, [user.email, hashedPassword], function (err, result) {
-					// NOTE: always call `done()` here to close
-					// the connection to the database
-					done();
-					if (err) {
-						console.log('error executing query', err);
-						return callback(err);
-					}
-					if (result.rows.length === 0) {
-						return callback();
-					}
-					callback(null);
-				});
-			});
-		});
 	}
 
 	submitPost() {
@@ -200,15 +122,15 @@ class App extends Component {
 		return (
 			<div>
 				<Nav />
-				<div className="home-page-container" onClick={() => console.log(this.props.user)}>
+				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
 					<button onClick={this.submitPost.bind(this)}>Post</button>
 					<input type="text" id="i" />
-					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.props.user} />
+					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
 				</div>
-				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket} />
-				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} mainUserId={this.props.user.id} />
+				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.socket} />
+				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
 			</div>
 		)
 	}

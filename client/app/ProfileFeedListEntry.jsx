@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FeedListEntryLikes from './FeedListEntryLikes.jsx';
-import FeedListEntryComments from './FeedListEntryComments.jsx';
+// import ProfileFeedListEntryLikes from './ProfileFeedListEntryLikes.jsx';
+// import ProfileFeedListEntryComments from './ProfileFeedListEntryComments.jsx';
 import Time from 'react-time';
 
 const mapStateToProps = (state) => {
@@ -23,7 +23,7 @@ const mapDispathToProps = (dispatch) => {
 	}
 }
 
-class FeedListEntry extends Component {
+class ProfileFeedListEntry extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -59,13 +59,13 @@ class FeedListEntry extends Component {
 					<div className="post">{this.props.post.message}</div>
 				</div>
 
-				<div>
-					<FeedListEntryLikes />
-				</div>
+				{/* <div>
+					<ProfileFeedListEntryLikes />
+				</div> */}
 
 				<ul>
 					{/* {this.comments.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key}/>)}  */}
+						<ProfileFeedListEntryComments comment={comment} key={key}/>)}  */}
 				</ul>
 
 				<div>
@@ -81,4 +81,4 @@ class FeedListEntry extends Component {
 	}
 }
 
-export default FeedListEntry;
+export default ProfileFeedListEntry;
