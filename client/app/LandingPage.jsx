@@ -83,7 +83,6 @@ class LandingPage extends Component {
 
 	login() {
 		auth.login()
-		// this.props.history.push('/home')
 	}
 
 	render() {
