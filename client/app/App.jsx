@@ -83,7 +83,7 @@ class App extends Component {
 
 	manageChat() {
 
-		this.socket = io('/')
+		this.socket = io('/');
 
 		let username = this.props.user.nickname
 		this.socket.nickname = username
