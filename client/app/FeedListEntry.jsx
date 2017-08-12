@@ -37,10 +37,10 @@ class FeedListEntry extends Component {
 		this.submitComment = this.submitComment.bind(this);
 	}
 
-	componentDidMount() {
-		//get all previous posts from database
-		let email = 'kevin'
-		axios.get(`api/user/getUser?email=${email}`)
+	componentWillMount() {
+		//get name and image links
+		let id = this.props.post.userId;
+		axios.get(`api/user/getUserById?id=${id}`)
 		.then( (data) => {
 			this.setState({name: data.data.email});
 			this.setState({imageLink: data.data.profilePicture});
@@ -63,10 +63,10 @@ class FeedListEntry extends Component {
 			timeStamp: new Date().toLocaleString()
 		}
 		//should send post request to server
-		let postId = this.props.id;
+		let ID = this.props.postId;
 		axios.post('api/usercomment/postComment', {
 			email: email,
-			postId: postId,
+			postId: ID,
 			message: comment.content
 		})
 		.then(data => {
@@ -78,6 +78,7 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
+		console.log(this.props.post.userId, 'user ID')
 		return (
 			<div className="feed-entry">
 				<div id="post-container">

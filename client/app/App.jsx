@@ -96,8 +96,7 @@ class App extends Component {
 		//get all previous posts from database
 		let email = 'kevin'
 		axios.get(`api/post/getAllUserPost?email=${email}`)
-		.then( (data, name) => {
-			console.log(name);
+		.then( (data) => {
 			let dataArray = data.data;
 			this.setState({previousPosts: dataArray});
 		})
@@ -106,8 +105,7 @@ class App extends Component {
 		})
 
 		axios.get(`api/post/getAllFriendPost/?email=${email}`)
-		.then( (data, name) => {
-			console.log(name);
+		.then( (data) => {
 			let dataArray = data.data;
 			this.setState({previousPosts: this.state.previousPosts.concat(dataArray)});
 		})
@@ -224,7 +222,7 @@ class App extends Component {
 								<input type="text" id="i"/>
 								<button onClick={this.login}>Y</button>
 							</div>
-							<FeedList previousPosts={this.state.previousPosts} posts={this.props.posts} previousPosts={this.state.previousPosts} mainUser={this.socket}/>
+							<FeedList previousPosts={this.state.previousPosts} posts={this.props.posts}/>
 						</div>
 						<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} mainUser={this.socket}/>
 						<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom}/>
