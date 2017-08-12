@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
 	//so you need another . to access its properties
 	return {
 		posts: state.postsReducer.posts,
-		friends: state.friendsReducer.friends,
 		chatRooms: state.chatRoomReducer.chatRooms,
 		user: state.userReducer.user,
 		friend: state.friendReducer.friend
@@ -35,7 +34,7 @@ class Nav extends Component {
   }
 
   handleChange(event) {
-    newFriend(event.target.value);
+    this.props.newFriend(event.target.value);
     console.log(this.props.friend)
   }
 
@@ -47,7 +46,7 @@ class Nav extends Component {
       <Notification />
       <button onClick={() => auth.logout()}>Logout</button>
       <form className="search">
-        <input type="text" onChange={this.handleChange}/>
+        <input type="text" onChange={this.handleChange.bind(this)}/>
         <Link to={"/" + this.props.friend}><input type="submit" value="Search"></input></Link>
       </form>
     </div>
