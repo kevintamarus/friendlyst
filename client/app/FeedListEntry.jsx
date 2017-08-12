@@ -47,7 +47,20 @@ class FeedListEntry extends Component {
 		let currentTime = new Date();
 		return (
 			<div className="feed-entry">
-				<div id="post-container">
+				<div>
+					<div className="post-info">
+						<img src={this.props.mainUser.profilePicture} className="user-img" />
+						<div className="vertical-center">
+							<div>{this.props.mainUser.nickname}</div>
+							<div>{this.props.post.createdAt}</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				{/* <div id="post-container">
 					<div className="userinfo">
 						<img src={this.props.user.profilePicture} height="50" width="50" />
 						<span className="username">{this.props.user.nickname}</span>
@@ -64,18 +77,18 @@ class FeedListEntry extends Component {
 				</div>
 
 				<ul>
-					{/* {this.comments.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key}/>)}  */}
-				</ul>
+					 {this.comments.map((comment, key) =>
+						<FeedListEntryComments comment={comment} key={key}/>)}  
+				</ul> */}
 
-				<div>
+				{/* <div>
 					<form>
 						<textarea onChange={(input) => this.submitComment(input)} cols="50" rows="4" name="comment"></textarea>
 						<div>
 							<button type="button">Comment</button>
 						</div>
 					</form>
-				</div>
+				</div> */}
 			</div>
 		)
 	}
