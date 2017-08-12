@@ -4,7 +4,7 @@ import FeedListEntry from './FeedListEntry.jsx'
 const FeedList = ({ previousPosts, posts, mainUser }) => {
   return (
     <div>
-      {previousPosts.reverse().map((post, key) => <FeedListEntry post={post} key={key} mainUser={mainUser}/>)}
+      {previousPosts.reverse().map((post, key) => <FeedListEntry post={post} key={key} id={post.id} mainUser={mainUser}/>)}
     </div>
   )
 }

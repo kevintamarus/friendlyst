@@ -94,6 +94,18 @@ models.User.sync({force: true})
   })
   .then(() => {
     models.UserComment.sync({force: true})
+    .then(() => {
+        models.UserComment.bulkCreate([
+          {
+            comment: 'I am commenting on this',
+            postId: 1
+          },
+          {
+            comment: 'test comment test comment',
+            postId: 1
+          }
+        ])
+      })
   })
   .then(() => {
     models.Like.sync({force: true})

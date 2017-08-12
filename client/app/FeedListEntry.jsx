@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
 import Time from 'react-time';
+import axios from 'axios';
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
@@ -27,7 +28,8 @@ class FeedListEntry extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			commentText: ''
+			comments: [],
+			commentText: '',
 		}
 		this.handleCommentInput = this.handleCommentInput.bind(this);
 		this.submitComment = this.submitComment.bind(this);
@@ -52,12 +54,28 @@ class FeedListEntry extends Component {
 	}
 
 	submitComment() {
-		let text = this.state.commentText;
-		//this.props.newComment(text);
+		let email = 'kevin'
+		//send postID along with post
+		let comment = {
+			content: this.state.commentText,
+			timeStamp: new Date().toLocaleString()
+		}
+		//should send post request to server
+		let postId = this.props.id;
+		axios.post('api/usercomment/postComment', {
+			email: email,
+			postId: postId,
+			message: comment.content
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(err => {
+			console.log('comment did not go through');
+		})
 	}
 
 	render() {
-	console.log(this.props.post, 'this is the post');
 		let currentTime = new Date();
 		return (
 			<div className="feed-entry">
@@ -84,9 +102,9 @@ class FeedListEntry extends Component {
 
 				<div>
 					<form>
-						<textarea onChange={(input) => this.submitComment(input)} cols="50" rows="4" name="comment"></textarea>
+						<textarea onChange={(input) => this.handleCommentInput(input)} cols="50" rows="4" name="comment"></textarea>
 						<div>
-							<button type="button">Comment</button>
+							<button type="button" onClick={this.submitComment}>Comment</button>
 						</div>
 					</form>
 				</div>
