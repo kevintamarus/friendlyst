@@ -101,11 +101,13 @@ models.User.sync({
     .then(() => {
         models.UserComment.bulkCreate([
           {
-            comment: 'I am commenting on this',
+            userComment: 'I am commenting on this',
+            userId: 4,
             postId: 1
           },
           {
-            comment: 'test comment test comment',
+            userComment: 'test comment test comment',
+            userId: 4,
             postId: 1
           }
         ])

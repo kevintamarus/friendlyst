@@ -78,7 +78,6 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
-		console.log(this.props.post.userId, 'user ID')
 		return (
 			<div className="feed-entry">
 				<div>
@@ -87,40 +86,29 @@ class FeedListEntry extends Component {
 						<div className="vertical-center">
 							<div>{this.props.user.nickname}</div>
 							<div>{this.props.post.message}</div>
-							<div>{this.props.post.createdAt}</div>
+							<div className="post-time">{this.props.post.createdAt}</div>
 						</div>
 					</div>
 				</div>
 
-				{/* <div id="post-container">
-					<div className="userinfo">
-						<img src={this.props.user.profilePicture} height="50" width="50" />
-						<span className="username">{this.props.user.nickname}</span>
-					</div>
+				<div className="like-section">
+					<FeedListEntryLikes post={this.props.post} user={this.props.user}/>
 				</div>
+				<div className="comment-section">
+					{/* <ul>
+						{this.comments.map((comment, key) =>
+							<FeedListEntryComments comment={comment} key={key}/>)}  
+					</ul>   */}
 
-				<div className="post-time">
-					<div>{this.props.post.createdAt}</div>
-					<div className="post">{this.props.post.message}</div>
+					<div className="comment-section">
+						<form>
+							<textarea onChange={(input) => this.handleCommentInput(input)} cols="50" rows="4" name="comment"></textarea>
+							<div>
+								<button type="button" onClick={this.submitComment}>Comment</button>
+							</div>
+						</form>
+					</div> 
 				</div>
-
-				<div>
-					<FeedListEntryLikes />
-				</div>
-
-				<ul>
-					 {this.comments.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key}/>)}  
-				</ul> */}
-
-				{/* <div>
-					<form>
-						<textarea onChange={(input) => this.handleCommentInput(input)} cols="50" rows="4" name="comment"></textarea>
-						<div>
-							<button type="button" onClick={this.submitComment}>Comment</button>
-						</div>
-					</form>
-				</div> */}
 			</div>
 		)
 	}
