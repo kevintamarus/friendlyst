@@ -37,13 +37,23 @@ class FeedListEntry extends Component {
 		this.submitComment = this.submitComment.bind(this);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		//get name and image links
 		let id = this.props.post.userId;
 		axios.get(`api/user/getUserById?id=${id}`)
 		.then( (data) => {
 			this.setState({name: data.data.email});
 			this.setState({imageLink: data.data.profilePicture});
+		})
+		.catch(err => {
+			console.log(err, 'could not get data');
+		})
+
+		//get comments
+		let postId = this.props.post.id;
+		axios.get(`api/usercomment/getAllCommentForPost?postId=${postId}`)
+		.then( (data) => {
+			this.setState({comments: data.data});
 		})
 		.catch(err => {
 			console.log(err, 'could not get data');
@@ -56,14 +66,15 @@ class FeedListEntry extends Component {
 	}
 
 	submitComment() {
-		let email = 'kevin'
+		console.log('comment button is clicked')
 		//send postID along with post
 		let comment = {
 			content: this.state.commentText,
 			timeStamp: new Date().toLocaleString()
 		}
-		//should send post request to server
-		let ID = this.props.postId;
+		//should send comment request to server
+		let email = 'kevin@hack.com'
+		let ID = this.props.post.id;
 		axios.post('api/usercomment/postComment', {
 			email: email,
 			postId: ID,
@@ -95,10 +106,10 @@ class FeedListEntry extends Component {
 					<FeedListEntryLikes post={this.props.post} user={this.props.user}/>
 				</div>
 				<div className="comment-section">
-					{/* <ul>
-						{this.comments.map((comment, key) =>
-							<FeedListEntryComments comment={comment} key={key}/>)}  
-					</ul>   */}
+					  <ul>
+						 {this.state.comments.map((comment, key) =>
+							<FeedListEntryComments comment={comment} key={key}/>)}   
+					</ul>  
 
 					<div className="comment-section">
 						<form>

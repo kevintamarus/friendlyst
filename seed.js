@@ -17,8 +17,9 @@ models.User.sync({
         nickname: 'taeminpak'
       },
       {
-        email: 'kevin',
-        nickname: 'kevin'
+        email: 'kevin@hack.com',
+        nickname: 'kevin',
+        profilePicture: "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8"
       }
     ])
   })
@@ -109,6 +110,16 @@ models.User.sync({
             userComment: 'test comment test comment',
             userId: 4,
             postId: 1
+          },
+          {
+            userComment: 'test comment on post 7',
+            userId: 4,
+            postId: 7
+          },
+          {
+            userComment: 'test comment on post 2',
+            userId: 4,
+            postId: 2
           }
         ])
       })

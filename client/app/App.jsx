@@ -80,10 +80,11 @@ class App extends Component {
 
 	componentDidMount() {
 		auth.handleAuthentication(this.props.newUser);
-		console.log(auth)
-    
+
+
 		//get all previous posts from database
-		let email = 'kevin'
+		let email = 'kevin@hack.com'
+		//let email = this.props.user.email;
 		axios.get(`api/post/getAllUserPost?email=${email}`)
 		.then( (data) => {
 			let dataArray = data.data;
