@@ -84,23 +84,27 @@ class App extends Component {
 
 
 		setTimeout(() => {
-			console.log(this.props.user, 'USER IS HEREEEEEEEEEEEEEEEEEEEEEEEE');
-			let email = this.props.user.email;
-			axios.get(`api/post/getAllUserPost?email=${email}`)
-				.then(({ data }) => {
-					data.forEach(post => this.props.newPost(post))
-					axios.get(`api/post/getAllFriendPost/?email=${email}`)
-						.then(({ data }) => {
-							data.forEach(post => this.props.newPost(post))
-						})
-						.catch(err => {
-							console.log(`Error getting friend posts! ${err}`);
-						})
+			if (!this.props.posts.length) {
+				let email = this.props.user.email;
+				axios.get(`api/post/getAllUserPost?email=${email}`)
+					.then(({ data }) => {
+						data.forEach(post => this.props.newPost(post))
+						axios.get(`api/post/getAllFriendPost/?email=${email}`)
+							.then(({ data }) => {
+								data.forEach(post => this.props.newPost(post))
+							})
+							.catch(err => {
+								console.log(`Error getting friend posts! ${err}`);
+							})
+					})
+					.catch(err => {
+						console.log(`Error getting user posts! ${err}`);
 				})
-				.catch(err => {
-					console.log(`Error getting user posts! ${err}`);
-			})
+			}
 		}, 1500)
+
+		this.props.posts.sort((a, b) => b.id - a.id);
+
 	}
 
 	manageChat(nickname) {
@@ -132,7 +136,6 @@ class App extends Component {
 			message: $('#post-area').val()
 		})
 			.then(({ data }) => {
-				console.log(data);
 				this.props.newPost(data);
 			})
 			.catch(err => {

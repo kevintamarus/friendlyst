@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
 	//so you need another . to access its properties
 	return {
-		comments: state.postReducer.comments
+		user: state.userReducer.user,
+		// comments: state.postReducer.comments
 	}
 }
 
@@ -81,4 +82,4 @@ class ProfileFeedListEntry extends Component {
 	}
 }
 
-export default ProfileFeedListEntry;
+export default connect(mapStateToProps, mapDispathToProps)(ProfileFeedListEntry);

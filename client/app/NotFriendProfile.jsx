@@ -3,6 +3,7 @@ import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
 import ProfileFeedListEntry from './ProfileFeedListEntry.jsx'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
@@ -50,7 +51,7 @@ class NotFriendProfile extends Component {
         <div>
           Email: {this.props.friendinfo.email}
         </div>
-        <button onClick={this.handleAddFriend}>Add Friend!</button>
+        <Link to="/home"><button onClick={this.handleAddFriend}>Add Friend!</button></Link>
         <div>
           Add them as a friend to see their posts!
         </div>  

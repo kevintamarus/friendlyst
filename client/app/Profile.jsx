@@ -28,7 +28,15 @@ class Profile extends Component {
           Email: {this.props.user.email}
         </div>
          <div>
-          {this.props.posts.map((post, key) => <ProfileFeedListEntry post={post} key={post.id} user={this.props.user} />)}
+           {console.log(this.props.posts)}
+           {
+             this.props.posts
+              .filter(post => post.userId === this.props.user.id)
+              .sort((a, b) => b.id - a.id)
+              .map(post => {
+                return <ProfileFeedListEntry key={post.id} post={post} />
+              })
+           }
         </div> 
       </div>
     )
