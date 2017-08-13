@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import App from './App.jsx'
 import LandingPage from './LandingPage.jsx'
 import FriendProfile from './FriendProfile.jsx'
+import FriendProfileRoute from './FriendProfileRoute.jsx'
 import Profile from './Profile.jsx'
 import postsReducer from './reducer/postReducer.js'
 import friendsReducer from './reducer/friendsReducer.js'
@@ -33,6 +34,7 @@ render(
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/home" component={App} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="*" component={FriendProfileRoute} />
       </Switch>
     </BrowserRouter>
   </Provider>

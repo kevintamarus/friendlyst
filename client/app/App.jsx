@@ -150,11 +150,6 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<BrowserRouter>
-					<Switch>
-						<Route exact path={`/${this.props.friend}`} component={FriendProfileRoute} />
-					</Switch>
-				</BrowserRouter>
 				<Nav />
 				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
