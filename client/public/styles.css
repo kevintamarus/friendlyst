@@ -3,6 +3,46 @@ body {
   background-color: #eee;
 }
 
+#app {
+  height:100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.background-image {
+  background-image: url('http://www.dotfoods.com/images/cloud_background.jpg');
+  background-size: cover;
+  display: block;
+  height: 800px;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  top: 10px;
+  left: 0;
+  position: fixed;
+  margin-left: 20px;
+  margin-right: 20px;
+  right: 0;
+  z-index: 2;
+  padding: 0 10px;
+  margin-top:25%;
+}
+
+.login-button-container button{
+  border-radius: 4px;
+
+}
 #nav-bar {
   background-color: #3b5998;
   height: 40px;
@@ -55,8 +95,8 @@ body {
 
 #post-area {
   background-color: white;
-  width: 30%;
-  margin-left: 30%;
+  /* width: 30%;
+  margin-left: 30%; */
   height: 100px;
   text-align: left;
   border-radius: 4px;

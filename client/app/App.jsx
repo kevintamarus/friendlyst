@@ -114,7 +114,6 @@ class App extends Component {
 
 		this.socket = io('/');
 
-	
 		this.socket.nickname = nickname
 
 		this.socket.emit('new user', nickname)
@@ -134,6 +133,7 @@ class App extends Component {
 	}
 
 	submitPost() {
+		console.log('submit post')
 		axios.post('api/post/postPost', {
 			email: this.props.user.email,
 			message: $('#post-area').val()
@@ -151,7 +151,7 @@ class App extends Component {
 		return (
 			<div>
 				<Nav />
-				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
+				<div className="home-page-container">
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
 					<button onClick={this.submitPost.bind(this)}>Post</button>
