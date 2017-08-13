@@ -93,6 +93,9 @@ body {
 
 .like-section {
   margin-top: 50px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .friend-list-container-minimize {

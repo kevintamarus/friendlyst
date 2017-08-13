@@ -143,8 +143,50 @@ models.User.sync({
       })
   })
   .then(() => {
-    models.Like.sync({
-      force: true
+    models.Like.sync({force: true})
+    .then(() => {
+      models.Like.bulkCreate([
+        {
+          postId: 1,
+          userId: 1,
+          userCommentId: null
+        },
+        {
+          postId: 1,
+          userId: 2,
+          userCommentId: null
+        },
+        {
+          postId: 1,
+          userId: 3,
+          userCommentId: null
+        },
+        {
+          postId: 1,
+          userId: 4,
+          userCommentId: null
+        },
+        {
+          postId: 2,
+          userId: 1,
+          userCommentId: null
+        },
+        {
+          postId: 2,
+          userId: 2,
+          userCommentId: null
+        },
+        {
+          postId: 3,
+          userId: 3,
+          userCommentId: null
+        },
+        {
+          postId: 3,
+          userId: 4,
+          userCommentId: null
+        }
+      ])
     })
   })
   .then(() => {
