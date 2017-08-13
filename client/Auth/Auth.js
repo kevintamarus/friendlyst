@@ -45,7 +45,7 @@ export default class Auth {
     });
   }
 
-  handleAuthentication(newUser) {
+  handleAuthentication(newUser, manageChat) {
     console.log('handleAuthentication has been called')
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
@@ -66,6 +66,7 @@ export default class Auth {
             })
             .then(({ data }) => {
               newUser(data[0])
+              manageChat(data[0].nickname)
             })
           })
       }

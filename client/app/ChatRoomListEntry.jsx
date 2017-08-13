@@ -10,8 +10,7 @@ class ChatRoomListEntry extends Component {
     this.state = {
       value: '',
       messages: [],
-      displayStatus: 'block',
-      displayStatusForMinimized: 'none'
+      friendId: ''
     }
   }
 
@@ -27,17 +26,30 @@ class ChatRoomListEntry extends Component {
       })
     })
 
-    axios.get('/api/message/getAllMessage', {
+    //this is finding a user by id
+    axios.get(`/api/user/getUserFriend`, {
       params: {
-        friendEmail: `${this.props.room.friend}@gmail.com`,
-        userEmail: `${this.props.room.user.nickname}@gmail.com`,
+        nickname: this.props.room.friend
       }
     })
+    .then(({ data }) => {
+      this.setState({
+        friendId: data.id
+      })
+      
+      axios.get('/api/message/getAllMessage', {
+        params: {
+          friendId: this.state.friendId,
+          userId: this.props.userId,
+        }
+      })
       .then(({ data }) => {
         this.setState({
           messages: data
         })
       })
+    })
+    
   }
 
   sendPrivateMessage(text) {
@@ -45,10 +57,10 @@ class ChatRoomListEntry extends Component {
       message: text,
       to: this.props.room.friend,
       from: this.props.room.user.nickname,
-      friendEmail: `${this.props.room.friend}@gmail.com`,
+      friendId: this.state.friendId,
       userId: this.props.userId
     }
-
+    console.log(msg)
     axios.post('/api/message/postMessage', msg)
 
     this.props.room.user.emit('private message', msg)
