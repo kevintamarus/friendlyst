@@ -37,9 +37,7 @@ class NotFriendProfile extends Component {
     return this.state.notFriend ?
     (
       <div className="profile-container">
-        <div className="navcopy">
-          <Nav />
-        </div>
+        <Nav />
         <div>
           <img src={this.props.friendObj.profilePicture} />
         </div>
@@ -52,7 +50,6 @@ class NotFriendProfile extends Component {
         <button onClick={this.handleAddFriend}>Add Friend!</button>
         <div>
           Add them as a friend to see their posts!
-          {/* {this.props.posts.map((post, key) => <ProfileFeedListEntry post={post} key={post.id} user={this.props.user} />)} */}
         </div>  
       </div>
     ) : <div>Added as friend!</div>

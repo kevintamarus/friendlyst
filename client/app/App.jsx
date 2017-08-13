@@ -83,31 +83,24 @@ class App extends Component {
 		auth.handleAuthentication(this.props.newUser);
 
 
-		//get all previous posts from database
-		let email = 'kevin@hack.com'
-		//let email = this.props.user.email;
-		axios.get(`api/post/getAllUserPost?email=${email}`)
-		.then( (data) => {
-			let dataArray = data.data;
-			this.setState({previousPosts: dataArray});
-		})
-		.catch(err => {
-			console.log(err, 'could not get data');
-		})
-
-		//get all the friends posts and sort everything by updatedAt
-		axios.get(`api/post/getAllFriendPost/?email=${email}`)
-		.then( (data) => {
-			let dataArray = data.data;
-			this.setState({previousPosts: this.state.previousPosts.concat(dataArray).sort( (a,b) => {
-				a = a.updatedAt;
-				b = b.updatedAt;
-				return a > b ? -1 : a < b ? 1 : 0;
-			})});
-		})
-		.catch(err => {
-			console.log(err, 'could not get data');
-		})
+		setTimeout(() => {
+			console.log(this.props.user, 'USER IS HEREEEEEEEEEEEEEEEEEEEEEEEE');
+			let email = this.props.user.email;
+			axios.get(`api/post/getAllUserPost?email=${email}`)
+				.then(({ data }) => {
+					data.forEach(post => this.props.newPost(post))
+					axios.get(`api/post/getAllFriendPost/?email=${email}`)
+						.then(({ data }) => {
+							data.forEach(post => this.props.newPost(post))
+						})
+						.catch(err => {
+							console.log(`Error getting friend posts! ${err}`);
+						})
+				})
+				.catch(err => {
+					console.log(`Error getting user posts! ${err}`);
+			})
+		}, 1500)
 	}
 
 	manageChat() {
