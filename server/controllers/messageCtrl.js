@@ -4,49 +4,43 @@ const User = require('../db/index').User;
 module.exports = {
 
   postMessage: ((req, res) => {
-    User.find({
-      where: {email: req.body.friendEmail}
+   
+    Message.create({
+      to: req.body.to,
+      from: req.body.from,
+      userId: req.body.userId,
+      partnerId: req.body.friendId,
+      message: req.body.message
     })
-    .then(friend => {
-        Message.create({
-          to: req.body.to,
-          from: req.body.from,
-          userId: req.body.user,
-          partnerId: friend.dataValues.id,
-          message: req.body.message
-        })
-        .then(message => {
-          res.status(201).send(message)
-        })
-        .catch(err => res.status(500).send(`Can't post message! ${err}`))
+    .then(message => {
+      res.status(201).send(message)
     })
-    .catch(err => res.status(500).send(`Cant find user! ${err}`))
+    .catch(err => res.status(500).send(`Can't post message! ${err}`))
   }),
 
   getAllMessage: ((req, res) => {
 
-    User.findAll({
+    console.log(req.query)
+    Message.findAll({
         where: {
-          email: [req.query.userEmail, req.query.friendEmail]
+          userId: [req.query.userId, req.query.friendId],
+          partnerId: [req.query.friendId, +req.query.userId]
+        },
+        order: [
+          ['createdAt', 'ASC']
+        ]
+      })
+      .then(messages => {
+        if (req.query.friendId === req.query.userId) {
+          messages = messages.filter(message => message.dataValues.userId === message.dataValues.partnerId)
+          return res.status(200).send(messages)
         }
+        messages = messages.filter(message => message.dataValues.userId !== message.dataValues.partnerId)
+        
+        res.status(200).send(messages)
       })
-      .then(users => {
-        users = users.map(user => user.dataValues.id)
-        Message.findAll({
-            where: {
-              userId: users,
-              partnerId: users
-            },
-            order: [
-              ['createdAt', 'ASC']
-            ]
-          })
-          .then(messages => messages.filter(message => message.userId !== message.partnerId))
-          .then(messages => res.status(200).send(messages))
-          .catch(err => res.status(500).send(`Can't get messages! ${err}`))
-
-      })
-      .catch(err => res.status(500).send(`User can't be found! ${err}`))
+      .catch(err => res.status(500).send(`Can't get messages! ${err}`))
   })
+
 
 }

@@ -80,7 +80,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		auth.handleAuthentication(this.props.newUser);
+		auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
 
 
 		setTimeout(() => {
@@ -103,14 +103,14 @@ class App extends Component {
 		}, 1500)
 	}
 
-	manageChat() {
+	manageChat(nickname) {
 
 		this.socket = io('/');
 
-		let username = this.props.user.nickname
-		this.socket.nickname = username
+	
+		this.socket.nickname = nickname
 
-		this.socket.emit('new user', username)
+		this.socket.emit('new user', nickname)
 
 		//add one person to the list (receives socket back from server)
 		this.socket.on('user created', usernames => {
