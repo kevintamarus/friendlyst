@@ -23,13 +23,13 @@ class FriendProfile extends Component {
           <Nav />
         </div>
         <div>
-          <img src={this.props.friend.profilePicture} />
+          <img src={this.props.friendObj.profilePicture} />
         </div>
         <div>
-          Username: {this.props.friend.nickname}
+          Username: {this.props.friendObj.nickname}
         </div>
         <div>
-          Email: {this.props.friend.email}
+          Email: {this.props.friendObj.email}
         </div>
          <div>
           {/* {this.props.posts.map((post, key) => <FriendProfileFeedListEntry post={post} key={post.id} friend={this.props.friend} />)} */}

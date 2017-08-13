@@ -4,7 +4,7 @@ import $ from 'jquery';
 import { connect } from 'react-redux';
 import FriendProfile from './FriendProfile.jsx';
 import NotUserProfile from './NotUserProfile.jsx';
-// import NotFriendProfile from './NotFriendProfile.jsx';
+import NotFriendProfile from './NotFriendProfile.jsx';
 import axios from 'axios';
 
 const mapStateToProps = (state) => {
@@ -19,29 +19,30 @@ class FriendProfileRoute extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      areFriends: false,
-      notUser: false
+      areFriends: true,
+      notUser: false,
+      friendObj: {}
     }
   }
 
   componentDidMount() {
-    let name = this.props.friend
-    axios.get(`api/user/getUserFriend?nickname=${name}`)
+    
+    this.setState({areFriends: true, notUser: false})
+
+    axios.get(`api/user/getUserFriend?nickname=${this.props.friend}`)
       .then(({ data }) => {
-        console.log(data);
         if (!data) {
-          console.log('User not found!');
           this.setState({ notUser: true });
+          console.log('User not found!');
         } else {
-          console.log(data, 'this is a valid user')
-          axios.get(`/api/friend/getAllFriend?userId=${data.id}`)
+          this.setState({ friendObj: data })
+          axios.get(`/api/friend/getAllFriend?userId=${this.props.user.id}`)
             .then(({ data }) => {
-              console.log(data, 'FRIENDS HEREEEEEEEEEEEEEEEEEEE');
-              let result = data.filter((friend) => this.props.user === friend.buddyId);
+              let result = data.filter((friend) => friend.buddyId === this.state.friendObj.id);
               if (result.length) {
                 console.log('They are your friend!')
-                this.setState({ areFriends: true })
               } else {
+                this.setState({ areFriends: false })
                 console.log('Not friends!')
               }
             })
@@ -51,15 +52,13 @@ class FriendProfileRoute extends Component {
         console.log(`Error finding user! ${err}`);
       })
 
-    //call axios.get to see if this.props.friend is in our friend db - if success, change state to true, if error, change notFriend state to true
-
   }
 
   render() {
     return (
       <div className="profile-container">
-        Hello World
-        {this.state.notUser ? <NotUserProfile /> : this.state.areFriends ? <FriendProfile /> : <NotFriendProfile /> }
+        {this.state.notUser ? <NotUserProfile /> : this.state.areFriends ?
+        <FriendProfile friendObj={this.state.friendObj}/> : <NotFriendProfile friendObj={this.state.friendObj}/> }
       </div>
     )
   }

@@ -5,23 +5,23 @@ models.User.sync({
   })
   .then(() => {
     models.User.bulkCreate([{
-        email: 'joejoe',
-        nickname: 'Joe Cheng',
+        email: 'joejoe@gmail.com',
+        nickname: 'joejoe',
         profilePicture: "https://avatars3.githubusercontent.com/u/25360287?v=4&s=400"
       },
       {
-        email: 'james',
-        nickname: 'James Hwang',
+        email: 'james@gmail.com',
+        nickname: 'james',
         profilePicture: "https://avatars2.githubusercontent.com/u/30710715?v=4&s=200"
       },
       {
-        email: 'taeminpak',
-        nickname: 'Tae Min Pak',
+        email: 'taeminpak@gmail.com',
+        nickname: 'taeminpak',
         profilePicture: "https://scontent-dft4-3.xx.fbcdn.net/v/t1.0-1/c9.0.160.160/p160x160/1236123_10202181547725371_1279259312_n.jpg?oh=d6e3a3b1db3988c47bc10944293de23c&oe=59EB09BA"
       },
       {
         email: 'kevin@hack.com',
-        nickname: 'Kevin Tamarus',
+        nickname: 'kevin',
         profilePicture: "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8"
       }
     ])
