@@ -31,7 +31,6 @@ module.exports = {
         }
       })
       .then(users => {
-        // console.log(users)
         users = users.map(user => user.dataValues.id)
         Message.findAll({
             where: {
