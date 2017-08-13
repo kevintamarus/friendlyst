@@ -33,7 +33,7 @@ module.exports = {
   getUserFriend: ((req, res) => {
     User.find({
         where: {
-          nickname: req
+          nickname: req.query.nickname
         }
       })
       .then(user => res.status(200).send(user))
