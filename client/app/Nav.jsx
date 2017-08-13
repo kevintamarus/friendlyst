@@ -35,7 +35,6 @@ class Nav extends Component {
 
   handleChange(event) {
     this.props.newFriend(event.target.value);
-    console.log(this.props.friend)
   }
 
   render() {

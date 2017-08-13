@@ -35,7 +35,6 @@ module.exports = {
         }
       })
       .then(friend => {
-        console.log(friend);
         Friend.destroy({
             where: {
               userId: req.body.userId,

@@ -21,6 +21,7 @@ class FriendProfileRoute extends Component {
     this.state = {
       areFriends: true,
       notUser: false,
+      loading: true,
       friendObj: {}
     }
   }
@@ -28,6 +29,11 @@ class FriendProfileRoute extends Component {
   componentDidMount() {
     
     this.setState({areFriends: true, notUser: false})
+
+    let self = this;
+    setTimeout(() => {
+      self.setState({ loading: false })
+    }, 200)
 
     axios.get(`api/user/getUserFriend?nickname=${this.props.friend}`)
       .then(({ data }) => {
@@ -57,7 +63,7 @@ class FriendProfileRoute extends Component {
   render() {
     return (
       <div className="profile-container">
-        {this.state.notUser ? <NotUserProfile /> : this.state.areFriends ?
+        { this.state.loading ? <div>loading</div> : this.state.notUser ? <NotUserProfile /> : this.state.areFriends ?
         <FriendProfile friendObj={this.state.friendObj}/> : <NotFriendProfile friendObj={this.state.friendObj}/> }
       </div>
     )
