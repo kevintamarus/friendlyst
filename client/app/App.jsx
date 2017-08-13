@@ -6,7 +6,7 @@ import Nav from './Nav.jsx';
 import FeedList from './FeedList.jsx';
 import Auth from '../Auth/Auth';
 import FriendList from './FriendList.jsx';
-import FriendProfile from './FriendProfile.jsx';
+import FriendProfileRoute from './FriendProfileRoute.jsx';
 import ChatRoomList from './ChatRoomList.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -152,7 +152,7 @@ class App extends Component {
 			<div>
 				<BrowserRouter>
 					<Switch>
-						<Route exact path={"/" + this.props.friend} component={FriendProfile} />
+						<Route exact path={`/${this.props.friend}`} component={FriendProfileRoute} />
 					</Switch>
 				</BrowserRouter>
 				<Nav />
