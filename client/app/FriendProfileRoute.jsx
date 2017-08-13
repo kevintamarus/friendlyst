@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import Nav from './Nav.jsx'
+import React, { Component } from 'react';
+import Nav from './Nav.jsx';
+import $ from 'jquery';
 import { connect } from 'react-redux';
 import FriendProfile from './FriendProfile.jsx';
 import NotUserProfile from './NotUserProfile.jsx';
-import App from './App.jsx';
 // import NotFriendProfile from './NotFriendProfile.jsx';
+import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
@@ -22,15 +23,28 @@ class FriendProfileRoute extends Component {
       notUser: false
     }
   }
-//call axios.get to see if this.props.friend is even a real user - if not, change notUser to true which will reroute to notuser page
-//call axios.get to see if this.props.friend is in our friend db - if success, change state to true, if error, change notFriend state to true
+
+  componentDidMount() {
+    let name = this.props.friend
+    axios.get(`api/user/getUserFriend?nickname=${name}`)
+      .then((data) => {
+        console.log(data, 'this is a valid user')
+      })
+      .catch(err => {
+        this.setState({ notUser: true });
+        console.log(err, 'this is not a valid user');
+      })
+
+    //call axios.get to see if this.props.friend is in our friend db - if success, change state to true, if error, change notFriend state to true
+
+  }
 
   render() {
     return (
       <div className="profile-container">
         Hello World
-        {/* {this.state.notUser ? <NotUserProfile/> : null} 
-        {this.state.areFriends ? <FriendProfile/> : null} */}
+        {this.state.notUser ? <NotUserProfile /> : null}
+        {/* {this.state.areFriends ? <FriendProfile/> : null} */}
         {/* {this.state.notFriends ? <NotFriendProfile/> : null}  */}
       </div>
     )

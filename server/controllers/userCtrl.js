@@ -30,6 +30,16 @@ module.exports = {
       .catch(err => res.status(500).send(`Error finding user! ${err}`))
   }),
 
+  getUserFriend: ((req, res) => {
+    User.find({
+        where: {
+          nickname: req
+        }
+      })
+      .then(user => res.status(200).send(user))
+      .catch(err => res.status(500).send(`Error finding user friend! ${err}`))
+  }),
+
   getUserById: ((req, res) => {
     User.find({
       where: {id: req.query.id}
