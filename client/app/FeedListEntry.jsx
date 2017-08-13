@@ -29,6 +29,7 @@ class FeedListEntry extends Component {
 		super(props);
 		this.state = {
 			comments: [],
+			currentComment:[],
 			commentText: '',
 			name: '',
 			imageLink: ''
@@ -42,7 +43,7 @@ class FeedListEntry extends Component {
 		let id = this.props.post.userId;
 		axios.get(`api/user/getUserById?id=${id}`)
 		.then( (data) => {
-			this.setState({name: data.data.email});
+			this.setState({name: data.data.nickname});
 			this.setState({imageLink: data.data.profilePicture});
 		})
 		.catch(err => {
@@ -67,11 +68,17 @@ class FeedListEntry extends Component {
 
 	submitComment() {
 		console.log('comment button is clicked')
-		//send postID along with post
 		let comment = {
 			content: this.state.commentText,
 			timeStamp: new Date().toLocaleString()
 		}
+		this.setState({currentComment: [{
+			userComment: comment.content,
+			updatedAt: comment.timeStamp,
+			postId: this.props.post.id,
+			userId: 4
+		}]})
+
 		//should send comment request to server
 		let email = 'kevin@hack.com'
 		let ID = this.props.post.id;
@@ -93,9 +100,9 @@ class FeedListEntry extends Component {
 			<div className="feed-entry">
 				<div>
 					<div className="post-info">
-						<img src={this.props.user.profilePicture} className="user-img" />
+						<img src={this.state.imageLink} className="user-img" />
 						<div className="vertical-center">
-							<div>{this.props.user.nickname}</div>
+							<div>{this.state.name}</div>
 							<div>{this.props.post.message}</div>
 							<div className="post-time">{this.props.post.createdAt}</div>
 						</div>
@@ -106,12 +113,15 @@ class FeedListEntry extends Component {
 					<FeedListEntryLikes post={this.props.post} user={this.props.user}/>
 				</div>
 				<div className="comment-section">
-					  <ul>
-						 {this.state.comments.map((comment, key) =>
-							<FeedListEntryComments comment={comment} key={key}/>)}   
+					<ul>
+						{this.state.comments.map((comment, key) =>
+						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
 					</ul>  
-
-					<div className="comment-section">
+					<ul>
+						{this.state.currentComment.map((comment, key) =>
+						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
+					</ul>  
+					<div>
 						<form>
 							<textarea onChange={(input) => this.handleCommentInput(input)} cols="50" rows="4" name="comment"></textarea>
 							<div>
