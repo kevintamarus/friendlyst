@@ -25,7 +25,6 @@ class FeedListEntryComments extends Component {
 	}
 
 	render() {
-		console.log(this.state.name, this.state.imageLink)
 		return (
 			<div>
 				<div id="comment-container">

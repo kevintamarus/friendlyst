@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
-import Time from 'react-time';
 import axios from 'axios';
 
 const mapStateToProps = (state) => {
@@ -54,7 +53,11 @@ class FeedListEntry extends Component {
 		let postId = this.props.post.id;
 		axios.get(`api/usercomment/getAllCommentForPost?postId=${postId}`)
 		.then( (data) => {
-			this.setState({comments: data.data});
+			this.setState({comments: data.data.sort( (a,b) => {
+				a = a.updatedAt;
+				b = b.updatedAt;
+				return a < b ? -1 : a > b ? 1 : 0;
+			})});
 		})
 		.catch(err => {
 			console.log(err, 'could not get data');
@@ -72,20 +75,21 @@ class FeedListEntry extends Component {
 			content: this.state.commentText,
 			timeStamp: new Date().toLocaleString()
 		}
-		this.setState({currentComment: [{
+		this.setState({currentComment: this.state.currentComment.concat([{
 			userComment: comment.content,
 			updatedAt: comment.timeStamp,
 			postId: this.props.post.id,
 			userId: 4
-		}]})
+		}])})
 
 		//should send comment request to server
-		let email = 'kevin@hack.com'
+		let email = this.props.user.email;
 		let ID = this.props.post.id;
+		console.log(email, ID, this.state.commentText)
 		axios.post('api/usercomment/postComment', {
 			email: email,
 			postId: ID,
-			message: comment.content
+			message: this.state.commentText
 		})
 		.then(data => {
 			console.log(data);
@@ -123,7 +127,7 @@ class FeedListEntry extends Component {
 					</ul>  
 					<div>
 						<form>
-							<textarea onChange={(input) => this.handleCommentInput(input)} cols="50" rows="4" name="comment"></textarea>
+							<textarea onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
 							<div>
 								<button type="button" onClick={this.submitComment}>Comment</button>
 							</div>

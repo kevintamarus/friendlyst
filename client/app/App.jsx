@@ -95,10 +95,15 @@ class App extends Component {
 			console.log(err, 'could not get data');
 		})
 
+		//get all the friends posts and sort everything by updatedAt
 		axios.get(`api/post/getAllFriendPost/?email=${email}`)
 		.then( (data) => {
 			let dataArray = data.data;
-			this.setState({previousPosts: this.state.previousPosts.concat(dataArray)});
+			this.setState({previousPosts: this.state.previousPosts.concat(dataArray).sort( (a,b) => {
+				a = a.updatedAt;
+				b = b.updatedAt;
+				return a > b ? -1 : a < b ? 1 : 0;
+			})});
 		})
 		.catch(err => {
 			console.log(err, 'could not get data');
