@@ -8,9 +8,12 @@ import LandingPage from './LandingPage.jsx'
 import FriendProfile from './FriendProfile.jsx'
 import FriendProfileRoute from './FriendProfileRoute.jsx'
 import Profile from './Profile.jsx'
+import NotFriendProfile from './NotFriendProfile.jsx'
+import NotUserProfile from './NotUserProfile.jsx'
 import postsReducer from './reducer/postReducer.js'
 import friendsReducer from './reducer/friendsReducer.js'
 import userReducer from './reducer/userReducer.js'
+import friendinfoReducer from './reducer/friendinfoReducer.js'
 import friendReducer from './reducer/friendReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
 import notificationReducer from './reducer/notificationReducer.js'
@@ -22,6 +25,7 @@ const reducers = combineReducers({
    userReducer,
    chatRoomReducer,
    friendReducer,
+   friendinfoReducer,
    notificationReducer
 })
 
@@ -34,7 +38,10 @@ render(
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/home" component={App} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="*" component={FriendProfileRoute} />
+        <Route exact path="/notuser" component={NotUserProfile} />
+        <Route exact path="/notfriend" component={NotFriendProfile} />
+        <Route exact path="/friendprofile" component={FriendProfile} />
+        <Route exact path="/*" component={FriendProfileRoute} />
       </Switch>
     </BrowserRouter>
   </Provider>

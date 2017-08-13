@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.postsReducer.posts,
-    friend: state.userReducer.friend
+    friendinfo: state.friendinfoReducer.friendinfo,
+		posts: state.postsReducer.posts,
+		friends: state.friendsReducer.friends,
+		chatRooms: state.chatRoomReducer.chatRooms,
+		user: state.userReducer.user,
+		friend: state.friendReducer.friend
   }
 }
 
@@ -24,13 +28,13 @@ class FriendProfile extends Component {
           <Nav />
         </div>
         <div>
-          <img src={this.props.friendObj.profilePicture} />
+          <img src={this.props.friendinfo.profilePicture} />
         </div>
         <div>
-          Username: {this.props.friendObj.nickname}
+          Username: {this.props.friendinfo.nickname}
         </div>
         <div>
-          Email: {this.props.friendObj.email}
+          Email: {this.props.friendinfo.email}
         </div>
         <div>
           {

@@ -6,13 +6,29 @@ import FriendProfile from './FriendProfile.jsx';
 import NotUserProfile from './NotUserProfile.jsx';
 import NotFriendProfile from './NotFriendProfile.jsx';
 import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom';
+import { Redirect } from 'react-router'
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.postsReducer.posts,
-    friend: state.friendReducer.friend,
-    user: state.userReducer.user
+    friendinfo: state.friendinfoReducer.friendinfo,
+		posts: state.postsReducer.posts,
+		friends: state.friendsReducer.friends,
+		chatRooms: state.chatRoomReducer.chatRooms,
+		user: state.userReducer.user,
+		friend: state.friendReducer.friend
   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newFriendInfo(friendinfo) {
+      dispatch({
+        type: 'NEW_FRIENDINFO',
+				payload: friendinfo
+			})
+		}
+	}
 }
 
 class FriendProfileRoute extends Component {
@@ -27,8 +43,6 @@ class FriendProfileRoute extends Component {
   }
 
   componentDidMount() {
-    
-    this.setState({areFriends: true, notUser: false})
 
     let self = this;
     setTimeout(() => {
@@ -44,6 +58,7 @@ class FriendProfileRoute extends Component {
           this.setState({ friendObj: data })
           axios.get(`/api/friend/getAllFriend?userId=${this.props.user.id}`)
             .then(({ data }) => {
+              this.props.newFriendInfo(this.state.friendObj)                        
               let result = data.filter((friend) => friend.buddyId === this.state.friendObj.id);
               if (result.length) {
                 console.log('They are your friend!')
@@ -57,17 +72,16 @@ class FriendProfileRoute extends Component {
       .catch(err => {
         console.log(`Error finding user! ${err}`);
       })
-
   }
 
   render() {
     return (
       <div className="profile-container">
-        { this.state.loading ? <div>loading</div> : this.state.notUser ? <NotUserProfile /> : this.state.areFriends ?
-        <FriendProfile friendObj={this.state.friendObj}/> : <NotFriendProfile friendObj={this.state.friendObj}/> }
+        { this.state.loading ? <div>loading</div> : this.state.notUser ? <Redirect to='/notuser' /> : this.state.areFriends ?
+        <Redirect to='/friendprofile' /> : <Redirect to='/notfriend' /> }
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps)(FriendProfileRoute);
+export default connect(mapStateToProps, mapDispatchToProps)(FriendProfileRoute);
