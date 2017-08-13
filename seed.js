@@ -6,19 +6,23 @@ models.User.sync({
   .then(() => {
     models.User.bulkCreate([{
         email: 'joejoe',
-        nickname: 'joejoe'
+        nickname: 'Joe Cheng',
+        profilePicture: "https://avatars3.githubusercontent.com/u/25360287?v=4&s=400"
       },
       {
         email: 'james',
-        nickname: 'james'
+        nickname: 'James Hwang',
+        profilePicture: "https://avatars2.githubusercontent.com/u/30710715?v=4&s=200"
       },
       {
         email: 'taeminpak',
-        nickname: 'taeminpak'
+        nickname: 'Tae Min Pak',
+        profilePicture: "https://scontent-dft4-3.xx.fbcdn.net/v/t1.0-1/c9.0.160.160/p160x160/1236123_10202181547725371_1279259312_n.jpg?oh=d6e3a3b1db3988c47bc10944293de23c&oe=59EB09BA"
       },
       {
-        email: 'kevin',
-        nickname: 'kevin'
+        email: 'kevin@hack.com',
+        nickname: 'Kevin Tamarus',
+        profilePicture: "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8"
       }
     ])
   })
@@ -101,14 +105,39 @@ models.User.sync({
     .then(() => {
         models.UserComment.bulkCreate([
           {
-            userComment: 'I am commenting on this',
+            userComment: 'Kevin, you suck!',
+            userId: 3,
+            postId: 1
+          },
+          {
+            userComment: 'Trying my best, bro...Ping Pong???',
             userId: 4,
             postId: 1
           },
           {
-            userComment: 'test comment test comment',
-            userId: 4,
+            userComment: 'But Hack Reactor is not open right now',
+            userId: 1,
             postId: 1
+          },
+          {
+            userComment: 'What about Yellow House?',
+            userId: 2,
+            postId: 1
+          },
+          {
+            userComment: 'test comment on post 7',
+            userId: 4,
+            postId: 7
+          },
+          {
+            userComment: 'test comment on post 2',
+            userId: 4,
+            postId: 2
+          },
+          {
+            userComment: 'test comment on post 6',
+            userId: 2,
+            postId: 6
           }
         ])
       })
