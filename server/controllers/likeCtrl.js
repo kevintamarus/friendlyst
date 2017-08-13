@@ -2,6 +2,21 @@ const Like = require('../db/index').Like;
 
 module.exports = {
 
+  getLikes: ((req, res) => {
+    console.log(req.query, 'this is the body')
+    Like.findAll({
+      where: {
+        postId: req.query.postId
+      },
+      limit: 10,
+      order: [
+        ['createdAt', 'ASC']
+      ]
+    })
+    .then(likes => res.status(200).send(likes))
+    .catch(err => res.status(500).send(`Can't find likes! ${err}`))
+  }),
+
   likePost: ((req, res) => {
     Like.findOrCreate({
       where: {
@@ -39,8 +54,8 @@ module.exports = {
   unlikePost: ((req, res) => {
     Like.destroy({
       where: {
-        userId: req.body.userId,
-        postId: req.body.postId
+        userId: req.query.userId,
+        postId: req.query.postId
       }
     })
       .then((num) => {

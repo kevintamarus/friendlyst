@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const controller = require('../controllers/likeCtrl');
 
+router.get('/getLikes', controller.getLikes);
 router.post('/likePost', controller.likePost);
 router.post('/likeComment', controller.likeComment);
 router.delete('/unlikePost', controller.unlikePost);
