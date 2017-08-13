@@ -159,6 +159,7 @@ class App extends Component {
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
 					<button onClick={this.submitPost.bind(this)}>Post</button>
+					<input type="text" id="i" />
 					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.socket} />
