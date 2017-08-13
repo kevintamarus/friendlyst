@@ -1,13 +1,31 @@
-import React from 'react';
-import Nav from './Nav.jsx';
+import React, { Component } from 'react'
+import Nav from './Nav.jsx'
+import { connect } from 'react-redux';
 
-const NotUserProfile = () => {
-  return (
-    <div>
-      <Nav/>
-      <h2>This user does not exist on Friendlyst!</h2>
-    </div>
-  );
-};
+const mapStateToProps = (state) => {
+  return {
+    posts: state.postsReducer.posts,
+    user: state.userReducer.user
+  }
+}
 
-export default NotUserProfile;
+class NotUserProfile extends Component {
+
+  render() {
+    return (
+      <div>
+        <div className="navcopy">
+          <Nav />
+        </div>
+        <div>
+          <h2>This user does not exist on Friendlyst!</h2>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default connect(mapStateToProps)(NotUserProfile);
+
+
+

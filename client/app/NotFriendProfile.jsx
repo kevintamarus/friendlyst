@@ -6,9 +6,12 @@ import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
+    friendinfo: state.friendinfoReducer.friendinfo,
     posts: state.postsReducer.posts,
-    friend: state.friendReducer.friend,
-    user: state.userReducer.user
+		friends: state.friendsReducer.friends,
+		chatRooms: state.chatRoomReducer.chatRooms,
+		user: state.userReducer.user,
+		friend: state.friendReducer.friend
   }
 }
 
@@ -23,7 +26,7 @@ class NotFriendProfile extends Component {
 
   handleAddFriend() {
     axios.post('/api/friend/addFriend', {
-      friend: this.props.friendObj.email,
+      friend: this.props.friendinfo.email,
       userId: this.props.user.id
     })
       .then(() => {
@@ -39,13 +42,13 @@ class NotFriendProfile extends Component {
       <div className="profile-container">
         <Nav />
         <div>
-          <img src={this.props.friendObj.profilePicture} />
+          <img src={this.props.friendinfo.profilePicture} />
         </div>
         <div>
-          Username: {this.props.friendObj.nickname}
+          Username: {this.props.friendinfo.nickname}
         </div>
         <div>
-          Email: {this.props.friendObj.email}
+          Email: {this.props.friendinfo.email}
         </div>
         <button onClick={this.handleAddFriend}>Add Friend!</button>
         <div>
