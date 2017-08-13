@@ -17,6 +17,7 @@ class FriendProfile extends Component {
 //if not, simply display their profile picture and username with a button below that says 'You're not friends, click to request!'
 
   render() {
+    {console.log(this.props.posts)}
     return (
       <div className="profile-container">
         <div className="navcopy">
@@ -31,8 +32,16 @@ class FriendProfile extends Component {
         <div>
           Email: {this.props.friendObj.email}
         </div>
-         <div>
-          {/* {this.props.posts.map((post, key) => <FriendProfileFeedListEntry post={post} key={post.id} friend={this.props.friend} />)} */}
+        <div>
+          {
+            this.props.posts
+              .filter(post => this.props.friendObj.id === post.userId)
+              .map(post => {
+                return <div>
+                    {post.message}
+                  </div>
+              })
+          }
         </div> 
       </div>
     )
