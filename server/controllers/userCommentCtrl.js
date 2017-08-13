@@ -25,14 +25,31 @@ module.exports = {
       .catch(err => res.status(500).send(`Can't delete user comment! ${err}`))
   }),
 
+  // postComment: ((req, res) => {
+  //   UserComment.create({
+  //       userComment: req.body.comment,
+  //       userId: req.body.id,
+  //       postId: req.body.postId
+  //     })
+  //     .then(comment => res.status(201).send(comment))
+  //     .catch(err => res.status(500).send(`Error creating comment! ${err}`))
+  // })
   postComment: ((req, res) => {
-    UserComment.create({
-        userComment: req.body.comment,
-        userId: req.body.id,
-        postId: req.body.postId
+    User.find({
+      where: {
+        email: req.body.email
+      }
+    })
+    .then(user => {
+      UserComment.create({
+        userComment: req.body.message,
+        postId: req.body.postId,
+        userId: user.id,
       })
       .then(comment => res.status(201).send(comment))
-      .catch(err => res.status(500).send(`Error creating comment! ${err}`))
-  })
+      .catch(err => res.status(500).send(`Can't comment! ${err}`))
+    })
+    .catch(err => res.status(500).send(`Can't find user! ${err}`))
+  }),
 
 };
