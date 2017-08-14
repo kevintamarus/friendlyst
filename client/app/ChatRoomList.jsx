@@ -5,7 +5,7 @@ const ChatRoomList = ({ chatRooms, closeRoom, userId }) => {
   //each room will contain the user socket and the friend username
   console.log('this is the userid',userId)
   return (
-    <div >
+    <div className="chatroom-container">
       {
         chatRooms.map(chatRoom => {
           return <ChatRoomListEntry room={chatRoom} closeRoom={closeRoom} userId={userId} />
