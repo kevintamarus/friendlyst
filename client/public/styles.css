@@ -81,14 +81,28 @@ body {
   z-index: 1;
 }
 
-#nav-bar a {
+ #nav-bar a {
   text-decoration: none;
   color: white;
   margin-right: 5px;
+} 
+ 
+ #nav-bar a:hover {
+  background-color: #39D9C4;
+}  
+
+#nav-bar button {
+  background:none;
+  color:white;
+  border:none; 
+  padding:0;
+  font: inherit;
+  cursor: pointer;
+  margin-right:10px;
 }
 
-#nav-bar a:hover {
-  background-color: #39D9C4;
+#nav-bar button:hover {
+  color: black;
 }
 
 .navcopy {
@@ -208,6 +222,10 @@ body {
   padding: 5px;
 }
 
+.friend-list-container-minimize p:hover {
+  cursor:pointer;
+}
+
 .friend-list-container {
   text-align: center;
   background-color: #fff;
@@ -231,6 +249,10 @@ body {
   text-align: left;
   padding-top: 7px;
   padding-left: 5px;
+}
+
+.friend-list-container p:hover {
+  cursor:pointer;
 }
 
 .friend-container {
@@ -356,9 +378,7 @@ body {
 }
 
 .profile-info {
-  border: 1px solid black;
-  margin-left: 15%;
-  display: inline-block;
+  text-align: center;
   font-size: 16px;
 }
 
