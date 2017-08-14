@@ -3,6 +3,7 @@ import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
 import ProfileFeedListEntry from './ProfileFeedListEntry.jsx';
 import FeedListEntry from './FeedListEntry.jsx';
+import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,6 +13,20 @@ const mapStateToProps = (state) => {
 }
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.changePicture = this.changePicture.bind(this);
+  }
+
+  changePicture() {
+    let newPic = prompt('Please provide a new picture url.');
+    axios.put(`api/user/changePic`, {
+      newPic,
+      userId: this.props.user.id
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
 
   render() {
     return (
@@ -21,6 +36,7 @@ class Profile extends Component {
         </div>
         <div className="profile-info">
           <div><img src={this.props.user.profilePicture} /></div>
+          <button onClick={this.changePicture}>Change Profile Picture</button>
           <div>Username: {this.props.user.nickname}</div>
           <div>Email: {this.props.user.email}</div>
         </div>

@@ -20,19 +20,18 @@ body {
 .resize {
   z-index: 999;
   width: 450px;
-  width: 350px;
 }
 
 .resize2 {
   text-align: center;
   z-index: 999;
   width: 60px;
-  width: 60px;
 }
 
 .buttons {
   float: right;
   height: 50px;
+  width: 60px;
   color: black;
 }
 
@@ -69,8 +68,8 @@ body {
 
 .login-button-container button{
   border-radius: 4px;
-
 }
+
 #nav-bar {
   background-color: #39D9C4;
   height: 50px;
@@ -185,15 +184,14 @@ body {
   width: 50px;
 }
 
-.post-info {
+ .post-info {
   text-align: left;
-  position: absolute;
-  width: 100%;
-}
+} 
 
 .like-section {
-  margin-top: 50px;
-  margin-bottom: 5px;
+  padding: 10px;
+  border-bottom: 0.1px solid black;
+  position: left;
   cursor: pointer;
   cursor: hand;
 }
@@ -202,9 +200,10 @@ body {
   background-color: #eee;
 }
 
-.feed-comments-container {
+/* .feed-comments-container {
   text-align: left;
-}
+  width: 90%;
+} */
 
 .comment-section textarea {
   height: 30px;
@@ -212,7 +211,9 @@ body {
 }
 
 .comment-container {
-  border-top: 0.1px solid black;
+  position: left;
+  margin-top: 10px;
+  border-bottom: 0.1px solid black;
 }
 
 .friend-list-container-minimize {
@@ -373,6 +374,26 @@ body {
   color: black;
 }
 
+.post-name {
+  color: darkblue;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 50px;
+  margin-right: 10px;
+  padding-left: 10px;
+}
+
+.post-time {
+  margin-left: 50px;
+  padding-left: 10px;
+}
+
+.post-message {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .profile-info {
   text-align: center;
 }
@@ -394,7 +415,3 @@ body {
   height: 200px;
   width: 200px;
 }
-
-/* .profile-info-inner {
-  display: inline-block;
-} */

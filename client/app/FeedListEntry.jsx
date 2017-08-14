@@ -129,11 +129,9 @@ class FeedListEntry extends Component {
 				<div>
 					<div className="post-info">
 						<img src={this.state.imageLink} className="user-img" />
-						<div className="vertical-center">
-							<div>{this.state.name}</div>
-							<div>{this.props.post.message}</div>
+							<div className="post-name">{this.state.name}</div>
 							<div className="post-time">{this.timeSince(new Date(this.props.post.createdAt))} ago</div>
-						</div>
+							<div className="post-message">{this.props.post.message}</div>
 					</div>
 				</div>
 
@@ -145,7 +143,10 @@ class FeedListEntry extends Component {
 						{this.state.comments.map((comment, key) =>
 						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
 					</div>  
-	
+					<div className="feed-comments-container">
+						{this.state.currentComment.map((comment, key) =>
+						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
+					</div>
 					<div>
 						<form>
 							<textarea id="comment-area" onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>

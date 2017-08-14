@@ -75,7 +75,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			previousPosts: [],
 			friendLyst: [],
 			socket: {}
 		}
@@ -182,7 +181,7 @@ class App extends Component {
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					
 					<div className="input-button-container"><button onClick={this.submitPost.bind(this)}>Post</button></div>
-					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
+					<FeedList posts={this.props.posts} user={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
 				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
