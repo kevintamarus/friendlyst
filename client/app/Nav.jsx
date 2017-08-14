@@ -40,7 +40,7 @@ class Nav extends Component {
   render() {
     return (
     <div id="nav-bar">
-      <Link to="/home"><img className="resize2" src="friendlystlogo.jpg" /></Link>
+      <Link to="/home" className="nav-bar-image"><img className="resize2" src="friendlystlogo.jpg" /></Link>
       <Link to="/profile"><button className="buttons">Profile</button></Link>
       <button className="buttons" onClick={() => auth.logout()}>Logout</button>
       <form>

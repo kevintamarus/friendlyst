@@ -105,6 +105,14 @@ body {
   color: black;
 }
 
+.nav-bar-image {
+  float:left;
+}
+
+#nav-bar form {
+  float:left;
+}
+
 .navcopy {
   height: 60px;
 }
