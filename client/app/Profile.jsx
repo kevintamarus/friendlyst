@@ -19,14 +19,10 @@ class Profile extends Component {
         <div className="navcopy">
           <Nav />
         </div>
-        <div>
-          <img src={this.props.user.profilePicture} />
-        </div>
-        <div>
-          Username: {this.props.user.nickname}
-        </div>
-        <div>
-          Email: {this.props.user.email}
+        <div className="profile-info">
+          <div><img src={this.props.user.profilePicture} /></div>
+          <div>Username: {this.props.user.nickname}</div>
+          <div>Email: {this.props.user.email}</div>
         </div>
          <div>
            {console.log(this.props.posts)}
