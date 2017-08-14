@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
       return
     }
   })
-  
+
   socket.on('private message', (msg) => {
     let socketTo = users[msg.to]
     let socketFrom = users[msg.from]
@@ -53,6 +53,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
+    console.log('disconnecteddddddddddddd')
     delete users[socket.nickname]
     socket.broadcast.emit('user disconnected', Object.keys(users))
   })

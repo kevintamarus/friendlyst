@@ -77,7 +77,7 @@ class FriendProfileRoute extends Component {
   render() {
     return (
       <div className="profile-container">
-        { this.state.loading ? <div>loading</div> : this.state.notUser ? <Redirect to='/notuser' /> : this.state.areFriends ?
+        { this.state.loading ? null : this.state.notUser ? <Redirect to='/notuser' /> : this.state.areFriends ?
         <Redirect to='/friendprofile' /> : <Redirect to='/notfriend' /> }
       </div>
     )

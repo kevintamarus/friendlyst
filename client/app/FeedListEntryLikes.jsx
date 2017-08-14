@@ -88,7 +88,7 @@ class FeedListEntryLikes extends React.Component {
 
   render() {
     return (
-      <div onClick={this.checkLike}>
+      <div onClick={this.checkLike} className="likes-container">
         <span>
           {this.state.likes}
         </span>

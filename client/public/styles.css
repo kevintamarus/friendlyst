@@ -1,11 +1,38 @@
 body {
   font-family: sans-serif;
-  background-image: url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg');
-  background-attachment:fixed;
+  background: url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 #app {
   height:100%;
+}
+
+.logo {
+  text-align: center;
+  font-weight: bold;
+  font-size: 50%;
+}
+
+.resize {
+  z-index: 999;
+  width: 450px;
+}
+
+.resize2 {
+  text-align: center;
+  z-index: 999;
+  width: 60px;
+}
+
+.buttons {
+  float: right;
+  height: 50px;
+  width: 60px;
+  color: black;
 }
 
 * {
@@ -27,7 +54,6 @@ body {
   background: rgba(255, 255, 255, 0.35);
   text-align: center;
   border-radius: 3px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   top: 10px;
   left: 0;
@@ -37,16 +63,16 @@ body {
   right: 0;
   z-index: 2;
   padding: 0 10px;
-  margin-top:25%;
+  margin-top: 1.5%;
 }
 
 .login-button-container button{
   border-radius: 4px;
-
 }
+
 #nav-bar {
-  background-color: #3b5998;
-  height: 40px;
+  background-color: #39D9C4;
+  height: 50px;
   position: fixed;
   top: 0;
   left: 0;
@@ -57,17 +83,19 @@ body {
 #nav-bar a {
   text-decoration: none;
   color: white;
-  float: right;
   margin-right: 5px;
-  margin-top: 3px;
 }
 
 #nav-bar a:hover {
-  background-color: #355088;
+  background-color: #39D9C4;
 }
 
 .navcopy {
   height: 60px;
+}
+
+.search {
+  color: black;
 }
 
 .navbar-search {
@@ -84,11 +112,6 @@ body {
 
 .navbar-search-button {
 
-}
-
-.notification-container {
-  float:right;
-  border: 1px solid black;
 }
 
 .home-page-container {
@@ -123,6 +146,14 @@ body {
   position: relative;
   width: 40%;
   vertical-align: center;
+}
+
+.feed-entry-button-container {
+  text-align: center;
+}
+
+.likes-container {
+  text-align: left;
 }
 
 .user-img {
@@ -193,7 +224,7 @@ body {
 
 .friend-list-container p {
   box-sizing: border-box;
-  background-color: #0084ff;
+  background-color: #39D9C4;
   color: white;
   margin-top: 0;
   margin-bottom: 0px;
@@ -241,7 +272,7 @@ body {
 }
 
 .chatroom-header {
-  background-color: #0084ff;
+  background-color: #39D9C4; 
   color: white;
   font-size: 14px;
   box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 1);
@@ -298,7 +329,7 @@ body {
   float: right;
   clear: both;
   padding: 4px;
-  background-color: #0084ff;
+  background-color: #39D9C4;
   color: white;
 }
 
@@ -312,7 +343,6 @@ body {
   background-color: #DCDCDC;
   color: black;
 }
-
 
 .post-name {
   color: darkblue;
@@ -334,3 +364,26 @@ body {
   font-weight: bold;
 }
 
+.profile-info {
+  text-align: center;
+}
+
+.not-user-profile {
+  text-align: center;
+}
+
+.friend-profile-info-container {
+  text-align: center;
+}
+
+.profile-info {
+  border: 1px solid black;
+  margin-left: 15%;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.profile-info img {
+  height: 200px;
+  width: 200px;
+}
