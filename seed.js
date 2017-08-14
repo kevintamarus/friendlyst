@@ -134,7 +134,7 @@ models.User.sync({
             userId: 2
           },
           {
-            message: 'English gentlemen, this is America.',
+            message: 'как дела?',
             userId: 4
           },
           {
@@ -150,12 +150,12 @@ models.User.sync({
     .then(() => {
         models.UserComment.bulkCreate([
           {
-            userComment: 'Kevin, you suck!',
+            userComment: "We're presenting RIGHT NOW???",
             userId: 3,
             postId: 1
           },
           {
-            userComment: 'Trying my best, bro...Ping Pong???',
+            userComment: 'Yes Sir',
             userId: 4,
             postId: 1
           },
@@ -165,22 +165,22 @@ models.User.sync({
             postId: 1
           },
           {
-            userComment: 'What about Yellow House?',
+            userComment: 'I already brought my laptop?',
             userId: 2,
             postId: 1
           },
           {
-            userComment: 'test comment on post 7',
+            userComment: 'Priviet',
             userId: 4,
             postId: 7
           },
           {
-            userComment: 'test comment on post 77',
-            userId: 4,
+            userComment: '*(#&$^(@*#^$(&#)',
+            userId: 3,
             postId: 2
           },
           {
-            userComment: 'TESTTTTTTTTTTTTT IT NOW!',
+            userComment: 'I have no idea what I just said!',
             userId: 2,
             postId: 6
           }
