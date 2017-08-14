@@ -86,9 +86,9 @@ body {
   margin-right: 5px;
 } 
  
- #nav-bar a:hover {
+ /* #nav-bar a:hover {
   background-color: #39D9C4;
-}  
+}   */
 
 #nav-bar button {
   background:none;
@@ -132,8 +132,8 @@ body {
   width: 80%;
 }
 
-.navbar-search-button {
-
+#nav-bar .nav-bar-magnifier {
+  margin-left:-20px;
 }
 
 .home-page-container {

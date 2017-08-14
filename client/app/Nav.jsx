@@ -45,7 +45,7 @@ class Nav extends Component {
       <button className="buttons" onClick={() => auth.logout()}>Logout</button>
       <form>
         <input type="text" onChange={this.handleChange.bind(this)}/>
-        <Link to={"/" + this.props.friend}><input className="search" type="submit" value="Search"></input></Link>
+        <Link to={"/" + this.props.friend}><input className="nav-bar-magnifier"type="image" src="https://cdn0.iconfinder.com/data/icons/basic-lines/39/search-512.png" style={{height:'18px',width:'18px'}} /></Link>
       </form>
     </div>
     );
