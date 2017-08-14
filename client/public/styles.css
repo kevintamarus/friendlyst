@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
-  background-color: #eee;
+  background-image: url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg');
+  background-attachment:fixed;
 }
 
 #app {
@@ -12,7 +13,7 @@ body {
 }
 
 .background-image {
-  background-image: url('http://www.dotfoods.com/images/cloud_background.jpg');
+  background-image: url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg');
   background-size: cover;
   display: block;
   height: 800px;
@@ -91,6 +92,7 @@ body {
 .home-page-container {
   text-align: center;
   margin-top: 5%;
+  
 }
 
 #post-area {
