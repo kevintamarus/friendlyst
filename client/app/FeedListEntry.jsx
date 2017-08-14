@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FeedListEntryLikes from './FeedListEntryLikes.jsx';
 import FeedListEntryComments from './FeedListEntryComments.jsx';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
@@ -151,7 +152,7 @@ class FeedListEntry extends Component {
 						<form>
 							<textarea id="comment-area" onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
 							<div className="feed-entry-button-container">
-								<button type="button" onClick={this.submitComment}>Comment</button>
+								<Button bsStyle="default" onClick={this.submitComment}>Comment</Button>
 							</div>
 						</form>
 					</div> 

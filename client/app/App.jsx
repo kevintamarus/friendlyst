@@ -180,7 +180,7 @@ class App extends Component {
 				<Nav />
 				<div className="home-page-container">
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>					
-					<div className="input-button-container"><Button bsStyle="info" onClick={this.submitPost.bind(this)}>Post</Button></div>
+					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
 					<FeedList posts={this.props.posts} user={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
