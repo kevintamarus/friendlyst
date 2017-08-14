@@ -60,6 +60,17 @@ module.exports = {
     User.findAll({})
       .then(users => res.status(200).send(users))
       .catch(err => res.status(500).send(`Error finding users! ${err}`))
+  }),
+
+  changePic: ((req, res) => {
+    User.update(
+      {profilePicture: req.body.newPic},
+      {where: {id: req.body.userId}}
+    )
+      .then(data => {
+        res.status(201).send(data);
+      })
+      .catch(err => res.status(500).send(`Error changing profile pic ${err}`))
   })
 
 }
