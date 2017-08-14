@@ -20,7 +20,7 @@ models.User.sync({
         profilePicture: "https://scontent-dft4-3.xx.fbcdn.net/v/t1.0-1/c9.0.160.160/p160x160/1236123_10202181547725371_1279259312_n.jpg?oh=d6e3a3b1db3988c47bc10944293de23c&oe=59EB09BA"
       },
       {
-        email: 'kevin@hack.com',
+        email: 'kevin@gmail.com',
         nickname: 'kevin',
         profilePicture: "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8"
       }
@@ -30,34 +30,6 @@ models.User.sync({
     models.Friend.sync({
         force: true
       })
-      .then(() => {
-        models.Friend.bulkCreate([{
-            userId: 1,
-            buddyId: 4
-          },
-          {
-            userId: 1,
-            buddyId: 3
-          },
-          {
-            userId: 2,
-            buddyId: 3
-          },
-          {
-            userId: 3,
-            buddyId: 2
-          },
-          {
-            userId: 4,
-            buddyId: 1
-          },
-          {
-            userId: 4,
-            buddyId: 2
-          }
-        ])
-      })
-      .catch(err => console.log(`Error creating friend data! ${err}`))
   })
   .then(() => {
     models.Post.sync({
@@ -130,12 +102,12 @@ models.User.sync({
             postId: 7
           },
           {
-            userComment: 'test comment on post 2',
+            userComment: 'test comment on post 77',
             userId: 4,
             postId: 2
           },
           {
-            userComment: 'test comment on post 6',
+            userComment: 'TESTTTTTTTTTTTTT IT NOW!',
             userId: 2,
             postId: 6
           }
@@ -149,42 +121,34 @@ models.User.sync({
         {
           postId: 1,
           userId: 1,
-          userCommentId: null
         },
         {
           postId: 1,
           userId: 2,
-          userCommentId: null
         },
         {
           postId: 1,
           userId: 3,
-          userCommentId: null
         },
         {
           postId: 1,
           userId: 4,
-          userCommentId: null
         },
         {
           postId: 2,
           userId: 1,
-          userCommentId: null
         },
         {
           postId: 2,
           userId: 2,
-          userCommentId: null
         },
         {
           postId: 3,
           userId: 3,
-          userCommentId: null
         },
         {
           postId: 3,
           userId: 4,
-          userCommentId: null
         }
       ])
     })
