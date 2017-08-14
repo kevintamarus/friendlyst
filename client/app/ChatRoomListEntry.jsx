@@ -36,7 +36,6 @@ class ChatRoomListEntry extends Component {
       this.setState({
         friendId: data.id
       })
-      
       axios.get('/api/message/getAllMessage', {
         params: {
           friendId: this.state.friendId,

@@ -48,6 +48,14 @@ module.exports = {
       .catch(err => res.status(500).send(`Error finding user! ${err}`))
   }),
 
+  getUsersById: ((req, res) => {
+    User.findAll({
+      where: {id: req.query.ids}
+    })
+      .then(users => res.status(200).send(users))
+      .catch(err => res.status(500).send(`Error finding user! ${err}`))
+  }),
+
   getAllUser: ((req, res) => {
     User.findAll({})
       .then(users => res.status(200).send(users))

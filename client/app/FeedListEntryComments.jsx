@@ -26,8 +26,7 @@ class FeedListEntryComments extends Component {
 
 	render() {
 		return (
-			<div>
-				<div id="comment-container">
+				<div className="comment-container">
 					<div className="userinfo">
 						<img src={this.state.imageLink} height="50" width="50" />
 						<span className="username">{this.state.name}</span>
@@ -37,7 +36,6 @@ class FeedListEntryComments extends Component {
 						<div className="comment">{this.props.comment.userComment}</div>
 					</div>
 				</div>
-			</div>
 		)
 	}
 }
