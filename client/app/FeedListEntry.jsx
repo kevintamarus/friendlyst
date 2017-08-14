@@ -75,7 +75,8 @@ class FeedListEntry extends Component {
 		this.setState({currentComment: this.state.currentComment.concat([{
 			userComment: this.state.commentText,
 			postId: this.props.post.id,
-			userId: this.props.user.id
+			userId: this.props.user.id,
+			updatedAt: new Date().toISOString()
 		}])})
 
 		//should send comment request to server
