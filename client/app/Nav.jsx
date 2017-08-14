@@ -40,9 +40,9 @@ class Nav extends Component {
   render() {
     return (
     <div id="nav-bar">
-      <Link to="/home"><img className="resize2" src="friendlystlogo.jpg" /></Link>
-      <button className="buttons" onClick={() => auth.logout()}>Logout</button>
+      <Link to="/home" className="nav-bar-image"><img className="resize2" src="friendlystlogo.jpg" /></Link>
       <Link to="/profile"><button className="buttons">Profile</button></Link>
+      <button className="buttons" onClick={() => auth.logout()}>Logout</button>
       <form>
         <input type="text" onChange={this.handleChange.bind(this)}/>
         <Link to={"/" + this.props.friend}><input className="search" type="submit" value="Search"></input></Link>
