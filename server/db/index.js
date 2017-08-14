@@ -55,8 +55,6 @@ User.belongsToMany(User, {
   allowNull: true
 });
 
-// User.belongsToMany(User, {as:'messagePartner', through: Message, unique: false, allowNull: true});
-
 User.hasMany(Post);
 Post.belongsTo(User);
 
@@ -71,9 +69,6 @@ UserComment.belongsTo(Post);
 
 Post.hasMany(Like);
 Like.belongsTo(Post);
-
-UserComment.hasMany(Like);
-Like.belongsTo(UserComment);
 
 User.sync();
 Friend.sync();
