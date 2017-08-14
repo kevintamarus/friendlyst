@@ -40,12 +40,12 @@ class Nav extends Component {
   render() {
     return (
     <div id="nav-bar">
-      <Link to="/home"><button>Home</button></Link>
-      <Link to="/profile"><button>Profile</button></Link>
-      <button onClick={() => auth.logout()}>Logout</button>
-      <form className="search">
+      <Link to="/home"><img className="resize2" src="friendlystlogo.jpg" /></Link>
+      <Link to="/profile"><button className="buttons">Profile</button></Link>
+      <button className="buttons" onClick={() => auth.logout()}>Logout</button>
+      <form>
         <input type="text" onChange={this.handleChange.bind(this)}/>
-        <Link to={"/" + this.props.friend}><input type="submit" value="Search"></input></Link>
+        <Link to={"/" + this.props.friend}><input className="search" type="submit" value="Search"></input></Link>
       </form>
     </div>
     );
