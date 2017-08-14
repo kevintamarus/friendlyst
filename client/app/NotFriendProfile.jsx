@@ -41,20 +41,24 @@ class NotFriendProfile extends Component {
     return this.state.notFriend ?
     (
       <div className="profile-container">
-        <Nav />
-        <div>
-          <img src={this.props.friendinfo.profilePicture} />
+        <div className="navcopy">
+          <Nav />
         </div>
-        <div>
-          Username: {this.props.friendinfo.nickname}
+        <div className="friend-profile-info-container">
+          <div>
+            <img src={this.props.friendinfo.profilePicture} />
+          </div>
+          <div>
+            Username: {this.props.friendinfo.nickname}
+          </div>
+          <div>
+            Email: {this.props.friendinfo.email}
+          </div>
+          <Link to="/home"><button onClick={this.handleAddFriend}>Add Friend!</button></Link>
+          <div>
+            Add them as a friend to see their posts!
+          </div>
         </div>
-        <div>
-          Email: {this.props.friendinfo.email}
-        </div>
-        <Link to="/home"><button onClick={this.handleAddFriend}>Add Friend!</button></Link>
-        <div>
-          Add them as a friend to see their posts!
-        </div>  
       </div>
     ) : <div>Added as friend!</div>
   }

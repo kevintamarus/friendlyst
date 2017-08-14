@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
 import FeedListEntry from './FeedListEntry.jsx';
-// import FriendProfileFeedListEntry from './FriendProfileFeedListEntry.jsx'
 
 const mapStateToProps = (state) => {
   return {
@@ -16,10 +15,6 @@ const mapStateToProps = (state) => {
 }
 
 class FriendProfile extends Component {
-
-//we can have some kind of state that is changed - call axios.get to see if the friend exists in our database - if success, change state to true
-//add some kind of ternary in the render where if the state is true, display all their info
-//if not, simply display their profile picture and username with a button below that says 'You're not friends, click to request!'
 
   render() {
     {console.log(this.props.posts)}
