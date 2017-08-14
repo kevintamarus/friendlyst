@@ -8,12 +8,12 @@ const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
 	//so you need another . to access its properties
 	return {
-		comments: state.postReducer.comments,
+		comments: state.commentReducer.comments,
 		user: state.userReducer.user
 	}
 }
 
-const mapDispathToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		newComment(comment) {
 			dispatch({
@@ -97,6 +97,7 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
+		console.log(this.props.comments, 'comment state');
 		return (
 			<div className="feed-entry">
 				<div>
@@ -136,4 +137,4 @@ class FeedListEntry extends Component {
 	}
 }
 
-export default FeedListEntry;
+export default connect(mapStateToProps, mapDispatchToProps)(FeedListEntry);
