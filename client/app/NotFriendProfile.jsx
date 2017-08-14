@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ProfileFeedListEntry from './ProfileFeedListEntry.jsx'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router'
 
 const mapStateToProps = (state) => {
   return {
@@ -60,7 +61,7 @@ class NotFriendProfile extends Component {
           </div>
         </div>
       </div>
-    ) : <div>Added as friend!</div>
+    ) : <Redirect to='/home' />
   }
 }
 
