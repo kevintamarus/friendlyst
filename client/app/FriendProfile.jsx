@@ -28,14 +28,16 @@ class FriendProfile extends Component {
         <div className="navcopy">
           <Nav />
         </div>
-        <div>
-          <img src={this.props.friendinfo.profilePicture} />
-        </div>
-        <div>
-          Username: {this.props.friendinfo.nickname}
-        </div>
-        <div>
-          Email: {this.props.friendinfo.email}
+        <div className="friend-profile-info-container">
+          <div>
+            <img src={this.props.friendinfo.profilePicture} />
+          </div>
+          <div>
+            Username: {this.props.friendinfo.nickname}
+          </div>
+          <div>
+            Email: {this.props.friendinfo.email}
+          </div>
         </div>
         <div>
           {

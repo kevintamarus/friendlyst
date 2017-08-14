@@ -61,11 +61,6 @@ const mapDispatchToProps = (dispatch) => {
 				payload: userInfo
 			})
 		},
-		newNotification() {
-			dispatch({
-				type: 'NEW_NOTIFICATION'
-			})
-		},
 		setSocket(socket) {
 			dispatch({
 				type: 'NEW_SOCKET',
@@ -152,9 +147,6 @@ class App extends Component {
 						console.log('usernames', usernames)
 						
 						this.props.newFriend(usernames)
-					})
-					this.socket.on('private message received', () => {
-						this.props.newNotification()
 					})
 					//taking user off from current list
 					this.socket.on('user disconnected', usernames => {
