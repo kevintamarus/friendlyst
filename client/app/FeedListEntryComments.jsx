@@ -55,10 +55,10 @@ class FeedListEntryComments extends Component {
 				<div className="comment-container">
 					<div className="userinfo">
 						<img src={this.state.imageLink} height="50" width="50" />
-						<span className="username">{this.state.name}</span>
+						<div className="username">{this.state.name}</div>
+						<div>{this.timeSince(new Date(this.props.comment.updatedAt))} ago</div>
 					</div>
 					<div className="comment-time">
-						<div>{this.timeSince(new Date(this.props.comment.updatedAt))} ago</div>
 						<div className="comment">{this.props.comment.userComment}</div>
 					</div>
 				</div>
