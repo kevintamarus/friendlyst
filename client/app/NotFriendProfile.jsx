@@ -3,12 +3,16 @@ import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
 import ProfileFeedListEntry from './ProfileFeedListEntry.jsx'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
+    friendinfo: state.friendinfoReducer.friendinfo,
     posts: state.postsReducer.posts,
-    friend: state.friendReducer.friend,
-    user: state.userReducer.user
+		friends: state.friendsReducer.friends,
+		chatRooms: state.chatRoomReducer.chatRooms,
+		user: state.userReducer.user,
+		friend: state.friendReducer.friend
   }
 }
 
@@ -23,7 +27,7 @@ class NotFriendProfile extends Component {
 
   handleAddFriend() {
     axios.post('/api/friend/addFriend', {
-      friend: this.props.friendObj.email,
+      friend: this.props.friendinfo.email,
       userId: this.props.user.id
     })
       .then(() => {
@@ -37,22 +41,19 @@ class NotFriendProfile extends Component {
     return this.state.notFriend ?
     (
       <div className="profile-container">
-        <div className="navcopy">
-          <Nav />
+        <Nav />
+        <div>
+          <img src={this.props.friendinfo.profilePicture} />
         </div>
         <div>
-          <img src={this.props.friendObj.profilePicture} />
+          Username: {this.props.friendinfo.nickname}
         </div>
         <div>
-          Username: {this.props.friendObj.nickname}
+          Email: {this.props.friendinfo.email}
         </div>
-        <div>
-          Email: {this.props.friendObj.email}
-        </div>
-        <button onClick={this.handleAddFriend}>Add Friend!</button>
+        <Link to="/home"><button onClick={this.handleAddFriend}>Add Friend!</button></Link>
         <div>
           Add them as a friend to see their posts!
-          {/* {this.props.posts.map((post, key) => <ProfileFeedListEntry post={post} key={post.id} user={this.props.user} />)} */}
         </div>  
       </div>
     ) : <div>Added as friend!</div>

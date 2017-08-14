@@ -6,6 +6,7 @@ class FeedListEntryLikes extends React.Component {
     super(props);
     this.state = {
       likes: 0,
+      userLike: '',
       userLikes: []
     };
     //this.handleClickLike = this.handleClickLike.bind(this);
@@ -13,34 +14,49 @@ class FeedListEntryLikes extends React.Component {
   }
 
   componentDidMount() {
-    let id = this.props.post.id;
-    axios.get(`api/like/getLikes?postId=${id}`)
-    .then((data) => {
-      this.setState({userLikes: data.data});
-      this.setState({likes: this.state.userLikes.length});
-    })
-    .catch(err => {
-      console.log(err, 'could not get likes')
-    })
+    setTimeout(() => {
+      let id = this.props.post.id;
+      axios.get(`api/like/getLikes?postId=${id}`)
+      .then((data) => {
+        this.setState({userLikes: data.data});
+        this.setState({likes: this.state.userLikes.length});
+        data.data.forEach(obj => {
+          if(obj.userId === this.props.user.id) {
+            this.setState({userLike: 'You liked this'});
+          }
+        })
+      })
+      .catch(err => {
+        console.log(err, 'could not get likes')
+      })
+    }, 500);
   }
 
   checkLike() {
 		let userId = this.props.user.id;
     let postId = this.props.post.id;
-    let liked = false;
-    this.state.userLikes.forEach(obj => {
-      if(obj.userId === this.props.user.id) {
-        liked = true;
-      }
-    })
-    console.log(liked, 'liked or not')
-    if(liked === false) {
+    console.log(this.state.userLike, 'liked status')
+    if(this.state.userLike === '') {
       axios.post('api/like/likePost', {
         userId: userId,
         postId: postId,
       })
       .then(data => {
         this.setState({likes: this.state.likes + 1});
+        this.setState({userLike: 'You liked this'})
+        axios.get(`api/like/getLikes?postId=${postId}`)
+        .then((data) => {
+          this.setState({userLikes: data.data});
+          this.setState({likes: this.state.userLikes.length});
+          data.data.forEach(obj => {
+            if(obj.userId === this.props.user.id) {
+              this.setState({userLike: 'You liked this'});
+            }
+          })
+        })
+        .catch(err => {
+          console.log(err, 'could not get likes')
+        })
       })
       .catch(err => {
         console.log('like request did not go through');
@@ -49,6 +65,20 @@ class FeedListEntryLikes extends React.Component {
       axios.delete(`api/like/unlikePost?userId=${userId}&postId=${postId}`)
       .then(data => {
         this.setState({likes: this.state.likes - 1});
+        this.setState({userLike: ''});
+        axios.get(`api/like/getLikes?postId=${postId}`)
+        .then((data) => {
+          this.setState({userLikes: data.data});
+          this.setState({likes: this.state.userLikes.length});
+          data.data.forEach(obj => {
+            if(obj.userId === this.props.user.id) {
+              this.setState({userLike: 'You liked this'});
+            }
+          })
+        })
+        .catch(err => {
+          console.log(err, 'could not get likes')
+        })
       })
       .catch(err => {
         console.log('unlike request did not go through');
@@ -65,6 +95,7 @@ class FeedListEntryLikes extends React.Component {
         <span>
           <img src="./images/like.jpg" height="25" width="25" />
         </span>
+        <span>{this.state.userLike}</span>
         <div className="user-likes">
           {/* {this.state.userLikes.map((user, key) => {
             <span user={user} key={key}>this works</span>

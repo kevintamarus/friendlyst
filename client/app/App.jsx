@@ -81,32 +81,28 @@ class App extends Component {
 	componentDidMount() {
 		auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
 
-		console.log(this.props.user)
-		//get all previous posts from database
-		let email = 'kevin@hack.com'
-		//let email = this.props.user.email;
-		axios.get(`api/post/getAllUserPost?email=${email}`)
-		.then( (data) => {
-			let dataArray = data.data;
-			this.setState({previousPosts: dataArray});
-		})
-		.catch(err => {
-			console.log(err, 'could not get data');
-		})
+		setTimeout(() => {
+			if (!this.props.posts.length) {
+				let email = this.props.user.email;
+				axios.get(`api/post/getAllUserPost?email=${email}`)
+					.then(({ data }) => {
+						data.forEach(post => this.props.newPost(post))
+						axios.get(`api/post/getAllFriendPost/?email=${email}`)
+							.then(({ data }) => {
+								data.forEach(post => this.props.newPost(post))
+							})
+							.catch(err => {
+								console.log(`Error getting friend posts! ${err}`);
+							})
+					})
+					.catch(err => {
+						console.log(`Error getting user posts! ${err}`);
+				})
+			}
+		}, 1500)
 
-		//get all the friends posts and sort everything by updatedAt
-		axios.get(`api/post/getAllFriendPost/?email=${email}`)
-		.then( (data) => {
-			let dataArray = data.data;
-			this.setState({previousPosts: this.state.previousPosts.concat(dataArray).sort( (a,b) => {
-				a = a.updatedAt;
-				b = b.updatedAt;
-				return a > b ? -1 : a < b ? 1 : 0;
-			})});
-		})
-		.catch(err => {
-			console.log(err, 'could not get data');
-		})
+		this.props.posts.sort((a, b) => b.id - a.id);
+
 	}
 
 	manageChat(nickname) {
@@ -166,12 +162,12 @@ class App extends Component {
 			message: $('#post-area').val()
 		})
 			.then(({ data }) => {
-				console.log(data);
 				this.props.newPost(data);
 			})
 			.catch(err => {
 				console.log(err);
 			})
+		document.getElementById('post-area').value='';
 	}
 
 	render() {
