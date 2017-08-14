@@ -115,11 +115,6 @@ body {
 
 }
 
-.notification-container {
-  float:right;
-  border: 1px solid black;
-}
-
 .home-page-container {
   text-align: center;
   margin-top: 5%;
@@ -152,6 +147,14 @@ body {
   position: relative;
   width: 40%;
   vertical-align: center;
+}
+
+.feed-entry-button-container {
+  text-align: center;
+}
+
+.likes-container {
+  text-align: left;
 }
 
 .user-img {
@@ -340,8 +343,16 @@ body {
   color: black;
 }
 
-.profile-container {
-  border: 1px solid black;
+.profile-info {
+  text-align: center;
+}
+
+.not-user-profile {
+  text-align: center;
+}
+
+.friend-profile-info-container {
+  text-align: center;
 }
 
 .profile-info {

@@ -149,7 +149,7 @@ class FeedListEntry extends Component {
 					<div>
 						<form>
 							<textarea id="comment-area" onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
-							<div>
+							<div className="feed-entry-button-container">
 								<button type="button" onClick={this.submitComment}>Comment</button>
 							</div>
 						</form>

@@ -16,7 +16,6 @@ import userReducer from './reducer/userReducer.js'
 import friendinfoReducer from './reducer/friendinfoReducer.js'
 import friendReducer from './reducer/friendReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
-import notificationReducer from './reducer/notificationReducer.js'
 import commentReducer from './reducer/commentReducer.js'
 import socketReducer from './reducer/socketReducer.js'
 import $ from 'jquery';
@@ -28,7 +27,6 @@ const reducers = combineReducers({
    chatRoomReducer,
    friendReducer,
    friendinfoReducer,
-   notificationReducer,
    commentReducer,
    socketReducer
 })
