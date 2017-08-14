@@ -53,6 +53,7 @@ class FeedListEntryComments extends Component {
 	render() {
 		return (
 				<div className="comment-container">
+					<hr className="hr-style" />
 					<div className="userinfo">
 						<img src={this.state.imageLink} height="50" width="50" />
 						<div className="username">{this.state.name}</div>

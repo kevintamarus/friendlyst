@@ -9,6 +9,7 @@ import FriendList from './FriendList.jsx';
 import FriendProfileRoute from './FriendProfileRoute.jsx';
 import ChatRoomList from './ChatRoomList.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const auth = new Auth();
 
@@ -178,9 +179,8 @@ class App extends Component {
 			<div>
 				<Nav />
 				<div className="home-page-container">
-					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
-					
-					<div className="input-button-container"><button onClick={this.submitPost.bind(this)}>Post</button></div>
+					<textarea id="post-area" placeholder="What's on your mind?"></textarea>					
+					<div className="input-button-container"><Button bsStyle="success" onClick={this.submitPost.bind(this)}>Post</Button></div>
 					<FeedList posts={this.props.posts} user={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />

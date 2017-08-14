@@ -4,6 +4,7 @@ import axios from 'axios';
 import Nav from './Nav.jsx';
 import Auth from '../Auth/Auth';
 import { Link, withRouter } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const path = require('path');
 const envPath = path.resolve(__dirname, '../../.env');
@@ -92,7 +93,7 @@ class LandingPage extends Component {
 				<div className="content">
 					<img className="resize" src="friendlystlogo.jpg" />
 					<div className="login-button-container">
-						<button onClick={this.login}>Login / Sign Up</button>
+						<Button bsStyle="link" onClick={this.login}>Login / Sign Up</Button>
 					</div>
 				</div>
 			</div>

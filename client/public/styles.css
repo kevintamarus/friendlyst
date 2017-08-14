@@ -190,7 +190,6 @@ body {
 
 .like-section {
   padding: 10px;
-  border-bottom: 0.1px solid black;
   position: left;
   cursor: pointer;
   cursor: hand;
@@ -211,9 +210,10 @@ body {
 }
 
 .comment-container {
+  text-align: left;
   position: left;
   margin-top: 10px;
-  border-bottom: 0.1px solid black;
+  margin-bottom: 5px;
 }
 
 .friend-list-container-minimize {
@@ -375,9 +375,7 @@ body {
 }
 
 .post-name {
-  color: darkblue;
   font-size: 16px;
-  font-weight: bold;
   margin-left: 50px;
   margin-right: 10px;
   padding-left: 10px;
@@ -414,4 +412,8 @@ body {
 .profile-info img {
   height: 200px;
   width: 200px;
+}
+
+.hr-style {
+  border-color: #39D9C4;
 }
