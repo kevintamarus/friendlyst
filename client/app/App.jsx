@@ -141,6 +141,7 @@ class App extends Component {
 			.catch(err => {
 				console.log(err);
 			})
+		document.getElementById('post-area').value='';
 	}
 
 	render() {
