@@ -13,8 +13,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 const auth = new Auth();
 
 const mapStateToProps = (state) => {
-	//state.SOMETHING is the reducer
-	//so you need another . to access its properties
 	return {
 		posts: state.postsReducer.posts,
 		friends: state.friendsReducer.friends,
@@ -159,20 +157,7 @@ class App extends Component {
 					})
 				})
 			})
-		})
-
-		//add one person to the list (receives socket back from server)
-		// this.socket.on('user created', usernames => {
-		// 	let friends = usernames.filter(username => {
-		// 		return this.state.friendLyst.indexOf(username) !== -1
-		// 	})
-		// 	console.log('friends', friends)
-		// 	console.log('usernames', usernames)
-			
-		// 	this.props.newFriend(friends)
-		// })
-
-		
+		})		
 	}
 
 	submitPost() {
@@ -193,11 +178,10 @@ class App extends Component {
 		return (
 			<div>
 				<Nav />
-				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
+				<div className="home-page-container">
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
-					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
-					<button onClick={this.submitPost.bind(this)}>Post</button>
-					<input type="text" id="i" />
+					
+					<div className="input-button-container"><button onClick={this.submitPost.bind(this)}>Post</button></div>
 					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
 				</div>
 				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.socket} />

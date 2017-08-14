@@ -117,14 +117,11 @@ class FeedListEntry extends Component {
 					<FeedListEntryLikes post={this.props.post} user={this.props.user}/>
 				</div>
 				<div className="comment-section">
-					<ul>
+					<div className="feed-comments-container">
 						{this.state.comments.map((comment, key) =>
 						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
-					</ul>  
-					<ul>
-						{this.state.currentComment.map((comment, key) =>
-						<FeedListEntryComments comment={comment} key={key} user={this.props.user}/>)}   
-					</ul>  
+					</div>  
+	
 					<div>
 						<form>
 							<textarea onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
