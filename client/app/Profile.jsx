@@ -36,7 +36,7 @@ class Profile extends Component {
         </div>
         <div className="profile-info">
           <div><img src={this.props.user.profilePicture} /></div>
-          <button onClick={this.changePicture}></button>
+          <button onClick={this.changePicture}>Change Profile Picture</button>
           <div>Username: {this.props.user.nickname}</div>
           <div>Email: {this.props.user.email}</div>
         </div>
