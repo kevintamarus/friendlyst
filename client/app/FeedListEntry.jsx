@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
 	//so you need another . to access its properties
 	return {
-		comments: state.postReducer.comments
+		comments: state.postReducer.comments,
+		user: state.userReducer.user
 	}
 }
 
@@ -71,15 +72,10 @@ class FeedListEntry extends Component {
 
 	submitComment() {
 		console.log('comment button is clicked')
-		let comment = {
-			content: this.state.commentText,
-			timeStamp: new Date().toLocaleString()
-		}
 		this.setState({currentComment: this.state.currentComment.concat([{
-			userComment: comment.content,
-			updatedAt: comment.timeStamp,
+			userComment: this.state.commentText,
 			postId: this.props.post.id,
-			userId: 4
+			userId: this.props.user.id
 		}])})
 
 		//should send comment request to server
