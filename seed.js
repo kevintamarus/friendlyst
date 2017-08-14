@@ -23,6 +23,11 @@ models.User.sync({
         email: 'kevin@gmail.com',
         nickname: 'kevin',
         profilePicture: "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-9/19366468_10100764456410460_270583895771912490_n.jpg?oh=20a818a4fa156b1a4e7b4424589ff832&oe=59F19DE8"
+      },
+      {
+        email: 'tester@gmail.com',
+        nickname: 'tester',
+        profilePicture: "https://s.gravatar.com/avatar/8c3fe1ad25e6d5f47512ea7365419966?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fte.png"
       }
     ])
   })
@@ -30,6 +35,74 @@ models.User.sync({
     models.Friend.sync({
         force: true
       })
+      .then(() => {
+        models.Friend.bulkCreate([{
+            userId: 1,
+            buddyId: 2
+          },
+          {
+            userId: 1,
+            buddyId: 3
+          },
+          {
+            userId: 1,
+            buddyId: 4
+          },
+          {
+            userId: 2,
+            buddyId: 1
+          },
+          {
+            userId: 2,
+            buddyId: 3
+          },
+          {
+            userId: 2,
+            buddyId: 4
+          },
+          {
+            userId: 3,
+            buddyId: 1
+          },
+          {
+            userId: 3,
+            buddyId: 2
+          },
+          {
+            userId: 3,
+            buddyId: 4
+          },
+          {
+            userId: 4,
+            buddyId: 1
+          },
+          {
+            userId: 4,
+            buddyId: 2
+          },
+          {
+            userId: 4,
+            buddyId: 3
+          },
+          {
+            userId: 5,
+            buddyId: 1
+          },
+          {
+            userId: 5,
+            buddyId: 2
+          },
+          {
+            userId: 5,
+            buddyId: 3
+          },
+          {
+            userId: 5,
+            buddyId: 4
+          }
+        ])
+      })
+      .catch(err => console.log(`Error creating friend data! ${err}`))
   })
   .then(() => {
     models.Post.sync({
