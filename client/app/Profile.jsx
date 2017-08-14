@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Nav from './Nav.jsx'
 import { connect } from 'react-redux';
-import ProfileFeedListEntry from './ProfileFeedListEntry.jsx'
+import ProfileFeedListEntry from './ProfileFeedListEntry.jsx';
+import FeedListEntry from './FeedListEntry.jsx';
 
 const mapStateToProps = (state) => {
   return {
@@ -34,7 +35,7 @@ class Profile extends Component {
               .filter(post => post.userId === this.props.user.id)
               .sort((a, b) => b.id - a.id)
               .map(post => {
-                return <ProfileFeedListEntry key={post.id} post={post} />
+                return <FeedListEntry key={post.id} post={post} user={this.props.user}/>
               })
            }
         </div> 
