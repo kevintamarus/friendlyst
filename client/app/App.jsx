@@ -75,7 +75,8 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			previousPosts: []
+			previousPosts: [],
+			friendLyst: []
 		}
 	}
 
@@ -111,29 +112,70 @@ class App extends Component {
 	}
 
 	manageChat(nickname) {
+		axios.get('/api/user/getUserFriend', {
+			params: {
+				nickname: this.props.user.nickname
+			}
+		})
+		.then(({ data }) => {
+			axios.get('/api/friend/getAllFriend', {
+				params: {
+					userId: data.id
+				}
+			})
+			.then(({ data }) => {
+				data = data.map(friendShip => friendShip.buddyId)
+				axios.get('/api/user/getUsersById', {
+					params:{
+						ids: data
+					}
+				}).then(({ data }) => {
+					this.setState({
+						friendLyst: data
+					})
+					this.socket = io('/');
 
-		this.socket = io('/');
+					this.socket.nickname = nickname
 
-		this.socket.nickname = nickname
+					this.socket.emit('new user', nickname)
 
-		this.socket.emit('new user', nickname)
+					this.socket.on('user created', usernames => {
+						let friendsNicknames = this.state.friendLyst.map(friend => friend.nickname)
+						friendsNicknames.push(nickname) //pushing the user himself to the array
+
+						usernames = usernames.filter(username => friendsNicknames.indexOf(username) !== -1)
+
+						console.log('friends', friendsNicknames)
+						console.log('usernames', usernames)
+						
+						this.props.newFriend(usernames)
+					})
+					this.socket.on('private message received', () => {
+						this.props.newNotification()
+					})
+					//taking user off from current list
+					this.socket.on('user disconnected', usernames => {
+						this.props.friendOffline(usernames)
+					})
+				})
+			})
+		})
 
 		//add one person to the list (receives socket back from server)
-		this.socket.on('user created', usernames => {
-			this.props.newFriend(usernames)
-		})
+		// this.socket.on('user created', usernames => {
+		// 	let friends = usernames.filter(username => {
+		// 		return this.state.friendLyst.indexOf(username) !== -1
+		// 	})
+		// 	console.log('friends', friends)
+		// 	console.log('usernames', usernames)
+			
+		// 	this.props.newFriend(friends)
+		// })
 
-		this.socket.on('private message received', () => {
-			this.props.newNotification()
-		})
-		//taking user off from current list
-		this.socket.on('user disconnected', usernames => {
-			this.props.friendOffline(usernames)
-		})
+		
 	}
 
 	submitPost() {
-		console.log('submit post')
 		axios.post('api/post/postPost', {
 			email: this.props.user.email,
 			message: $('#post-area').val()
@@ -151,7 +193,7 @@ class App extends Component {
 		return (
 			<div>
 				<Nav />
-				<div className="home-page-container">
+				<div className="home-page-container" onClick={this.manageChat.bind(this)}>
 					<textarea id="post-area" placeholder="What's on your mind?"></textarea>
 					{/* <div contentEditable='true' id="post-area" data-text="What's on your mind?"></div> */}
 					<button onClick={this.submitPost.bind(this)}>Post</button>

@@ -5,6 +5,7 @@ router.post('/addUser', controller.addUser);
 router.get('/getUser', controller.getUser);
 router.get('/getUserFriend', controller.getUserFriend);
 router.get('/getUserById', controller.getUserById);
+router.get('/getUsersById', controller.getUsersById);
 router.get('/getAllUser', controller.getAllUser);
 
 module.exports = router;

@@ -48,6 +48,7 @@ module.exports = {
   }),
 
   getAllFriend: ((req, res) => {
+    console.log('hit', req.query)
     Friend.findAll({
         where: {
           userId: req.query.userId

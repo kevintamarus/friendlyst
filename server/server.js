@@ -45,9 +45,6 @@ io.on('connection', (socket) => {
     }
   })
 
-  socket.on('room created', (roomBetween) => {
-    console.log('asdjasjd')
-  })
 
   socket.on('private message', (msg) => {
     let socketTo = users[msg.to]
