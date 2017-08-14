@@ -46,6 +46,7 @@ class NotFriendProfile extends Component {
         <div className="navcopy">
           <Nav />
         </div>
+        <br/>
         <div className="friend-profile-info-container">
           <div>
             <img src={this.props.friendinfo.profilePicture} />
