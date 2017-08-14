@@ -81,7 +81,6 @@ class App extends Component {
 	componentDidMount() {
 		auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
 
-
 		setTimeout(() => {
 			if (!this.props.posts.length) {
 				let email = this.props.user.email;
