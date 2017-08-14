@@ -17,8 +17,10 @@ class NotUserProfile extends Component {
         <div className="navcopy">
           <Nav />
         </div>
+        <br/>
+        <br/>
         <div className="not-user-profile">
-          <h2>This user does not exist on Friendlyst!</h2>
+          <h1>This user does not exist on Friendlyst!</h1>
         </div>
       </div>
     )
