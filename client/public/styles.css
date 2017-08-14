@@ -1,7 +1,10 @@
 body {
   font-family: sans-serif;
-  background-image: url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg');
-  background-attachment:fixed;
+  background: url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 #app {
@@ -320,4 +323,12 @@ body {
   padding: 4px;
   background-color: #DCDCDC;
   color: black;
+}
+
+.profile-container {
+  border: 1px solid black;
+}
+
+.profile-info {
+  text-align: center;
 }

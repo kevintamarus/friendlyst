@@ -124,7 +124,6 @@ class FeedListEntry extends Component {
 	}
 
 	render() {
-		console.log(this.props.comments, 'comment state');
 		return (
 			<div className="feed-entry">
 				<div>
