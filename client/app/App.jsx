@@ -81,7 +81,7 @@ class App extends Component {
 	componentDidMount() {
 		auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
 
-
+		console.log(this.props.user)
 		//get all previous posts from database
 		let email = 'kevin@hack.com'
 		//let email = this.props.user.email;
