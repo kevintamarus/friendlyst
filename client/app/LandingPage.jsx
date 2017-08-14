@@ -88,11 +88,9 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div className="landing-page-container">
-			<div className="background-image"></div>
+				<div className="background-image"></div>
 				<div className="content">
-					<h2>
-						Welcome to Friendlyst!
-					</h2>
+					<img className="resize" src="friendlystlogo.jpg" />
 					<div className="login-button-container">
 						<button onClick={this.login}>Login / Sign Up</button>
 					</div>
