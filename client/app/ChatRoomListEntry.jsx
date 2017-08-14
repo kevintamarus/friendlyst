@@ -14,13 +14,7 @@ class ChatRoomListEntry extends Component {
     }
   }
 
-  componentWillMount() {
-
-  }
-
-
   componentDidMount() {
-    console.log(this.props.room)
     this.props.room.user.on('private message received', msg => {
       this.setState({
         messages: [...this.state.messages, msg]
@@ -60,7 +54,7 @@ class ChatRoomListEntry extends Component {
       friendId: this.state.friendId,
       userId: this.props.userId
     }
-    console.log(msg)
+
     axios.post('/api/message/postMessage', msg)
 
     this.props.room.user.emit('private message', msg)
