@@ -18,6 +18,7 @@ import friendReducer from './reducer/friendReducer.js'
 import chatRoomReducer from './reducer/chatRoomReducer.js'
 import notificationReducer from './reducer/notificationReducer.js'
 import commentReducer from './reducer/commentReducer.js'
+import socketReducer from './reducer/socketReducer.js'
 import $ from 'jquery';
 
 const reducers = combineReducers({
@@ -28,7 +29,8 @@ const reducers = combineReducers({
    friendReducer,
    friendinfoReducer,
    notificationReducer,
-   commentReducer
+   commentReducer,
+   socketReducer
 })
 
 const store = createStore(reducers)

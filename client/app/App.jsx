@@ -18,7 +18,8 @@ const mapStateToProps = (state) => {
 		friends: state.friendsReducer.friends,
 		chatRooms: state.chatRoomReducer.chatRooms,
 		user: state.userReducer.user,
-		friend: state.friendReducer.friend
+		friend: state.friendReducer.friend,
+		socket: state.socketReducer.socket
 	}
 }
 
@@ -64,6 +65,12 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch({
 				type: 'NEW_NOTIFICATION'
 			})
+		},
+		setSocket(socket) {
+			dispatch({
+				type: 'NEW_SOCKET',
+				payload: socket
+			})
 		}
 	}
 }
@@ -74,11 +81,12 @@ class App extends Component {
 		super(props);
 		this.state = {
 			previousPosts: [],
-			friendLyst: []
+			friendLyst: [],
+			socket: {}
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		auth.handleAuthentication(this.props.newUser, this.manageChat.bind(this));
 
 		setTimeout(() => {
@@ -106,6 +114,7 @@ class App extends Component {
 	}
 
 	manageChat(nickname) {
+	
 		axios.get('/api/user/getUserFriend', {
 			params: {
 				nickname: this.props.user.nickname
@@ -151,6 +160,8 @@ class App extends Component {
 					this.socket.on('user disconnected', usernames => {
 						this.props.friendOffline(usernames)
 					})
+
+					this.props.setSocket(this.socket)
 				})
 			})
 		})		
@@ -171,6 +182,7 @@ class App extends Component {
 	}
 
 	render() {
+
 		return (
 			<div>
 				<Nav />
@@ -180,7 +192,7 @@ class App extends Component {
 					<div className="input-button-container"><button onClick={this.submitPost.bind(this)}>Post</button></div>
 					<FeedList posts={this.props.posts} previousPosts={this.state.previousPosts} user={this.props.user} />
 				</div>
-				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.socket} />
+				<FriendList friends={this.props.friends} appendChatRoom={this.props.appendChatRoom} user={this.props.socket} />
 				<ChatRoomList chatRooms={this.props.chatRooms} closeRoom={this.props.closeRoom} userId={this.props.user.id} />
 			</div>
 		)

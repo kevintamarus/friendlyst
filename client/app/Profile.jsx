@@ -25,7 +25,6 @@ class Profile extends Component {
           <div>Email: {this.props.user.email}</div>
         </div>
          <div>
-           {console.log(this.props.posts)}
            {
              this.props.posts
               .filter(post => post.userId === this.props.user.id)
