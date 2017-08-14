@@ -8,6 +8,18 @@ body {
   height:100%;
 }
 
+.logo {
+  text-align: center;
+  font-weight: bold;
+  font-size: 50%;
+}
+
+.resize {
+  z-index: 999;
+  width: 450px;
+  width: 350px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -27,7 +39,6 @@ body {
   background: rgba(255, 255, 255, 0.35);
   text-align: center;
   border-radius: 3px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   top: 10px;
   left: 0;
@@ -37,7 +48,7 @@ body {
   right: 0;
   z-index: 2;
   padding: 0 10px;
-  margin-top:25%;
+  margin-top: 1.5%;
 }
 
 .login-button-container button{
