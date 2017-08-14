@@ -130,11 +130,9 @@ class FeedListEntry extends Component {
 				<div>
 					<div className="post-info">
 						<img src={this.state.imageLink} className="user-img" />
-						<div className="vertical-center">
-							<div>{this.state.name}</div>
-							<div>{this.props.post.message}</div>
+							<div className="post-name">{this.state.name}</div>
 							<div className="post-time">{this.timeSince(new Date(this.props.post.createdAt))} ago</div>
-						</div>
+							<div className="post-message">{this.props.post.message}</div>
 					</div>
 				</div>
 
