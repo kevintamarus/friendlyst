@@ -8,12 +8,12 @@ const mapStateToProps = (state) => {
 	//state.SOMETHING is the reducer
 	//so you need another . to access its properties
 	return {
-		comments: state.postReducer.comments,
+		comments: state.commentReducer.comments,
 		user: state.userReducer.user
 	}
 }
 
-const mapDispathToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		newComment(comment) {
 			dispatch({
@@ -36,6 +36,7 @@ class FeedListEntry extends Component {
 		}
 		this.handleCommentInput = this.handleCommentInput.bind(this);
 		this.submitComment = this.submitComment.bind(this);
+		this.timeSince = this.timeSince.bind(this);
 	}
 
 	componentDidMount() {
@@ -94,9 +95,36 @@ class FeedListEntry extends Component {
 		.catch(err => {
 			console.log('comment did not go through');
 		})
+		document.getElementById('comment-area').value='';
+	}
+
+	timeSince(date) {
+		var seconds = Math.floor((new Date() - date) / 1000);
+		var interval = Math.floor(seconds / 31536000);
+		if (interval > 1) {
+			return interval + " years";
+		}
+		interval = Math.floor(seconds / 2592000);
+		if (interval > 1) {
+			return interval + " months";
+		}
+		interval = Math.floor(seconds / 86400);
+		if (interval > 1) {
+			return interval + " days";
+		}
+		interval = Math.floor(seconds / 3600);
+		if (interval > 1) {
+			return interval + " hours";
+		}
+		interval = Math.floor(seconds / 60);
+		if (interval > 1) {
+			return interval + " minutes";
+		}
+		return Math.floor(seconds) + " seconds";
 	}
 
 	render() {
+		console.log(this.props.comments, 'comment state');
 		return (
 			<div className="feed-entry">
 				<div>
@@ -105,7 +133,7 @@ class FeedListEntry extends Component {
 						<div className="vertical-center">
 							<div>{this.state.name}</div>
 							<div>{this.props.post.message}</div>
-							<div className="post-time">{this.props.post.createdAt}</div>
+							<div className="post-time">{this.timeSince(new Date(this.props.post.createdAt))} ago</div>
 						</div>
 					</div>
 				</div>
@@ -121,7 +149,7 @@ class FeedListEntry extends Component {
 	
 					<div>
 						<form>
-							<textarea onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
+							<textarea id="comment-area" onChange={(input) => this.handleCommentInput(input)} cols="30" rows="4" name="comment"></textarea>
 							<div>
 								<button type="button" onClick={this.submitComment}>Comment</button>
 							</div>
@@ -133,4 +161,4 @@ class FeedListEntry extends Component {
 	}
 }
 
-export default FeedListEntry;
+export default connect(mapStateToProps, mapDispatchToProps)(FeedListEntry);
