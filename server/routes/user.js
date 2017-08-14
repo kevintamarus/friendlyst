@@ -7,5 +7,6 @@ router.get('/getUserFriend', controller.getUserFriend);
 router.get('/getUserById', controller.getUserById);
 router.get('/getUsersById', controller.getUsersById);
 router.get('/getAllUser', controller.getAllUser);
+router.put('/changePic', controller.changePic);
 
 module.exports = router;
