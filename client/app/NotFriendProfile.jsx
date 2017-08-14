@@ -32,6 +32,7 @@ class NotFriendProfile extends Component {
       userId: this.props.user.id
     })
       .then(() => {
+        alert('Added friend!')
         this.setState({ notFriend: false })
         console.log('Added as friend!')
       })
