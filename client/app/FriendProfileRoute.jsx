@@ -47,7 +47,7 @@ class FriendProfileRoute extends Component {
     let self = this;
     setTimeout(() => {
       self.setState({ loading: false })
-    }, 200)
+    }, 1000)
 
     axios.get(`api/user/getUserFriend?nickname=${this.props.friend}`)
       .then(({ data }) => {
