@@ -20,19 +20,18 @@ body {
 .resize {
   z-index: 999;
   width: 450px;
-  width: 350px;
 }
 
 .resize2 {
   text-align: center;
   z-index: 999;
   width: 60px;
-  width: 60px;
 }
 
 .buttons {
   float: right;
   height: 50px;
+  width: 60px;
   color: black;
 }
 
@@ -69,8 +68,8 @@ body {
 
 .login-button-container button{
   border-radius: 4px;
-
 }
+
 #nav-bar {
   background-color: #39D9C4;
   height: 50px;
